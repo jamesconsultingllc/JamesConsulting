@@ -1,0 +1,14 @@
+{
+  "ServerUri": "https://sonarcloud.io/",
+  "Organization": {
+    "Key": "james-consulting-llc",
+    "Name": "James Consulting LLC"
+  },
+  "ProjectKey": "jamesconsultingllc_JamesConsulting.Core",
+  "Profiles": {
+    "CSharp": {
+      "ProfileKey": "AWVfZJQIVuLyJ-7gjP3f",
+      "ProfileTimestamp": "2019-03-26T00:47:46-05:00"
+    }
+  }
+}
