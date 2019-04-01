@@ -38,27 +38,7 @@ namespace JamesConsulting.Core.Data.Common
             }
 
             var db = new DbConnectionStringBuilder { ConnectionString = connectionString };
-
-            if (db.ContainsKey("Password"))
-            {
-                db.Remove("Password");
-            }
-
-            if (db.ContainsKey("password"))
-            {
-                db.Remove("password");
-            }
-
-            if (db.ContainsKey("Pwd"))
-            {
-                db.Remove("Pwd");
-            }
-
-            if (db.ContainsKey("pwd"))
-            {
-                db.Remove("pwd");
-            }
-
+            db.RemoveKeys("Password", "password", "Pwd", "pwd");
             return db.ToString();
         }
     }

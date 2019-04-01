@@ -11,11 +11,12 @@
 namespace JamesConsulting.Core
 {
     using System;
-    using System.Diagnostics.CodeAnalysis;
     using System.IO;
+    using System.Linq;
     using System.Runtime.Serialization.Formatters.Binary;
 
     using Newtonsoft.Json;
+    using Newtonsoft.Json.Linq;
 
     /// <summary>
     ///     The object extensions.
@@ -51,7 +52,12 @@ namespace JamesConsulting.Core
         {
             if (byteArray == null)
             {
-                return default(T);
+                throw new ArgumentNullException(nameof(byteArray));
+            }
+
+            if (byteArray.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty collection.", nameof(byteArray));
             }
 
             var binaryFormatter = new BinaryFormatter();
@@ -79,6 +85,85 @@ namespace JamesConsulting.Core
         }
 
         /// <summary>
+        /// The mask.
+        /// </summary>
+        /// <param name="data">
+        /// The data.
+        /// </param>
+        /// <param name="ignore">
+        /// The ignore.
+        /// </param>
+        /// <returns>
+        /// The <see cref="object"/>.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        /// </exception>
+        public static object Mask(this object data, params string[] ignore)
+        {
+            if (data == null)
+            {
+                throw new ArgumentNullException(nameof(data));
+            }
+
+            if (ignore == null)
+            {
+                throw new ArgumentNullException(nameof(ignore));
+            }
+
+            if (ignore.Length == 0)
+            {
+                throw new ArgumentException("Value cannot be an empty collection.", nameof(ignore));
+            }
+
+            var jo = (JObject)JToken.FromObject(data);
+            var keys = jo.Properties().Where(x => ignore.Any(y => y.Equals(x.Name, StringComparison.OrdinalIgnoreCase))).Select(x => x.Name);
+
+            foreach (var key in keys)
+            {
+                jo[key] = "*****";
+            }
+
+            return jo.ToObject<object>();
+        }
+
+        /// <summary>
+        /// The serialize to json stream.
+        /// </summary>
+        /// <param name="obj">
+        /// The obj.
+        /// </param>
+        /// <param name="stream">
+        /// The stream.
+        /// </param>
+        /// <returns>
+        /// The <see cref="Stream"/>.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// </exception>
+        public static Stream SerializeToJsonStream(this object obj, Stream stream)
+        {
+            if (obj == null)
+            {
+                throw new ArgumentNullException(nameof(obj));
+            }
+
+            if (stream == null)
+            {
+                throw new ArgumentNullException(nameof(stream));
+            }
+
+            var writer = new StreamWriter(stream);
+            var jsonWriter = new JsonTextWriter(writer);
+            var ser = new JsonSerializer();
+            ser.Serialize(jsonWriter, obj);
+            jsonWriter.Flush();
+            stream.Position = 0;
+            return stream;
+        }
+
+        /// <summary>
         /// The to byte array.
         /// </summary>
         /// <param name="obj">
@@ -103,7 +188,12 @@ namespace JamesConsulting.Core
         {
             if (obj == null)
             {
-                return new byte[0];
+                throw new ArgumentNullException(nameof(obj));
+            }
+
+            if (!obj.GetObjectType().IsSerializable)
+            {
+                throw new InvalidOperationException("This object is not serializable");
             }
 
             var binaryFormatter = new BinaryFormatter();
@@ -115,32 +205,58 @@ namespace JamesConsulting.Core
         }
 
         /// <summary>
-        /// Converts the given object to JSON
+        /// The to json.
         /// </summary>
         /// <param name="obj">
-        /// The object to convert to JSON
+        /// The obj.
         /// </param>
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
         public static string ToJson(this object obj)
         {
-            return obj == null ? null : JsonConvert.SerializeObject(obj, Formatting.Indented);
+            return ObjectExtensions.ToJsonInternal(obj, Formatting.Indented);
         }
 
         /// <summary>
-        /// Converts the given object to json
+        /// The to json compact.
         /// </summary>
         /// <param name="obj">
-        /// The obj to convert to json
+        /// The obj.
         /// </param>
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed. Suppression is OK here.")]
         public static string ToJsonCompact(this object obj)
         {
-            return obj == null ? null : JsonConvert.SerializeObject(obj);
+            return ObjectExtensions.ToJsonInternal(obj, Formatting.None);
+        }
+
+        /// <summary>
+        /// The to json internal.
+        /// </summary>
+        /// <param name="obj">
+        /// The obj.
+        /// </param>
+        /// <param name="formatting">
+        /// The formatting.
+        /// </param>
+        /// <returns>
+        /// The <see cref="string"/>.
+        /// </returns>
+        private static string ToJsonInternal(object obj, Formatting formatting)
+        {
+            if (obj == null)
+            {
+                return null;
+            }
+
+            if (obj is string objString)
+            {
+                return objString;
+            }
+
+            return JsonConvert.SerializeObject(obj, formatting);
         }
     }
 }

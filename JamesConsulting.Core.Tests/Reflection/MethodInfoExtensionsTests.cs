@@ -42,7 +42,7 @@ namespace JamesConsulting.Core.Tests.Reflection
         /// <summary>
         ///     The to invocation throws argument null exception when method info is null.
         /// </summary>
-        /// <exception cref="T:Xunit.Sdk.ThrowsException">
+        /// <exception cref="T:Xunit.Sdk.Throws">
         ///     Thrown when an exception was not thrown, or when an exception of the
         ///     incorrect type is thrown
         /// </exception>

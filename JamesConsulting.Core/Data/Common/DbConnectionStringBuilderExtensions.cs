@@ -50,7 +50,13 @@ namespace JamesConsulting.Core.Data.Common
                 throw new ArgumentException("Value cannot be an empty collection.", nameof(keys));
             }
 
-            Array.ForEach(keys, key => connectionStringBuilder.Remove(key));
+            Array.ForEach(keys, key =>
+            {
+                if (connectionStringBuilder.ContainsKey(key))
+                {
+                    connectionStringBuilder.Remove(key);
+                }
+            });
         }
     }
 }
