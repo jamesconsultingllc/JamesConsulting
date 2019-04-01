@@ -77,6 +77,10 @@
                 return myClass.Property1 == this.Property1 && myClass.Property2 == this.Property2;
             }
 
+            public override int GetHashCode()
+            {
+                return HashCode.Combine(Property1, Property2);
+            }
         }
     }
 }

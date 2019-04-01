@@ -24,7 +24,7 @@ namespace JamesConsulting.Core.Tests
         /// <summary>
         ///     The my enum.
         /// </summary>
-        private enum MyEnum
+        private enum MyOptions
         {
             /// <summary>
             ///     The with.
@@ -44,7 +44,7 @@ namespace JamesConsulting.Core.Tests
         [Fact]
         public void GetDescription_EnumDoesNotHaveDescriptionAttribute()
         {
-            var description = MyEnum.With.GetDescription();
+            var description = MyOptions.With.GetDescription();
             description.Should().BeEquivalentTo("Testing");
         }
 
@@ -54,7 +54,7 @@ namespace JamesConsulting.Core.Tests
         [Fact]
         public void GetDescription_EnumHasDescriptionAttribute()
         {
-            var description = MyEnum.Without.GetDescription();
+            var description = MyOptions.Without.GetDescription();
             description.Should().BeEquivalentTo("Without");
         }
     }

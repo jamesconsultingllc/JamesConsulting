@@ -2,6 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+    <Version>1.0.0-beta</Version>
+    <Authors>Rudy James</Authors>
+    <Company>James Consulting LLC</Company>
+    <Copyright>Copyright © 2019. All rights reserved.</Copyright>
+    <PackageProjectUrl></PackageProjectUrl>
+    <PackageLicenseUrl>https://github.com/jamesconsultingllc/JamesConsulting.Core/blob/master/LICENSE</PackageLicenseUrl>
+    <RepositoryUrl>https://github.com/jamesconsultingllc/JamesConsulting.Core</RepositoryUrl>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
