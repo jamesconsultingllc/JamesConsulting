@@ -26,7 +26,7 @@ namespace JamesConsulting.Core.Tests
         /// <returns>
         /// The <see cref="Task"/>.
         /// </returns>
-        Task<MyClass> GetClassById(int id);
+        Task<T> GetClassById<T>(int id);
 
         /// <summary>
         /// The test.
