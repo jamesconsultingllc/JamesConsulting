@@ -129,7 +129,7 @@ namespace JamesConsulting.Core
         }
 
         /// <summary>
-        /// The serialize to json stream.
+        /// The serialize to JSON stream.
         /// </summary>
         /// <param name="obj">
         /// The obj.
@@ -141,6 +141,7 @@ namespace JamesConsulting.Core
         /// The <see cref="Stream"/>.
         /// </returns>
         /// <exception cref="ArgumentNullException">
+        /// Thrown when <paramref name="obj"/> or <paramref name="stream"/> is null
         /// </exception>
         public static Stream SerializeToJsonStream(this object obj, Stream stream)
         {
