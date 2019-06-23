@@ -1,1 +1,1 @@
-# JamesConsulting.Core
+# JamesConsulting
