@@ -8,22 +8,29 @@
 //  </summary>
 //  ----------------------------------------------------------------------------------------------------------------------
 
+using System;
+using System.Reflection;
+using FluentAssertions;
+using JamesConsulting.Reflection;
+using Xunit;
+
 namespace JamesConsulting.Tests.Reflection
 {
-    using System;
-    using System.Reflection;
-
-    using FluentAssertions;
-
-    using JamesConsulting.Reflection;
-
-    using Xunit;
-
     /// <summary>
     ///     The method info extensions tests.
     /// </summary>
     public class MethodInfoExtensionsTests
     {
+        [Fact]
+        public void ToInvocationStringReadsCachedValue()
+        {
+            var methodInfo = typeof(string).GetMethod("Insert", new[] {typeof(int), typeof(string)});
+            methodInfo.ToInvocationString(3, "testing");
+            var actualResult = methodInfo.ToInvocationString(3, "testing");
+            actualResult.Should()
+                .Be("System.String.Insert(System.Int32 startIndex : 3, System.String value : \"testing\")");
+        }
+
         /// <summary>
         ///     The to invocation string succeeds.
         /// </summary>
@@ -34,9 +41,10 @@ namespace JamesConsulting.Tests.Reflection
         [Fact]
         public void ToInvocationStringSucceeds()
         {
-            var methodInfo = typeof(string).GetMethod("Insert", new[] { typeof(int), typeof(string) });
+            var methodInfo = typeof(string).GetMethod("Insert", new[] {typeof(int), typeof(string)});
             var actualResult = methodInfo.ToInvocationString(3, "testing");
-            actualResult.Should().Be("System.String.Insert(System.Int32 startIndex : 3, System.String value : \"testing\")");
+            actualResult.Should()
+                .Be("System.String.Insert(System.Int32 startIndex : 3, System.String value : \"testing\")");
         }
 
         /// <summary>
