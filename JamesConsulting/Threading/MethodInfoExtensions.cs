@@ -8,11 +8,11 @@
 //  </summary>
 //  ----------------------------------------------------------------------------------------------------------------------
 
+using System;
+using System.Reflection;
+
 namespace JamesConsulting.Threading
 {
-    using System;
-    using System.Reflection;
-
     /// <summary>
     /// The method info extensions.
     /// </summary>

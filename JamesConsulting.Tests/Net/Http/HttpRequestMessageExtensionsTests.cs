@@ -1,17 +1,14 @@
-﻿namespace JamesConsulting.Tests.Net.Http
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+using FluentAssertions;
+using FluentAssertions.Common;
+using JamesConsulting.Net.Http;
+using Xunit;
+
+namespace JamesConsulting.Tests.Net.Http
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Net.Http;
-
-    using FluentAssertions;
-    using FluentAssertions.Common;
-
-    using JamesConsulting.Net.Http;
-
-    using Xunit;
-
     public class HttpRequestMessageExtensionsTests
     {
         [Fact]

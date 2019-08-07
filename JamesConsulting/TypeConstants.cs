@@ -8,12 +8,12 @@
 //  </summary>
 //  ----------------------------------------------------------------------------------------------------------------------
 
+using System;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+
 namespace JamesConsulting
 {
-    using System;
-    using System.Runtime.CompilerServices;
-    using System.Threading.Tasks;
-
     /// <summary>
     /// The type constants.
     /// </summary>

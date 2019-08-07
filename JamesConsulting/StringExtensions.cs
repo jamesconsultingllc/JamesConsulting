@@ -8,13 +8,13 @@
 //  </summary>
 //  ----------------------------------------------------------------------------------------------------------------------
 
+using System;
+using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
+using System.Threading;
+
 namespace JamesConsulting
 {
-    using System;
-    using System.Diagnostics.CodeAnalysis;
-    using System.Globalization;
-    using System.Threading;
-
     /// <summary>
     ///     String extension methods.
     /// </summary>

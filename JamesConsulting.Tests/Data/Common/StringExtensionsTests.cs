@@ -8,16 +8,13 @@
 //  </summary>
 //  ----------------------------------------------------------------------------------------------------------------------
 
+using System;
+using FluentAssertions;
+using JamesConsulting.Data.Common;
+using Xunit;
+
 namespace JamesConsulting.Tests.Data.Common
 {
-    using System;
-
-    using FluentAssertions;
-
-    using JamesConsulting.Data.Common;
-
-    using Xunit;
-
     /// <summary>
     /// The string extensions tests.
     /// </summary>

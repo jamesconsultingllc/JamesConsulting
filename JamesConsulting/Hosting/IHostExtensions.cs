@@ -8,18 +8,17 @@
 //  </summary>
 //  ----------------------------------------------------------------------------------------------------------------------
 
+using System;
+using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+
 namespace JamesConsulting.Hosting
 {
-    using System;
-    using System.Threading.Tasks;
-
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Hosting;
-
     /// <summary>
     ///     The IHost extension methods.
     /// </summary>
-    public static class IHostExtensions
+    public static class HostExtensions
     {
         /// <summary>
         /// The initialize.

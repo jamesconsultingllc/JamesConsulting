@@ -8,14 +8,12 @@
 //  </summary>
 //  ----------------------------------------------------------------------------------------------------------------------
 
+using System.ComponentModel;
+using FluentAssertions;
+using Xunit;
+
 namespace JamesConsulting.Tests
 {
-    using System.ComponentModel;
-
-    using FluentAssertions;
-
-    using Xunit;
-
     /// <summary>
     ///     The enum extensions tests.
     /// </summary>
