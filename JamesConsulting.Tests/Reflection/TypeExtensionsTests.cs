@@ -37,17 +37,6 @@ namespace JamesConsulting.Tests.Reflection
         }
 
         /// <summary>
-        /// The to method info returns generic method info from method name.
-        /// </summary>
-        [Fact]
-        public void ToMethodInfoReturnsGenericMethodInfoFromMethodName()
-        {
-            var expected = instanceType.GetMethods().FirstOrDefault(x => (x.Name == "GetClassById") && x.IsGenericMethod && x.GetGenericArguments().Length == 1);
-            var actual = instanceType.GetMethodInfoFromString(expected.ToString());
-            actual.Should().BeSameAs(expected);
-        }
-
-        /// <summary>
         /// The to method info returns method info from method name.
         /// </summary>
         [Fact]
@@ -55,18 +44,6 @@ namespace JamesConsulting.Tests.Reflection
         {
             var expected = instanceType.GetMethods().FirstOrDefault(x => (x.Name == "GetClassById") && !x.IsGenericMethod);
             var actual = instanceType.GetMethodInfoFromString(expected.ToString());
-            actual.Should().BeSameAs(expected);
-        }
-
-        /// <summary>
-        /// The to method info returns multiple generic method info from method name.
-        /// </summary>
-        [Fact]
-        public void ToMethodInfoReturnsMultipleGenericMethodInfoFromMethodName()
-        {
-            var expected = instanceType.GetMethods().FirstOrDefault(x => (x.Name == "GetClassById") && x.IsGenericMethod && (x.GetGenericArguments().Length > 1));
-            var actual = instanceType.GetMethodInfoFromString(expected.ToString());
-            instanceType.GetMethodInfoFromString(expected.ToString());
             actual.Should().BeSameAs(expected);
         }
 
