@@ -4,7 +4,7 @@
 # https://aka.ms/yaml
 variables:
   SonarKey: 'jamesconsultingllc_JamesConsulting.Core'
-
+  Version: '1.0.0-alpha1'
 trigger:
 - master
 
@@ -26,13 +26,20 @@ steps:
   inputs:
     command: 'build'
     projects: 'JamesConsulting.sln'
-    arguments: '--configuration Release'
+    arguments: '--configuration Release --no-restore'
 - task: DotNetCoreCLI@2
   displayName: 'dotnet test'
   inputs:
     command: test
     projects: '**/*.Tests/*.csproj'
     arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'pack'
+    packagesToPack: '**/JamesConsulting.csproj'
+    nobuild: true
+    versioningScheme: 'byEnvVar'
+    versionEnvVar: Version
 - task: SonarCloudAnalyze@1
 - task: SonarCloudPublish@1
   inputs:
