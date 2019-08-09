@@ -26,13 +26,13 @@ steps:
   inputs:
     command: 'build'
     projects: 'JamesConsulting.sln'
-    arguments: '--configuration Release'
+    arguments: '--configuration Release --no-restore'
 - task: DotNetCoreCLI@2
   displayName: 'dotnet test'
   inputs:
     command: test
     projects: '**/*.Tests/*.csproj'
-    arguments: '--configuration $(buildConfiguration) --collect "Code coverage" --nobuild'
+    arguments: '--configuration $(buildConfiguration) --collect "Code coverage" --no-build --no-restore'
 - task: DotNetCoreCLI@2
   inputs:
     command: 'pack'
