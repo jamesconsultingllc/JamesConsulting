@@ -8,15 +8,13 @@
 //  </summary>
 //  ----------------------------------------------------------------------------------------------------------------------
 
+using System;
+using System.IO;
+using FluentAssertions;
+using Xunit;
+
 namespace JamesConsulting.Tests
 {
-    using System;
-    using System.IO;
-
-    using FluentAssertions;
-
-    using Xunit;
-
     /// <summary>
     ///     The object extensions tests.
     /// </summary>
@@ -81,7 +79,7 @@ namespace JamesConsulting.Tests
         public void MaskAsStaticMethodNullObjectThrowsArgumentNullException()
         {
             object test = null;
-            Assert.Throws<ArgumentNullException>(() => ObjectExtensions.Mask(test));
+            Assert.Throws<ArgumentNullException>(() => test.Mask());
         }
 
         /// <summary>

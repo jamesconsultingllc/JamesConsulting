@@ -8,15 +8,15 @@
 //  </summary>
 //  ----------------------------------------------------------------------------------------------------------------------
 
+using System.Collections.Generic;
+using System.Linq;
+
 namespace JamesConsulting.Collections
 {
-    using System.Collections.Generic;
-    using System.Linq;
-
     /// <summary>
     /// The i enumerable extensions.
     /// </summary>
-    public static class IEnumerableExtensions
+    public static class EnumerableExtensions
     {
         /// <summary>
         /// The equals.

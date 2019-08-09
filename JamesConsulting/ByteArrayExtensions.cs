@@ -8,10 +8,10 @@
 //  </summary>
 //  ----------------------------------------------------------------------------------------------------------------------
 
+using System;
+
 namespace JamesConsulting
 {
-    using System;
-
     /// <summary>
     ///     The byte array extensions.
     /// </summary>

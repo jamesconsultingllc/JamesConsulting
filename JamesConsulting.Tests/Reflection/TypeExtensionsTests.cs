@@ -8,17 +8,14 @@
 //  </summary>
 //  ----------------------------------------------------------------------------------------------------------------------
 
+using System;
+using System.Linq;
+using FluentAssertions;
+using JamesConsulting.Reflection;
+using Xunit;
+
 namespace JamesConsulting.Tests.Reflection
 {
-    using System;
-    using System.Linq;
-
-    using FluentAssertions;
-
-    using JamesConsulting.Reflection;
-
-    using Xunit;
-
     /// <summary>
     /// The type extensions tests.
     /// </summary>
@@ -45,8 +42,8 @@ namespace JamesConsulting.Tests.Reflection
         [Fact]
         public void ToMethodInfoReturnsGenericMethodInfoFromMethodName()
         {
-            var expected = this.instanceType.GetMethods().FirstOrDefault(x => (x.Name == "GetClassById") && x.IsGenericMethod && x.GetGenericArguments().Length == 1);
-            var actual = this.instanceType.GetMethodInfoFromString(expected.ToString());
+            var expected = instanceType.GetMethods().FirstOrDefault(x => (x.Name == "GetClassById") && x.IsGenericMethod && x.GetGenericArguments().Length == 1);
+            var actual = instanceType.GetMethodInfoFromString(expected.ToString());
             actual.Should().BeSameAs(expected);
         }
 
@@ -56,8 +53,8 @@ namespace JamesConsulting.Tests.Reflection
         [Fact]
         public void ToMethodInfoReturnsMethodInfoFromMethodName()
         {
-            var expected = this.instanceType.GetMethods().FirstOrDefault(x => (x.Name == "GetClassById") && !x.IsGenericMethod);
-            var actual = this.instanceType.GetMethodInfoFromString(expected.ToString());
+            var expected = instanceType.GetMethods().FirstOrDefault(x => (x.Name == "GetClassById") && !x.IsGenericMethod);
+            var actual = instanceType.GetMethodInfoFromString(expected.ToString());
             actual.Should().BeSameAs(expected);
         }
 
@@ -67,9 +64,9 @@ namespace JamesConsulting.Tests.Reflection
         [Fact]
         public void ToMethodInfoReturnsMultipleGenericMethodInfoFromMethodName()
         {
-            var expected = this.instanceType.GetMethods().FirstOrDefault(x => (x.Name == "GetClassById") && x.IsGenericMethod && (x.GetGenericArguments().Length > 1));
-            var actual = this.instanceType.GetMethodInfoFromString(expected.ToString());
-            this.instanceType.GetMethodInfoFromString(expected.ToString());
+            var expected = instanceType.GetMethods().FirstOrDefault(x => (x.Name == "GetClassById") && x.IsGenericMethod && (x.GetGenericArguments().Length > 1));
+            var actual = instanceType.GetMethodInfoFromString(expected.ToString());
+            instanceType.GetMethodInfoFromString(expected.ToString());
             actual.Should().BeSameAs(expected);
         }
 
@@ -84,7 +81,7 @@ namespace JamesConsulting.Tests.Reflection
         [InlineData(" ")]
         public void ToMethodInfoThrowsArgumentExceptionInvalidString(string test)
         {
-            Assert.Throws<ArgumentException>(() => this.instanceType.GetMethodInfoFromString(test));
+            Assert.Throws<ArgumentException>(() => instanceType.GetMethodInfoFromString(test));
         }
 
         /// <summary>
@@ -94,7 +91,7 @@ namespace JamesConsulting.Tests.Reflection
         public void ToMethodInfoThrowsArgumentNullExceptionNullString()
         {
             string test = null;
-            Assert.Throws<ArgumentNullException>(() => this.instanceType.GetMethodInfoFromString(test));
+            Assert.Throws<ArgumentNullException>(() => instanceType.GetMethodInfoFromString(test));
         }
     }
 }

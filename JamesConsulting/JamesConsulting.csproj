@@ -4,7 +4,6 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>JamesConsulting</PackageId>
-    <Version>1.0.0-alpha</Version>
     <Authors>Rudy James</Authors>
     <Company>James Consulting LLC</Company>
     <Product>James Consulting Core Library</Product>

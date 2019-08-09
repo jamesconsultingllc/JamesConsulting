@@ -8,10 +8,10 @@
 //  </summary>
 //  ----------------------------------------------------------------------------------------------------------------------
 
+using System.Threading.Tasks;
+
 namespace JamesConsulting.Hosting
 {
-    using System.Threading.Tasks;
-
     /// <summary>
     ///     The HostInitializer interface.
     /// </summary>

@@ -8,22 +8,18 @@
 //  </summary>
 //  ----------------------------------------------------------------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using JamesConsulting.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+using Moq;
+using Xunit;
+
 namespace JamesConsulting.Tests.Hosting
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
-
-    using JamesConsulting.Hosting;
-
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Hosting;
-
-    using Moq;
-
-    using Xunit;
-
     /// <summary>
     /// The i host extensions tests.
     /// </summary>
@@ -34,9 +30,9 @@ namespace JamesConsulting.Tests.Hosting
         /// The initialize async call initialize on host initalizers.
         /// </summary>
         [Fact]
-        public void InitializeAsyncCallInitializeOnHostInitalizers()
+        public async Task InitializeAsyncCallInitializeOnHostInitalizers()
         {
-            var services = this.CreateInitializers<IHostInitializerAsync>(3);
+            var services = CreateInitializers<IHostInitializerAsync>(3);
             var serviceProvider = new Mock<IServiceProvider>();
             var serviceScopeFactory = new Mock<IServiceScopeFactory>();
             var serviceScope = new Mock<IServiceScope>();
@@ -46,18 +42,17 @@ namespace JamesConsulting.Tests.Hosting
             serviceProvider.Setup(x => x.GetService(typeof(IServiceScopeFactory))).Returns(serviceScopeFactory.Object);
             var host = new Mock<IHost>();
             host.SetupGet(x => x.Services).Returns(serviceProvider.Object);
-            var task = host.Object.InitializeAsync().ContinueWith(z => { services.ForEach(x => x.Verify(y => y.InitializeAsync(), Times.Once())); });
-            Task.WaitAll(task);
+            await host.Object.InitializeAsync().ConfigureAwait(false);
+            services.ForEach(x => x.Verify(y => y.InitializeAsync(), Times.Once()));
         }
 
         /// <summary>
         /// The initialize async null host throws argument null exception.
         /// </summary>
         [Fact]
-        public void InitializeAsyncNullHostThrowsArgumentNullException()
+        public async Task InitializeAsyncNullHostThrowsArgumentNullException()
         {
-            IHost host = null;
-            Assert.ThrowsAsync<ArgumentNullException>(() => host.InitializeAsync());
+            await Assert.ThrowsAsync<ArgumentNullException>(() => default(IHost).InitializeAsync()).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -66,7 +61,7 @@ namespace JamesConsulting.Tests.Hosting
         [Fact]
         public void InitializeCallInitializeOnHostInitalizers()
         {
-            var services = this.CreateInitializers<IHostInitializer>(3);
+            var services = CreateInitializers<IHostInitializer>(3);
             var serviceProvider = new Mock<IServiceProvider>();
             var serviceScopeFactory = new Mock<IServiceScopeFactory>();
             var serviceScope = new Mock<IServiceScope>();
@@ -99,7 +94,7 @@ namespace JamesConsulting.Tests.Hosting
         /// <typeparam name="T">
         /// </typeparam>
         /// <returns>
-        /// The <see cref="List"/>.
+        /// The <see cref="T:List{Mock{T}}"/>.
         /// </returns>
         private List<Mock<T>> CreateInitializers<T>(int count)
             where T : class

@@ -1,6 +1,6 @@
 ﻿//  ----------------------------------------------------------------------------------------------------------------------
 //  <copyright file="Constants.cs" company="James Consulting LLC">
-//    Copyright (c) 2019 All Rights Reserved
+//    Copyright © 2019 All Rights Reserved 
 //  </copyright>
 //  <author>Rudy James</author>
 //  <summary>
@@ -8,14 +8,14 @@
 //  </summary>
 //  ----------------------------------------------------------------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+
 namespace JamesConsulting
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Reflection;
-    using System.Runtime.CompilerServices;
-    using System.Threading.Tasks;
-
     /// <summary>
     ///     The constants.
     /// </summary>

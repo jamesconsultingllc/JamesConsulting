@@ -8,14 +8,12 @@
 //  </summary>
 //  ----------------------------------------------------------------------------------------------------------------------
 
+using System;
+using FluentAssertions;
+using Xunit;
+
 namespace JamesConsulting.Tests
 {
-    using System;
-
-    using FluentAssertions;
-
-    using Xunit;
-
     /// <summary>
     ///     The string extensions tests.
     /// </summary>

@@ -8,10 +8,10 @@
 //  </summary>
 //  ----------------------------------------------------------------------------------------------------------------------
 
+using System.Threading.Tasks;
+
 namespace JamesConsulting.Tests
 {
-    using System.Threading.Tasks;
-
     /// <summary>
     ///     The Interface interface.
     /// </summary>
@@ -24,9 +24,9 @@ namespace JamesConsulting.Tests
         /// The id.
         /// </param>
         /// <returns>
-        /// The <see cref="Task"/>.
+        /// The <see cref="Task{MyClass}"/>.
         /// </returns>
-        Task<T> GetClassById<T>(int id);
+        Task<MyClass> GetClassById(int id);
 
         /// <summary>
         /// The test.

@@ -8,13 +8,13 @@
 //  </summary>
 //  ----------------------------------------------------------------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+
 namespace JamesConsulting.Reflection
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
-
     /// <summary>
     /// The type extensions.
     /// </summary>
@@ -58,14 +58,77 @@ namespace JamesConsulting.Reflection
                 throw new ArgumentException("Value cannot be null or whitespace.", nameof(method));
             }
 
-            if (TypeExtensions.Methods.ContainsKey(method))
+            if (Methods.ContainsKey(method))
             {
-                return TypeExtensions.Methods[method];
+                return Methods[method];
             }
 
             var result = type.GetMethods().FirstOrDefault(x => x.ToString().Equals(method));
-            TypeExtensions.Methods[method] = result;
+            Methods[method] = result;
             return result;
+        }
+
+        /// <summary>
+        /// Gets whether or not the type is a concrete class.
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns>Returns true if type is not an abstract class or interface, otherwise false</returns>
+        /// <exception cref="ArgumentNullException">Thrown when <paramref name="type"/> is null</exception>
+        public static bool IsConcreteClass(this Type type)
+        {
+            if (type == null) throw new ArgumentNullException(nameof(type));
+            return !type.IsAbstract && !type.IsInterface;
+        }
+        
+        /// <summary>
+        /// The is void return type.
+        /// </summary>
+        /// <param name="methodInfo">
+        /// The method info.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// </exception>
+        public static bool HasReturnValue(this MethodInfo methodInfo)
+        {
+            if (methodInfo == null) throw new ArgumentNullException(nameof(methodInfo));
+            return methodInfo.ReturnType != Constants.VoidType && methodInfo.ReturnType != Constants.TaskType;
+        }
+
+        /// <summary>
+        /// The is async.
+        /// </summary>
+        /// <param name="methodInfo">
+        /// The method info.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// </exception>
+        public static bool IsAsync(this MethodInfo methodInfo)
+        {
+            if (methodInfo == null) throw new ArgumentNullException(nameof(methodInfo));
+            return Constants.TaskType.IsAssignableFrom(methodInfo.ReturnType);
+        }
+
+        /// <summary>
+        /// The is result task.
+        /// </summary>
+        /// <param name="methodInfo">
+        /// The methodInfo.
+        /// </param>
+        /// <returns>
+        /// The <see cref="bool"/>.
+        /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// </exception>
+        public static bool IsAsyncWithResult(this MethodInfo methodInfo)
+        {
+            if (methodInfo == null) throw new ArgumentNullException(nameof(methodInfo));
+            return methodInfo.ReturnType != Constants.TaskType && Constants.TaskType.IsAssignableFrom(methodInfo.ReturnType);
         }
     }
 }

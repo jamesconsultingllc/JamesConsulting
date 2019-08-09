@@ -8,16 +8,12 @@
 //  </summary>
 //  ----------------------------------------------------------------------------------------------------------------------
 
+using System;
+using FluentAssertions;
+using Xunit;
+
 namespace JamesConsulting.Tests
 {
-    using JamesConsulting;
-
-    using System;
-
-    using FluentAssertions;
-
-    using Xunit;
-
     /// <summary>
     /// The byte array extensions tests.
     /// </summary>

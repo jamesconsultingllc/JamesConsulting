@@ -8,11 +8,11 @@
 //  </summary>
 //  ----------------------------------------------------------------------------------------------------------------------
 
+using System;
+using System.Data.Common;
+
 namespace JamesConsulting.Data.Common
 {
-    using System;
-    using System.Data.Common;
-
     /// <summary>
     /// The string extensions.
     /// </summary>

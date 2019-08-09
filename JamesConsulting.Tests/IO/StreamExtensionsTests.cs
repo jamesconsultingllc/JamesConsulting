@@ -1,16 +1,13 @@
-﻿namespace JamesConsulting.Tests.IO
+﻿using System;
+using System.IO;
+using System.Text;
+using FluentAssertions;
+using FluentAssertions.Common;
+using JamesConsulting.IO;
+using Xunit;
+
+namespace JamesConsulting.Tests.IO
 {
-    using System;
-    using System.IO;
-    using System.Text;
-
-    using FluentAssertions;
-    using FluentAssertions.Common;
-
-    using JamesConsulting.IO;
-
-    using Xunit;
-
     public class StreamExtensionsTests
     {
         [Fact]
@@ -74,12 +71,12 @@
                 if(myClass == null)
                     return false;
 
-                return myClass.Property1 == this.Property1 && myClass.Property2 == this.Property2;
+                return myClass.Property1 == Property1 && myClass.Property2 == Property2;
             }
 
             public override int GetHashCode()
             {
-                return HashCode.Combine(this.Property1, this.Property2);
+                return HashCode.Combine(Property1, Property2);
             }
         }
     }

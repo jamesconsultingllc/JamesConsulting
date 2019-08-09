@@ -8,15 +8,13 @@
 //  </summary>
 //  ----------------------------------------------------------------------------------------------------------------------
 
+using System;
+using System.Data.Common;
+using JamesConsulting.Data.Common;
+using Xunit;
+
 namespace JamesConsulting.Tests.Data.Common
 {
-    using System;
-    using System.Data.Common;
-
-    using JamesConsulting.Data.Common;
-
-    using Xunit;
-
     /// <summary>
     ///     The <see cref="DbConnectionStringBuilderExtensions" /> tests.
     /// </summary>
