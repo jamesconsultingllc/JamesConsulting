@@ -5,6 +5,7 @@
 variables:
   SonarKey: 'jamesconsultingllc_JamesConsulting.Core'
   Version: '1.0.0-alpha1'
+  buildConfiguration: 'Release'
 trigger:
 - master
 
@@ -26,7 +27,7 @@ steps:
   inputs:
     command: 'build'
     projects: 'JamesConsulting.sln'
-    arguments: '--configuration Release --no-restore'
+    arguments: '--configuration $(buildConfiguration) --no-restore'
 - task: DotNetCoreCLI@2
   displayName: 'dotnet test'
   inputs:
@@ -47,7 +48,7 @@ steps:
 - task: CopyFiles@2
   displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
   inputs:
-    Contents: '**\bin\Release\*.nupkg'
+    Contents: '**\bin\$(buildConfiguration)\*.nupkg'
     TargetFolder: '$(build.artifactstagingdirectory)'
 - task: PublishBuildArtifacts@1
   displayName: 'Publish Artifact: drop'
