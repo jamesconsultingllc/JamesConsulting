@@ -32,7 +32,7 @@ steps:
   inputs:
     command: test
     projects: '**/*.Tests/*.csproj'
-    arguments: '--configuration $(buildConfiguration) --collect "Code coverage" --no-build --no-restore'
+    arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
 - task: DotNetCoreCLI@2
   inputs:
     command: 'pack'
