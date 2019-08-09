@@ -2,7 +2,6 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>JamesConsulting</PackageId>
     <Authors>Rudy James</Authors>
     <Company>James Consulting LLC</Company>
