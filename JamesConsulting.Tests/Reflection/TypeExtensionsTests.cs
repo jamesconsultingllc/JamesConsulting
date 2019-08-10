@@ -9,6 +9,7 @@
 //  ----------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Data.Common;
 using System.Linq;
 using FluentAssertions;
 using JamesConsulting.Reflection;
@@ -35,14 +36,43 @@ namespace JamesConsulting.Tests.Reflection
             Type test = null;
             Assert.Throws<ArgumentNullException>(() => test.GetMethodInfoFromString(""));
         }
+        
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData(" ")]
+        public void GetMethodInfoFromStringEmptyOrWhitespaceMethodThrowsArgumentException(string method)
+        {
+            Assert.Throws<ArgumentException>(() => typeof(string).GetMethodInfoFromString(method));
+        }
 
+        [Fact]
+        public void GetMethodInfoFromStringReturnsCachedMethodOnSubsequentRequests()
+        {
+            GetType().GetMethodInfoFromString(nameof(IsConcreteClassInterfaceTypeReturnsFalse));
+            GetType().GetMethodInfoFromString(nameof(IsConcreteClassInterfaceTypeReturnsFalse));
+        }
+
+        [Fact]
+        public void GetMethodInfoFromStringReturnsNullIfMethodIsNotPartOfClass()
+        {
+            GetType().GetMethodInfoFromString("Rudy").Should().BeNull();
+        }
+        
+        [Fact]
+        public void GetMethodInfoFromStringReturnsMethodInfo()
+        {
+            var expected = instanceType.GetMethods().FirstOrDefault(x => (x.Name == "GetClassById"));
+            instanceType.GetMethodInfoFromString(expected.ToString()).Should().Equals(expected);
+        }
+        
         /// <summary>
         /// The to method info returns method info from method name.
         /// </summary>
         [Fact]
         public void ToMethodInfoReturnsMethodInfoFromMethodName()
         {
-            var expected = instanceType.GetMethods().FirstOrDefault(x => (x.Name == "GetClassById") && !x.IsGenericMethod);
+            var expected = instanceType.GetMethods().FirstOrDefault(x => (x.Name == "GetClassById"));
             var actual = instanceType.GetMethodInfoFromString(expected.ToString());
             actual.Should().BeSameAs(expected);
         }
@@ -65,10 +95,33 @@ namespace JamesConsulting.Tests.Reflection
         /// The to method info throws argument null exception null string.
         /// </summary>
         [Fact]
-        public void ToMethodInfoThrowsArgumentNullExceptionNullString()
+        public void ToMethodInfoThrowsArgumentExceptionNullString()
         {
-            string test = null;
-            Assert.Throws<ArgumentNullException>(() => instanceType.GetMethodInfoFromString(test));
+            Assert.Throws<ArgumentException>(() => instanceType.GetMethodInfoFromString(null));
+        }
+
+        [Fact]
+        public void IsConcreteClassThrowsArgumentNullException()
+        {
+            Assert.Throws<ArgumentNullException>(() => default(Type).IsConcreteClass());
+        }
+
+        [Fact]
+        public void IsConcreteClassInterfaceTypeReturnsFalse()
+        {
+            typeof(ICloneable).IsConcreteClass().Should().BeFalse();
+        }
+        
+        [Fact]
+        public void IsConcreteClassAbstractClassTypeReturnsFalse()
+        {
+            typeof(DbConnection).IsConcreteClass().Should().BeFalse();
+        }
+        
+        [Fact]
+        public void IsConcreteClassConcreteClassTypeReturnsTrue()
+        {
+            GetType().IsConcreteClass().Should().BeTrue();
         }
     }
 }

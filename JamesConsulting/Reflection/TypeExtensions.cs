@@ -44,27 +44,19 @@ namespace JamesConsulting.Reflection
         public static MethodInfo GetMethodInfoFromString(this Type type, string method)
         {
             if (type == null)
-            {
                 throw new ArgumentNullException(nameof(type));
-            }
-
-            if (method == null)
-            {
-                throw new ArgumentNullException(nameof(method));
-            }
 
             if (string.IsNullOrWhiteSpace(method))
-            {
                 throw new ArgumentException("Value cannot be null or whitespace.", nameof(method));
-            }
-
+            
             if (Methods.ContainsKey(method))
-            {
                 return Methods[method];
-            }
-
+            
             var result = type.GetMethods().FirstOrDefault(x => x.ToString().Equals(method));
-            Methods[method] = result;
+            
+            if(result != null)
+                Methods[method] = result;
+            
             return result;
         }
 
