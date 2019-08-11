@@ -38,5 +38,11 @@ namespace JamesConsulting.Tests
             byte[] bytes = null;
             Assert.Throws<ArgumentNullException>(() => bytes.GetString());
         }
+
+        [Fact]
+        public void GetStringReturnsStringFromBytes()
+        {
+            "Test".GetBytes().GetString().Should().Be("Test");
+        }
     }
 }

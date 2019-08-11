@@ -8,6 +8,7 @@
 //  </summary>
 //  ----------------------------------------------------------------------------------------------------------------------
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -35,10 +36,12 @@ namespace JamesConsulting.Collections
         /// <returns>
         /// The <see cref="bool"/>.
         /// </returns>
-        public static bool Equals<T>(IEnumerable<T> arg1, IEnumerable<T> arg2, IEqualityComparer<T> comparer = null)
+        public static bool IsEqualTo<T>(this IEnumerable<T> arg1, IEnumerable<T> arg2, IEqualityComparer<T> comparer = null)
         {
-            var isArg1Null = arg1 == null;
-            return (isArg1Null && (arg2 == null)) || (!isArg1Null && arg1.SequenceEqual(arg2, comparer));
+            if (arg1 == null) throw new ArgumentNullException(nameof(arg1));
+            if (arg2 == null) return false;
+            
+            return arg1.SequenceEqual(arg2, comparer);
         }
     }
 }

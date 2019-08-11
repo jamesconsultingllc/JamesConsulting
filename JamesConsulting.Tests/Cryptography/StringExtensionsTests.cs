@@ -122,6 +122,14 @@ namespace JamesConsulting.Tests.Cryptography
             Assert.Throws<ArgumentNullException>(() => "test".Hash(null));
         }
 
+        [Fact]
+        public void HashReturnHashedStringWithSalt()
+        {
+            var result = "test".Hash();
+            result.salt.Should().NotBeEmpty();
+            result.hashedString.Should().NotBeNullOrWhiteSpace();
+        }
+        
         /// <summary>
         ///     The hash string.
         /// </summary>

@@ -11,6 +11,7 @@
 using System;
 using System.Data.Common;
 using System.Linq;
+using System.Reflection;
 using FluentAssertions;
 using JamesConsulting.Reflection;
 using Xunit;
@@ -122,6 +123,69 @@ namespace JamesConsulting.Tests.Reflection
         public void IsConcreteClassConcreteClassTypeReturnsTrue()
         {
             GetType().IsConcreteClass().Should().BeTrue();
+        }
+
+        [Fact]
+        public void HasReturnValueThrowsArgumentNullExceptionWhenMethodInfoIsNull()
+        {
+            Assert.Throws<ArgumentNullException>(() => default(MethodInfo).HasReturnValue());
+        }
+
+        [Fact]
+        public void HasReturnValueReturnsTrueWhenMethodHasReturnValue()
+        {
+            var expected = instanceType.GetMethods().FirstOrDefault(x => (x.Name == "GetClassById"));
+            instanceType.GetMethod(expected.Name).HasReturnValue().Should().BeTrue();
+        }
+
+        [Fact]
+        public void HasReturnValueReturnsFalseWhenMethodHasReturnTypeTask()
+        {
+            instanceType.GetMethod("TestAsync").HasReturnValue().Should().BeFalse();
+        }
+        
+        [Fact]
+        public void HasReturnValueReturnsFalseWhenMethodHasReturnTypeVoid()
+        {
+            instanceType.GetMethod("Test").HasReturnValue().Should().BeFalse();
+        }
+
+        [Fact]
+        public void IsAsyncThrowsArgumentNullExceptionWhenMethodInfoIsNull()
+        {
+            Assert.Throws<ArgumentNullException>(() => default(MethodInfo).IsAsync());
+        }
+        
+        [Fact]
+        public void IsAsyncReturnsTrueWhenMethodIsAsync()
+        {
+            instanceType.GetMethod("TestAsync").IsAsync().Should().BeTrue();
+        }
+        
+        [Fact]
+        public void IsAsyncReturnsFalseWhenMethodIsNotAsync()
+        {
+            instanceType.GetMethod("Test").IsAsync().Should().BeFalse();
+        }
+        
+        [Fact]
+        public void IsAsyncWithResultThrowsArgumentNullExceptionWhenMethodInfoIsNull()
+        {
+            Assert.Throws<ArgumentNullException>(() => default(MethodInfo).IsAsyncWithResult());
+        }
+        
+        [Fact]
+        public void IsAsyncWithResultReturnsTrueWhenMethodIsAsync()
+        {
+            instanceType.GetMethod("GetClassById").IsAsyncWithResult().Should().BeTrue();
+        }
+        
+        [Theory]
+        [InlineData("Test")]
+        [InlineData("TestAsync")]
+        public void IsAsyncWithResultReturnsFalseWhenMethodIsNotAsync(string method)
+        {
+            instanceType.GetMethod(method).IsAsyncWithResult().Should().BeFalse();
         }
     }
 }

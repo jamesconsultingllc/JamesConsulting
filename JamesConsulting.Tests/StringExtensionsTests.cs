@@ -39,6 +39,14 @@ namespace JamesConsulting.Tests
             Assert.Throws<ArgumentNullException>(() => arg.GetBytes());
         }
 
+        [Fact]
+        public void GetBytesReturnsByteArray()
+        {
+            var bytes = "Test".GetBytes();
+                bytes.Should().NotBeNull();
+                bytes.Should().NotBeEmpty();
+        }
+
         /// <summary>
         /// The to title case.
         /// </summary>
