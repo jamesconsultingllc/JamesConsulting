@@ -8,14 +8,14 @@
 //  </summary>
 //  ----------------------------------------------------------------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Reflection;
+using System.Text;
+
 namespace JamesConsulting.Reflection
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Reflection;
-    using System.Text;
-
     /// <summary>
     ///     MethodInfoExtension methods
     /// </summary>
@@ -91,7 +91,7 @@ namespace JamesConsulting.Reflection
         /// The method info.
         /// </param>
         /// <returns>
-        /// The <see cref="(ParameterInfo[] Parameters, string Template)"/>.
+        /// The <see cref="T:(ParameterInfo[] Parameters, string Template)"/>.
         /// </returns>
         private static (ParameterInfo[] Parameters, string Template) GetMethodTemplate(this MethodInfo methodInfo)
         {

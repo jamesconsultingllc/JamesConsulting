@@ -8,11 +8,11 @@
 //  </summary>
 //  ----------------------------------------------------------------------------------------------------------------------
 
+using System;
+using System.Threading.Tasks;
+
 namespace JamesConsulting.Tests
 {
-    using System;
-    using System.Threading.Tasks;
-
     /// <summary>
     ///     The my interface.
     /// </summary>
@@ -23,34 +23,6 @@ namespace JamesConsulting.Tests
         {
             await Task.Delay(100).ConfigureAwait(false);
             return new MyClass { X = id, Y = id.ToString() };
-        }
-
-        /// <inheritdoc />
-        public Task<T> GetClassById<T>(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// The get class by id.
-        /// </summary>
-        /// <param name="id">
-        /// The id.
-        /// </param>
-        /// <typeparam name="T">
-        /// </typeparam>
-        /// <typeparam name="K">
-        /// </typeparam>
-        /// <returns>
-        /// The <see cref="Task"/>.
-        /// </returns>
-        /// <exception cref="NotImplementedException">
-        /// </exception>
-        public Task<K> GetClassById<T, K>(int id)
-            where K : class where T : class
-        {
-            this.GetClassById<T>(id);
-            return default(Task<K>);
         }
 
         /// <inheritdoc />

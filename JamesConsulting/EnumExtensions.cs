@@ -8,11 +8,11 @@
 //  </summary>
 //  ----------------------------------------------------------------------------------------------------------------------
 
+using System;
+using System.ComponentModel;
+
 namespace JamesConsulting
 {
-    using System;
-    using System.ComponentModel;
-
     /// <summary>
     ///     The <see cref="Enum" /> extensions.
     /// </summary>

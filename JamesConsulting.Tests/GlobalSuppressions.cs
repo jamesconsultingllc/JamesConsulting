@@ -4,5 +4,7 @@
 // Project-level suppressions either have no target or are given 
 // a specific target and scoped to a namespace, type, member, etc.
 
-[assembly: System.Diagnostics.CodeAnalysis.SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "<Pending>", Scope = "type", Target = "~T:JamesConsulting.Core.Tests.Hosting.IHostExtensionsTests")]
+using System.Diagnostics.CodeAnalysis;
+
+[assembly: SuppressMessage("Minor Code Smell", "S101:Types should be named in PascalCase", Justification = "<Pending>", Scope = "type", Target = "~T:JamesConsulting.Core.Tests.Hosting.IHostExtensionsTests")]
 

@@ -8,11 +8,11 @@
 //  </summary>
 //  ----------------------------------------------------------------------------------------------------------------------
 
+using System;
+using System.Reflection;
+
 namespace JamesConsulting.Threading
 {
-    using System;
-    using System.Reflection;
-
     /// <summary>
     /// The method info extensions.
     /// </summary>
@@ -48,8 +48,9 @@ namespace JamesConsulting.Threading
 
             var resultType = TypeConstants.TaskCompletionSourceType.MakeGenericType(methodInfo.ReturnType.GetGenericArguments());
             object taskSource = Activator.CreateInstance(resultType);
-            resultType.InvokeMember("SetResult", BindingFlags.Instance | BindingFlags.Public, null, taskSource, new[] { results });
-            return resultType.InvokeMember("Task", BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty, null, taskSource, new[] { results });
+            var taskType = taskSource.GetType();
+            taskType.InvokeMember("SetResult", BindingFlags.Instance | BindingFlags.Public | BindingFlags.InvokeMethod, null, taskSource, new[] { results });
+            return taskType.InvokeMember("Task", BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty, null, taskSource, null);
         }
     }
 }

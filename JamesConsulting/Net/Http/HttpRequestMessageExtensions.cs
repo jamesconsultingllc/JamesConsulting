@@ -8,13 +8,13 @@
 //  </summary>
 //  ----------------------------------------------------------------------------------------------------------------------
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net.Http;
+
 namespace JamesConsulting.Net.Http
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Net.Http;
-
     /// <summary>
     ///     The http request message extensions.
     /// </summary>

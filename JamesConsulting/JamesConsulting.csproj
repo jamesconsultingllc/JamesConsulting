@@ -2,15 +2,14 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>JamesConsulting</PackageId>
-    <Version>1.0.0-alpha</Version>
     <Authors>Rudy James</Authors>
     <Company>James Consulting LLC</Company>
     <Product>James Consulting Core Library</Product>
     <Copyright>Copyright (c) 2019 All Rights Reserved</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/jamesconsultingllc/JamesConsulting</RepositoryUrl>
+    <ProjectGuid>9F232F91-5328-4EE7-BC83-AB21CBA9C18B</ProjectGuid>
   </PropertyGroup>
 
   <ItemGroup>

@@ -33,7 +33,7 @@ namespace JamesConsulting.Tests
         /// </returns>
         public override string ToString()
         {
-            return $"X - {this.X} : Y - {this.Y}";
+            return $"X - {X} : Y - {Y}";
         }
     }
 }

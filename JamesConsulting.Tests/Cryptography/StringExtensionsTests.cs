@@ -8,16 +8,13 @@
 //  </summary>
 //  ----------------------------------------------------------------------------------------------------------------------
 
+using System;
+using FluentAssertions;
+using JamesConsulting.Cryptography;
+using Xunit;
+
 namespace JamesConsulting.Tests.Cryptography
 {
-    using JamesConsulting.Cryptography;
-
-    using System;
-
-    using FluentAssertions;
-
-    using Xunit;
-
     /// <summary>
     ///     The string extensions tests.
     /// </summary>
@@ -125,6 +122,14 @@ namespace JamesConsulting.Tests.Cryptography
             Assert.Throws<ArgumentNullException>(() => "test".Hash(null));
         }
 
+        [Fact]
+        public void HashReturnHashedStringWithSalt()
+        {
+            var result = "test".Hash();
+            result.salt.Should().NotBeEmpty();
+            result.hashedString.Should().NotBeNullOrWhiteSpace();
+        }
+        
         /// <summary>
         ///     The hash string.
         /// </summary>
@@ -132,7 +137,7 @@ namespace JamesConsulting.Tests.Cryptography
         public void StringsHashedWithSameSaltShouldBeEqual()
         {
             var test = "Rudy James";
-            var salt = StringExtensions.GenerateSalt();
+            var salt = JamesConsulting.Cryptography.StringExtensions.GenerateSalt();
             var result = test.Hash(salt);
             var result2 = test.Hash(salt);
             result.Should().Be(result2);

@@ -8,14 +8,13 @@
 //  </summary>
 //  ----------------------------------------------------------------------------------------------------------------------
 
+using System;
+using System.IO;
+using System.Text;
+using Newtonsoft.Json;
+
 namespace JamesConsulting.IO
 {
-    using System;
-    using System.IO;
-    using System.Text;
-
-    using Newtonsoft.Json;
-
     /// <summary>
     ///     The stream extensions.
     /// </summary>

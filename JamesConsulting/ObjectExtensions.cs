@@ -8,16 +8,15 @@
 //  </summary>
 //  ----------------------------------------------------------------------------------------------------------------------
 
+using System;
+using System.IO;
+using System.Linq;
+using System.Runtime.Serialization.Formatters.Binary;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
 namespace JamesConsulting
 {
-    using System;
-    using System.IO;
-    using System.Linq;
-    using System.Runtime.Serialization.Formatters.Binary;
-
-    using Newtonsoft.Json;
-    using Newtonsoft.Json.Linq;
-
     /// <summary>
     ///     The object extensions.
     /// </summary>
@@ -171,7 +170,7 @@ namespace JamesConsulting
         /// The object to get the type from
         /// </param>
         /// <returns>
-        /// The <see cref="byte[]"/>.
+        /// The <see cref="T:byte[]"/>.
         /// </returns>
         /// <exception cref="T:System.Runtime.Serialization.SerializationException">
         /// An error has occurred during serialization,
@@ -216,7 +215,7 @@ namespace JamesConsulting
         /// </returns>
         public static string ToJson(this object obj)
         {
-            return ObjectExtensions.ToJsonInternal(obj, Formatting.Indented);
+            return ToJsonInternal(obj, Formatting.Indented);
         }
 
         /// <summary>
@@ -230,7 +229,7 @@ namespace JamesConsulting
         /// </returns>
         public static string ToJsonCompact(this object obj)
         {
-            return ObjectExtensions.ToJsonInternal(obj, Formatting.None);
+            return ToJsonInternal(obj, Formatting.None);
         }
 
         /// <summary>

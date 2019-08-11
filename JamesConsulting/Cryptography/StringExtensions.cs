@@ -8,12 +8,12 @@
 //  </summary>
 //  ----------------------------------------------------------------------------------------------------------------------
 
+using System;
+using System.Security.Cryptography;
+using System.Text;
+
 namespace JamesConsulting.Cryptography
 {
-    using System;
-    using System.Security.Cryptography;
-    using System.Text;
-
     /// <summary>
     ///     The string extensions.
     /// </summary>

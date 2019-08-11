@@ -8,16 +8,12 @@
 //  </summary>
 //  ----------------------------------------------------------------------------------------------------------------------
 
+using System;
+using FluentAssertions;
+using Xunit;
+
 namespace JamesConsulting.Tests
 {
-    using JamesConsulting;
-
-    using System;
-
-    using FluentAssertions;
-
-    using Xunit;
-
     /// <summary>
     /// The byte array extensions tests.
     /// </summary>
@@ -41,6 +37,12 @@ namespace JamesConsulting.Tests
         {
             byte[] bytes = null;
             Assert.Throws<ArgumentNullException>(() => bytes.GetString());
+        }
+
+        [Fact]
+        public void GetStringReturnsStringFromBytes()
+        {
+            "Test".GetBytes().GetString().Should().Be("Test");
         }
     }
 }
