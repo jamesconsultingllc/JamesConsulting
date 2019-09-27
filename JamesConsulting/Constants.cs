@@ -9,6 +9,7 @@
 //  ----------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -49,7 +50,7 @@ namespace JamesConsulting
         /// <summary>
         /// The type methods.
         /// </summary>
-        public static readonly Dictionary<Type, MethodInfo[]> TypeMethods = new Dictionary<Type, MethodInfo[]>();
+        public static readonly ConcurrentDictionary<Type, MethodInfo[]> TypeMethods = new ConcurrentDictionary<Type, MethodInfo[]>();
 
         /// <summary>
         ///     The void type.
