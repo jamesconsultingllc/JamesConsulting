@@ -46,7 +46,7 @@ namespace JamesConsulting
         /// <exception cref="T:System.ArgumentNullException">
         /// The serializationStream is null.
         /// </exception>
-        public static T FromByteArray<T>(this byte[] byteArray)
+        public static T? FromByteArray<T>(this byte[] byteArray)
             where T : class
         {
             if (byteArray == null)
@@ -60,10 +60,8 @@ namespace JamesConsulting
             }
 
             var binaryFormatter = new BinaryFormatter();
-            using (var memoryStream = new MemoryStream(byteArray))
-            {
-                return binaryFormatter.Deserialize(memoryStream) as T;
-            }
+            using var memoryStream = new MemoryStream(byteArray);
+            return binaryFormatter.Deserialize(memoryStream) as T;
         }
 
         /// <summary>
@@ -213,7 +211,7 @@ namespace JamesConsulting
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        public static string ToJson(this object obj)
+        public static string? ToJson(this object obj)
         {
             return ToJsonInternal(obj, Formatting.Indented);
         }
@@ -227,7 +225,7 @@ namespace JamesConsulting
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        public static string ToJsonCompact(this object obj)
+        public static string? ToJsonCompact(this object obj)
         {
             return ToJsonInternal(obj, Formatting.None);
         }
@@ -244,7 +242,7 @@ namespace JamesConsulting
         /// <returns>
         /// The <see cref="string"/>.
         /// </returns>
-        private static string ToJsonInternal(object obj, Formatting formatting)
+        private static string? ToJsonInternal(object obj, Formatting formatting)
         {
             if (obj == null)
             {

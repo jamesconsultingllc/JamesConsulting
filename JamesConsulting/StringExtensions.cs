@@ -70,7 +70,7 @@ namespace JamesConsulting
         /// <exception cref="ArgumentNullException">
         /// <paramref name="arg"/> is <see langword="null"/>
         /// </exception>
-        public static string ToTitleCase(this string arg, CultureInfo ci = null)
+        public static string ToTitleCase(this string arg, CultureInfo? ci = null)
         {
             if (arg == null)
             {

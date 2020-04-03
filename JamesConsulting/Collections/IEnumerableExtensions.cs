@@ -36,12 +36,10 @@ namespace JamesConsulting.Collections
         /// <returns>
         /// The <see cref="bool"/>.
         /// </returns>
-        public static bool IsEqualTo<T>(this IEnumerable<T> arg1, IEnumerable<T> arg2, IEqualityComparer<T> comparer = null)
+        public static bool IsEqualTo<T>(this IEnumerable<T> arg1, IEnumerable<T> arg2, IEqualityComparer<T>? comparer = null)
         {
             if (arg1 == null) throw new ArgumentNullException(nameof(arg1));
-            if (arg2 == null) return false;
-            
-            return arg1.SequenceEqual(arg2, comparer);
+            return arg2 != null && arg1.SequenceEqual(arg2, comparer);
         }
     }
 }

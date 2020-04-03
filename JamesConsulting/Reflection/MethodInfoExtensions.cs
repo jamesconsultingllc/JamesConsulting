@@ -114,7 +114,7 @@ namespace JamesConsulting.Reflection
         /// <returns>
         /// The <see cref="object"/>.
         /// </returns>
-        private static object GetValue(ParameterInfo parameterInfo, object parameterValue)
+        private static object? GetValue(ParameterInfo parameterInfo, object parameterValue)
         {
             if ((parameterValue == null) || parameterInfo.ParameterType.IsPrimitive)
             {

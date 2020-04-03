@@ -41,7 +41,7 @@ namespace JamesConsulting.Reflection
         /// </exception>
         /// <exception cref="ArgumentException">
         /// </exception>
-        public static MethodInfo GetMethodInfoFromString(this Type type, string method)
+        public static MethodInfo? GetMethodInfoFromString(this Type type, string method)
         {
             if (type == null)
                 throw new ArgumentNullException(nameof(type));
