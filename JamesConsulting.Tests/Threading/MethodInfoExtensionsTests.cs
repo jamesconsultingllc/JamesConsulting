@@ -10,7 +10,7 @@ namespace JamesConsulting.Tests.Threading
 {
     public class MethodInfoExtensionsTests
     {
-        private static readonly Type instanceType = typeof(MyInterface);
+        private static readonly Type InstanceType = typeof(MyInterface);
         
         [Fact]
         public void CreateTaskResultThrowsArgumentNullException()
@@ -21,13 +21,13 @@ namespace JamesConsulting.Tests.Threading
         [Fact]
         public void CreateTaskResultReturnTypeNullThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => instanceType.GetMethod("Test").CreateTaskResult(null));
+            Assert.Throws<ArgumentException>(() => InstanceType.GetMethod("Test").CreateTaskResult(null));
         }
 
         [Fact]
         public void CreateTaskResultReturnsTaskResult()
         {
-            var result = instanceType.GetMethod("GetClassById").CreateTaskResult(new MyClass() { X = 1 });
+            var result = InstanceType.GetMethod("GetClassById").CreateTaskResult(new MyClass() { X = 1 });
             result.Should().BeOfType<Task<MyClass>>();
             (result as Task<MyClass>).Result.X.Should().Be(1);
         }

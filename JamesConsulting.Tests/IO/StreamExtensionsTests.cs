@@ -73,7 +73,15 @@ namespace JamesConsulting.Tests.IO
 
             public override int GetHashCode()
             {
+#if NET461
+                var hashcode = 35203352;
+                var offset = -1521134295;
+                hashcode *= offset + Property1.GetHashCode();
+                hashcode *= offset + Property2.GetHashCode();
+                return hashcode;
+#else
                 return HashCode.Combine(Property1, Property2);
+#endif
             }
         }
     }
