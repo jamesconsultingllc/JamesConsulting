@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using FluentAssertions;
 using JamesConsulting.Threading;
 using Xunit;
+using MethodInfoExtensions = JamesConsulting.Threading.MethodInfoExtensions;
 
 namespace JamesConsulting.Tests.Threading
 {
@@ -14,7 +15,7 @@ namespace JamesConsulting.Tests.Threading
         [Fact]
         public void CreateTaskResultThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => default(MethodInfo).CreateTaskResult(null));
+            Assert.Throws<ArgumentNullException>(() => MethodInfoExtensions.CreateTaskResult(default,null));
         }
 
         [Fact]

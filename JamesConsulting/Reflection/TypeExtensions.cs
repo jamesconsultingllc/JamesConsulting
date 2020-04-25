@@ -9,7 +9,7 @@
 //  ----------------------------------------------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Linq;
 using System.Reflection;
 
@@ -23,7 +23,7 @@ namespace JamesConsulting.Reflection
         /// <summary>
         /// The methods.
         /// </summary>
-        private static readonly Dictionary<string, MethodInfo> Methods = new Dictionary<string, MethodInfo>();
+        private static readonly ConcurrentDictionary<string, MethodInfo> Methods = new ConcurrentDictionary<string, MethodInfo>();
 
         /// <summary>
         /// The get method info from string.

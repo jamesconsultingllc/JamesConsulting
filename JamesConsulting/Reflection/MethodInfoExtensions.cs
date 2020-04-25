@@ -9,7 +9,7 @@
 //  ----------------------------------------------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Linq;
 using System.Reflection;
 using System.Text;
@@ -24,7 +24,7 @@ namespace JamesConsulting.Reflection
         /// <summary>
         ///     The method templates.
         /// </summary>
-        private static readonly Dictionary<MethodInfo, (ParameterInfo[] Parameters, string Template)> MethodTemplates = new Dictionary<MethodInfo, (ParameterInfo[] Parameters, string Template)>();
+        private static readonly ConcurrentDictionary<MethodInfo, (ParameterInfo[] Parameters, string Template)> MethodTemplates = new ConcurrentDictionary<MethodInfo, (ParameterInfo[] Parameters, string Template)>();
 
         /// <summary>
         /// Returns a string representation of the MethodInfo with parameter names, types and values.

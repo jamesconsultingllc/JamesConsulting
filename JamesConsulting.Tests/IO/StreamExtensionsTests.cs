@@ -63,12 +63,9 @@ namespace JamesConsulting.Tests.IO
             public string Property1 { get; set; }
             public int Property2 { get; set; }
 
-            public override bool Equals(object obj)
+            public override bool Equals(object? obj)
             {
-
-                var myClass = obj as MyClass;
-
-                if(myClass == null)
+                if(!(obj is MyClass myClass))
                     return false;
 
                 return myClass.Property1 == Property1 && myClass.Property2 == Property2;

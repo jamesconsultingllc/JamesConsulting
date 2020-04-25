@@ -60,6 +60,6 @@ namespace JamesConsulting
         /// <summary>
         ///     The method templates.
         /// </summary>
-        public static readonly Dictionary<MethodInfo, (ParameterInfo[] Parameters, string Template)> MethodTemplates = new Dictionary<MethodInfo, (ParameterInfo[] Parameters, string Template)>();
+        public static readonly ConcurrentDictionary<MethodInfo, (ParameterInfo[] Parameters, string Template)> MethodTemplates = new ConcurrentDictionary<MethodInfo, (ParameterInfo[] Parameters, string Template)>();
     }
 }

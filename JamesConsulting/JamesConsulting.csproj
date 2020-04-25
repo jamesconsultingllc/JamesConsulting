@@ -1,7 +1,6 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
     <PackageId>JamesConsulting</PackageId>
     <Authors>Rudy James</Authors>
     <Company>James Consulting LLC</Company>
@@ -12,6 +11,7 @@
     <ProjectGuid>9F232F91-5328-4EE7-BC83-AB21CBA9C18B</ProjectGuid>
     <LangVersion>default</LangVersion>
     <Nullable>enable</Nullable>
+    <TargetFrameworks>net461;netstandard2.0;netstandard2.1</TargetFrameworks>
   </PropertyGroup>
 
   <ItemGroup>
