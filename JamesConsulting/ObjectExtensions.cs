@@ -23,41 +23,35 @@ namespace JamesConsulting
     public static class ObjectExtensions
     {
         /// <summary>
-        /// The from byte array.
+        ///     The from byte array.
         /// </summary>
         /// <param name="byteArray">
-        /// The byte array.
+        ///     The byte array.
         /// </param>
         /// <typeparam name="T">
-        /// The type of the object to create from the <paramref name="byteArray"/>
+        ///     The type of the object to create from the <paramref name="byteArray" />
         /// </typeparam>
         /// <returns>
-        /// The <see cref="T"/>.
+        ///     The <see cref="T" />.
         /// </returns>
         /// <exception cref="T:System.Runtime.Serialization.SerializationException">
-        /// The serializationStream supports seeking, but its length is 0.
+        ///     The serializationStream supports seeking, but its length is 0.
         ///     -or-
         ///     The target type is a <see cref="System.Decimal"></see>, but the value is out of range of the
         ///     <see cref="System.Decimal"></see> type.
         /// </exception>
         /// <exception cref="T:System.Security.SecurityException">
-        /// The caller does not have the required permission.
+        ///     The caller does not have the required permission.
         /// </exception>
         /// <exception cref="T:System.ArgumentNullException">
-        /// The serializationStream is null.
+        ///     The serializationStream is null.
         /// </exception>
         public static T? FromByteArray<T>(this byte[] byteArray)
             where T : class
         {
-            if (byteArray == null)
-            {
-                throw new ArgumentNullException(nameof(byteArray));
-            }
+            if (byteArray == null) throw new ArgumentNullException(nameof(byteArray));
 
-            if (byteArray.Length == 0)
-            {
-                throw new ArgumentException("Value cannot be an empty collection.", nameof(byteArray));
-            }
+            if (byteArray.Length == 0) throw new ArgumentException("Value cannot be an empty collection.", nameof(byteArray));
 
             var binaryFormatter = new BinaryFormatter();
             using var memoryStream = new MemoryStream(byteArray);
@@ -65,16 +59,16 @@ namespace JamesConsulting
         }
 
         /// <summary>
-        /// The get object type.
+        ///     The get object type.
         /// </summary>
         /// <param name="obj">
-        /// The object to get the type from
+        ///     The object to get the type from
         /// </param>
         /// <typeparam name="T">
-        /// The type of <paramref name="obj"/>
+        ///     The type of <paramref name="obj" />
         /// </typeparam>
         /// <returns>
-        /// The <see cref="Type"/>.
+        ///     The <see cref="Type" />.
         /// </returns>
         public static Type GetObjectType<T>(this T obj)
         {
@@ -82,16 +76,16 @@ namespace JamesConsulting
         }
 
         /// <summary>
-        /// The mask.
+        ///     The mask.
         /// </summary>
         /// <param name="data">
-        /// The data.
+        ///     The data.
         /// </param>
         /// <param name="ignore">
-        /// The ignore.
+        ///     The ignore.
         /// </param>
         /// <returns>
-        /// The <see cref="object"/>.
+        ///     The <see cref="object" />.
         /// </returns>
         /// <exception cref="ArgumentNullException">
         /// </exception>
@@ -99,58 +93,40 @@ namespace JamesConsulting
         /// </exception>
         public static object Mask(this object data, params string[] ignore)
         {
-            if (data == null)
-            {
-                throw new ArgumentNullException(nameof(data));
-            }
+            if (data == null) throw new ArgumentNullException(nameof(data));
 
-            if (ignore == null)
-            {
-                throw new ArgumentNullException(nameof(ignore));
-            }
+            if (ignore == null) throw new ArgumentNullException(nameof(ignore));
 
-            if (ignore.Length == 0)
-            {
-                throw new ArgumentException("Value cannot be an empty collection.", nameof(ignore));
-            }
+            if (ignore.Length == 0) throw new ArgumentException("Value cannot be an empty collection.", nameof(ignore));
 
-            var jo = (JObject)JToken.FromObject(data);
+            var jo = (JObject) JToken.FromObject(data);
             var keys = jo.Properties().Where(x => ignore.Any(y => y.Equals(x.Name, StringComparison.OrdinalIgnoreCase))).Select(x => x.Name);
 
-            foreach (var key in keys)
-            {
-                jo[key] = "*****";
-            }
+            foreach (var key in keys) jo[key] = "*****";
 
             return jo.ToObject<object>();
         }
 
         /// <summary>
-        /// The serialize to JSON stream.
+        ///     The serialize to JSON stream.
         /// </summary>
         /// <param name="obj">
-        /// The obj.
+        ///     The obj.
         /// </param>
         /// <param name="stream">
-        /// The stream.
+        ///     The stream.
         /// </param>
         /// <returns>
-        /// The <see cref="Stream"/>.
+        ///     The <see cref="Stream" />.
         /// </returns>
         /// <exception cref="ArgumentNullException">
-        /// Thrown when <paramref name="obj"/> or <paramref name="stream"/> is null
+        ///     Thrown when <paramref name="obj" /> or <paramref name="stream" /> is null
         /// </exception>
         public static Stream SerializeToJsonStream(this object obj, Stream stream)
         {
-            if (obj == null)
-            {
-                throw new ArgumentNullException(nameof(obj));
-            }
+            if (obj == null) throw new ArgumentNullException(nameof(obj));
 
-            if (stream == null)
-            {
-                throw new ArgumentNullException(nameof(stream));
-            }
+            if (stream == null) throw new ArgumentNullException(nameof(stream));
 
             var writer = new StreamWriter(stream);
             var jsonWriter = new JsonTextWriter(writer);
@@ -162,37 +138,31 @@ namespace JamesConsulting
         }
 
         /// <summary>
-        /// The to byte array.
+        ///     The to byte array.
         /// </summary>
         /// <param name="obj">
-        /// The object to get the type from
+        ///     The object to get the type from
         /// </param>
         /// <returns>
-        /// The <see cref="T:byte[]"/>.
+        ///     The <see cref="T:byte[]" />.
         /// </returns>
         /// <exception cref="T:System.Runtime.Serialization.SerializationException">
-        /// An error has occurred during serialization,
+        ///     An error has occurred during serialization,
         ///     such as if an object in the graph parameter is not marked as serializable.
         /// </exception>
         /// <exception cref="T:System.Security.SecurityException">
-        /// The caller does not have the required permission.
+        ///     The caller does not have the required permission.
         /// </exception>
         /// <exception cref="T:System.ArgumentNullException">
-        /// The serializationStream is null.
+        ///     The serializationStream is null.
         ///     -or-
         ///     The graph is null.
         /// </exception>
         public static byte[] ToByteArray(this object obj)
         {
-            if (obj == null)
-            {
-                throw new ArgumentNullException(nameof(obj));
-            }
+            if (obj == null) throw new ArgumentNullException(nameof(obj));
 
-            if (!obj.GetObjectType().IsSerializable)
-            {
-                throw new InvalidOperationException("This object is not serializable");
-            }
+            if (!obj.GetObjectType().IsSerializable) throw new InvalidOperationException("This object is not serializable");
 
             var binaryFormatter = new BinaryFormatter();
             using (var memoryStream = new MemoryStream())
@@ -203,13 +173,13 @@ namespace JamesConsulting
         }
 
         /// <summary>
-        /// The to json.
+        ///     The to json.
         /// </summary>
         /// <param name="obj">
-        /// The obj.
+        ///     The obj.
         /// </param>
         /// <returns>
-        /// The <see cref="string"/>.
+        ///     The <see cref="string" />.
         /// </returns>
         public static string? ToJson(this object obj)
         {
@@ -217,13 +187,13 @@ namespace JamesConsulting
         }
 
         /// <summary>
-        /// The to json compact.
+        ///     The to json compact.
         /// </summary>
         /// <param name="obj">
-        /// The obj.
+        ///     The obj.
         /// </param>
         /// <returns>
-        /// The <see cref="string"/>.
+        ///     The <see cref="string" />.
         /// </returns>
         public static string? ToJsonCompact(this object obj)
         {
@@ -231,28 +201,22 @@ namespace JamesConsulting
         }
 
         /// <summary>
-        /// The to json internal.
+        ///     The to json internal.
         /// </summary>
         /// <param name="obj">
-        /// The obj.
+        ///     The obj.
         /// </param>
         /// <param name="formatting">
-        /// The formatting.
+        ///     The formatting.
         /// </param>
         /// <returns>
-        /// The <see cref="string"/>.
+        ///     The <see cref="string" />.
         /// </returns>
         private static string? ToJsonInternal(object obj, Formatting formatting)
         {
-            if (obj == null)
-            {
-                return null;
-            }
+            if (obj == null) return null;
 
-            if (obj is string objString)
-            {
-                return objString;
-            }
+            if (obj is string objString) return objString;
 
             return JsonConvert.SerializeObject(obj, formatting);
         }

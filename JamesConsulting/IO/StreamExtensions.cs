@@ -21,15 +21,15 @@ namespace JamesConsulting.IO
     public static class StreamExtensions
     {
         /// <summary>
-        /// The deserialize stream.
+        ///     The deserialize stream.
         /// </summary>
         /// <param name="stream">
-        /// The stream.
+        ///     The stream.
         /// </param>
         /// <typeparam name="T">
         /// </typeparam>
         /// <returns>
-        /// The <see cref="T"/>.
+        ///     The <see cref="T" />.
         /// </returns>
         /// <exception cref="ArgumentNullException">
         /// </exception>
@@ -38,7 +38,7 @@ namespace JamesConsulting.IO
             if (stream == null) throw new ArgumentNullException(nameof(stream));
 
             var streamReader = new StreamReader(stream);
-            var jsonTextReader = new JsonTextReader(streamReader) { CloseInput = true };
+            var jsonTextReader = new JsonTextReader(streamReader) {CloseInput = true};
 
             try
             {
@@ -52,13 +52,13 @@ namespace JamesConsulting.IO
         }
 
         /// <summary>
-        /// The is executable.
+        ///     The is executable.
         /// </summary>
         /// <param name="stream">
-        /// The stream.
+        ///     The stream.
         /// </param>
         /// <returns>
-        /// The <see cref="bool"/>.
+        ///     The <see cref="bool" />.
         /// </returns>
         public static bool IsExecutable(this Stream stream)
         {

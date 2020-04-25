@@ -12,30 +12,30 @@ namespace JamesConsulting.Tests.Net.Http
     public class HttpRequestMessageExtensionsTests
     {
         [Fact]
-        public void SetHeadersThrowsArugmentNullExceptionWhenRequestMessageIsNull()
+        public void SetHeadersResultHeaderListShouldMatchHeadersPassedIn()
         {
-            HttpRequestMessage requestMessage = null;
-            Assert.Throws<ArgumentNullException>(() => requestMessage.SetHeaders(null));
+            var requestMessage = new HttpRequestMessage();
+            requestMessage.Headers.Add("Test", "Test");
+
+            IDictionary<string, string> headers = new Dictionary<string, string> {{"Test2", "Test2 "}, {"Test3", "Test3 "}};
+            requestMessage.SetHeaders(headers);
+
+            requestMessage.Headers.Contains("Test").Should().BeFalse();
+            requestMessage.Headers.Count().IsSameOrEqualTo(2);
         }
 
         [Fact]
         public void SetHeadersThrowsArugmentNullExceptionWhenHeadersIsNull()
         {
-            HttpRequestMessage requestMessage = new HttpRequestMessage();
+            var requestMessage = new HttpRequestMessage();
             Assert.Throws<ArgumentNullException>(() => requestMessage.SetHeaders(null));
         }
 
         [Fact]
-        public void SetHeadersResultHeaderListShouldMatchHeadersPassedIn()
+        public void SetHeadersThrowsArugmentNullExceptionWhenRequestMessageIsNull()
         {
-            HttpRequestMessage requestMessage = new HttpRequestMessage();
-            requestMessage.Headers.Add("Test", "Test");
-
-            IDictionary<string, string> headers = new Dictionary<string, string> { { "Test2", "Test2 " }, { "Test3", "Test3 " } };
-            requestMessage.SetHeaders(headers);
-
-            requestMessage.Headers.Contains("Test").Should().BeFalse();
-            requestMessage.Headers.Count().IsSameOrEqualTo(2);
+            HttpRequestMessage requestMessage = null;
+            Assert.Throws<ArgumentNullException>(() => requestMessage.SetHeaders(null));
         }
     }
 }

@@ -11,10 +11,10 @@
 namespace JamesConsulting
 {
     /// <summary>
-    /// The mime types.
+    ///     The mime types.
     /// </summary>
     /// <summary>
-    /// The mime types.
+    ///     The mime types.
     /// </summary>
     public static class MimeTypes
     {

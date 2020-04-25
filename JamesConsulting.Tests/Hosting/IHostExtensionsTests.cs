@@ -21,13 +21,34 @@ using Xunit;
 namespace JamesConsulting.Tests.Hosting
 {
     /// <summary>
-    /// The i host extensions tests.
+    ///     The i host extensions tests.
     /// </summary>
     // ReSharper disable once InconsistentNaming
     public class IHostExtensionsTests
     {
         /// <summary>
-        /// The initialize async call initialize on host initalizers.
+        ///     The create initializers.
+        /// </summary>
+        /// <param name="count">
+        ///     The count.
+        /// </param>
+        /// <typeparam name="T">
+        /// </typeparam>
+        /// <returns>
+        ///     The <see cref="T:List{Mock{T}}" />.
+        /// </returns>
+        private List<Mock<T>> CreateInitializers<T>(int count)
+            where T : class
+        {
+            var list = new List<Mock<T>>();
+
+            for (var i = 0; i < count; i++) list.Add(new Mock<T>());
+
+            return list;
+        }
+
+        /// <summary>
+        ///     The initialize async call initialize on host initalizers.
         /// </summary>
         [Fact]
         public async Task InitializeAsyncCallInitializeOnHostInitalizers()
@@ -47,7 +68,7 @@ namespace JamesConsulting.Tests.Hosting
         }
 
         /// <summary>
-        /// The initialize async null host throws argument null exception.
+        ///     The initialize async null host throws argument null exception.
         /// </summary>
         [Fact]
         public async Task InitializeAsyncNullHostThrowsArgumentNullException()
@@ -56,7 +77,7 @@ namespace JamesConsulting.Tests.Hosting
         }
 
         /// <summary>
-        /// The initialize call initialize on host initalizers.
+        ///     The initialize call initialize on host initalizers.
         /// </summary>
         [Fact]
         public void InitializeCallInitializeOnHostInitalizers()
@@ -76,37 +97,13 @@ namespace JamesConsulting.Tests.Hosting
         }
 
         /// <summary>
-        /// The initialize null host throws argument null exception.
+        ///     The initialize null host throws argument null exception.
         /// </summary>
         [Fact]
         public void InitializeNullHostThrowsArgumentNullException()
         {
             IHost host = null;
             Assert.Throws<ArgumentNullException>(() => host.Initialize());
-        }
-
-        /// <summary>
-        /// The create initializers.
-        /// </summary>
-        /// <param name="count">
-        /// The count.
-        /// </param>
-        /// <typeparam name="T">
-        /// </typeparam>
-        /// <returns>
-        /// The <see cref="T:List{Mock{T}}"/>.
-        /// </returns>
-        private List<Mock<T>> CreateInitializers<T>(int count)
-            where T : class
-        {
-            var list = new List<Mock<T>>();
-
-            for (var i = 0; i < count; i++)
-            {
-                list.Add(new Mock<T>());
-            }
-
-            return list;
         }
     }
 }

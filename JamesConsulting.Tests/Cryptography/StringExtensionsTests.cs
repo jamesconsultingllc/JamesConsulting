@@ -21,6 +21,34 @@ namespace JamesConsulting.Tests.Cryptography
     public class StringExtensionsTests
     {
         /// <summary>
+        ///     The hash null argument.
+        /// </summary>
+        /// <param name="target">
+        ///     The target.
+        /// </param>
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        public void HashInvalidTargetThrowsArgumentException(string target)
+        {
+            Assert.Throws<ArgumentException>(() => target.Hash());
+        }
+
+        /// <summary>
+        ///     The hash with invalid target.
+        /// </summary>
+        /// <param name="target">
+        ///     The target.
+        /// </param>
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        public void HashWithInvalidTargetThrowsArgumentException(string target)
+        {
+            Assert.Throws<ArgumentException>(() => target.Hash(null));
+        }
+
+        /// <summary>
         ///     The base 64 decode empty string returns empty string.
         /// </summary>
         [Fact]
@@ -85,32 +113,12 @@ namespace JamesConsulting.Tests.Cryptography
             Assert.Throws<ArgumentOutOfRangeException>(() => "test".Hash(null, -100));
         }
 
-        /// <summary>
-        /// The hash null argument.
-        /// </summary>
-        /// <param name="target">
-        /// The target.
-        /// </param>
-        [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        public void HashInvalidTargetThrowsArgumentException(string target)
+        [Fact]
+        public void HashReturnHashedStringWithSalt()
         {
-            Assert.Throws<ArgumentException>(() => target.Hash());
-        }
-
-        /// <summary>
-        /// The hash with invalid target.
-        /// </summary>
-        /// <param name="target">
-        /// The target.
-        /// </param>
-        [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        public void HashWithInvalidTargetThrowsArgumentException(string target)
-        {
-            Assert.Throws<ArgumentException>(() => target.Hash(null));
+            var result = "test".Hash();
+            result.salt.Should().NotBeEmpty();
+            result.hashedString.Should().NotBeNullOrWhiteSpace();
         }
 
         /// <summary>
@@ -122,14 +130,6 @@ namespace JamesConsulting.Tests.Cryptography
             Assert.Throws<ArgumentNullException>(() => "test".Hash(null));
         }
 
-        [Fact]
-        public void HashReturnHashedStringWithSalt()
-        {
-            var result = "test".Hash();
-            result.salt.Should().NotBeEmpty();
-            result.hashedString.Should().NotBeNullOrWhiteSpace();
-        }
-        
         /// <summary>
         ///     The hash string.
         /// </summary>

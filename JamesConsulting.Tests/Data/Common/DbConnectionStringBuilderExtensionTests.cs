@@ -21,7 +21,7 @@ namespace JamesConsulting.Tests.Data.Common
     public class DbConnectionStringBuilderExtensionTests
     {
         /// <summary>
-        /// The remove keys throws <see cref="ArgumentException"/> when keys is empty.
+        ///     The remove keys throws <see cref="ArgumentException" /> when keys is empty.
         /// </summary>
         [Fact]
         public void RemoveKeysThrowsArgumentExceptionWhenKeysIsEmpty()
@@ -30,7 +30,7 @@ namespace JamesConsulting.Tests.Data.Common
         }
 
         /// <summary>
-        /// The remove keys throws argument null exception when <see cref="DbConnectionStringBuilder"/> is null.
+        ///     The remove keys throws argument null exception when <see cref="DbConnectionStringBuilder" /> is null.
         /// </summary>
         [Fact]
         public void RemoveKeysThrowsArgumentNullExceptionWhenDbConnectionStringBuilderIsNull()
@@ -39,7 +39,7 @@ namespace JamesConsulting.Tests.Data.Common
         }
 
         /// <summary>
-        /// The remove keys throws <see cref="ArgumentNullException"/> when keys is null.
+        ///     The remove keys throws <see cref="ArgumentNullException" /> when keys is null.
         /// </summary>
         [Fact]
         public void RemoveKeysThrowsArgumentNullExceptionWhenKeysIsNull()

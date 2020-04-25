@@ -15,12 +15,12 @@ using System.Threading.Tasks;
 namespace JamesConsulting
 {
     /// <summary>
-    /// The type constants.
+    ///     The type constants.
     /// </summary>
     public static class TypeConstants
     {
         /// <summary>
-        /// The generic configured task that can be awaited.
+        ///     The generic configured task that can be awaited.
         /// </summary>
         public static readonly Type GenericConfiguredTaskAwaitable = typeof(ConfiguredTaskAwaitable<>);
 

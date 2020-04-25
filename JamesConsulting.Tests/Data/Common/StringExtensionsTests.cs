@@ -16,15 +16,15 @@ using Xunit;
 namespace JamesConsulting.Tests.Data.Common
 {
     /// <summary>
-    /// The string extensions tests.
+    ///     The string extensions tests.
     /// </summary>
     public class StringExtensionsTests
     {
         /// <summary>
-        /// The string password from connection string strips password entry.
+        ///     The string password from connection string strips password entry.
         /// </summary>
         /// <param name="passwordVariation">
-        /// The password variation.
+        ///     The password variation.
         /// </param>
         [Theory]
         [InlineData("Password")]

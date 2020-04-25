@@ -10,7 +10,6 @@
 
 using System;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -48,7 +47,7 @@ namespace JamesConsulting
         public static readonly Type TaskType = typeof(Task);
 
         /// <summary>
-        /// The type methods.
+        ///     The type methods.
         /// </summary>
         public static readonly ConcurrentDictionary<Type, MethodInfo[]> TypeMethods = new ConcurrentDictionary<Type, MethodInfo[]>();
 

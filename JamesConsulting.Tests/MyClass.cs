@@ -26,10 +26,10 @@ namespace JamesConsulting.Tests
         public string? Y { get; set; }
 
         /// <summary>
-        /// The to string.
+        ///     The to string.
         /// </summary>
         /// <returns>
-        /// The <see cref="string"/>.
+        ///     The <see cref="string" />.
         /// </returns>
         public override string ToString()
         {

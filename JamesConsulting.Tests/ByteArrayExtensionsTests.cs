@@ -15,12 +15,12 @@ using Xunit;
 namespace JamesConsulting.Tests
 {
     /// <summary>
-    /// The byte array extensions tests.
+    ///     The byte array extensions tests.
     /// </summary>
     public class ByteArrayExtensionsTests
     {
         /// <summary>
-        /// The get string empty array returns empty string.
+        ///     The get string empty array returns empty string.
         /// </summary>
         [Fact]
         public void GetStringEmptyArrayReturnsEmptyString()
@@ -30,7 +30,7 @@ namespace JamesConsulting.Tests
         }
 
         /// <summary>
-        /// The get string null array throws argument null exception.
+        ///     The get string null array throws argument null exception.
         /// </summary>
         [Fact]
         public void GetStringNullArrayThrowsArgumentNullException()
