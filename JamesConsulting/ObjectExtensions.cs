@@ -34,7 +34,7 @@ namespace JamesConsulting
         ///     The type of the object to create from the <paramref name="byteArray" />
         /// </typeparam>
         /// <returns>
-        ///     The <see cref="T" />.
+        ///     The <typeparamref name="T"/>.
         /// </returns>
         /// <exception cref="T:System.Runtime.Serialization.SerializationException">
         ///     The serializationStream supports seeking, but its length is 0.
@@ -110,7 +110,7 @@ namespace JamesConsulting
                 foreach (var property in properties)
                 {
                     var key = ((JValue) jo.SelectToken(property.Path));
-                    if(key.Type == JTokenType.String)
+                    if (key.Type == JTokenType.String)
                         key.Value = default(string);
                     else if (numericTokenTypes.Contains(key.Type))
                         key.Value = default(int);
@@ -125,26 +125,6 @@ namespace JamesConsulting
                         };
                 }
             }
-            /*var keys = jo.Properties().Where(x => propertiesToMask.Any(y => y.Equals(x.Name, StringComparison.OrdinalIgnoreCase))).Select(x => x);
-            
-            foreach (var key in keys)
-            {
-                jo.ContainsKey()
-                if(key.Value.Type == JTokenType.String)
-                    jo[key.Name] = default(string);
-                else if (numericTokenTypes.Contains(key.Value.Type))
-                    jo[key.Name] = default(int);
-                else
-                    jo[key.Name] = key.Value.Type switch
-                    {
-                        JTokenType.Date => default(DateTime),
-                        JTokenType.TimeSpan => default(TimeSpan),
-                        JTokenType.Array => null,
-                        JTokenType.Object => null,
-                        _ => jo[key.Name]
-                    };
-            }*/
-
 
             return jo.ToObject<T>();
         }

@@ -65,8 +65,7 @@ namespace JamesConsulting.Tests.Reflection
         [Fact]
         public void GetMethodInfoFromStringNullTypeThrowsArgumentNullException()
         {
-            Type test = null;
-            Assert.Throws<ArgumentNullException>(() => test.GetMethodInfoFromString(""));
+            Assert.Throws<ArgumentNullException>(() => default(Type)!.GetMethodInfoFromString(""));
         }
 
         [Fact]
@@ -111,7 +110,7 @@ namespace JamesConsulting.Tests.Reflection
         [Fact]
         public void HasReturnValueThrowsArgumentNullExceptionWhenMethodInfoIsNull()
         {
-            Assert.Throws<ArgumentNullException>(() => default(MethodInfo).HasReturnValue());
+            Assert.Throws<ArgumentNullException>(() => default(MethodInfo)!.HasReturnValue());
         }
 
         [Fact]
@@ -129,7 +128,7 @@ namespace JamesConsulting.Tests.Reflection
         [Fact]
         public void IsAsyncThrowsArgumentNullExceptionWhenMethodInfoIsNull()
         {
-            Assert.Throws<ArgumentNullException>(() => default(MethodInfo).IsAsync());
+            Assert.Throws<ArgumentNullException>(() => default(MethodInfo)!.IsAsync());
         }
 
         [Fact]
@@ -141,7 +140,7 @@ namespace JamesConsulting.Tests.Reflection
         [Fact]
         public void IsAsyncWithResultThrowsArgumentNullExceptionWhenMethodInfoIsNull()
         {
-            Assert.Throws<ArgumentNullException>(() => default(MethodInfo).IsAsyncWithResult());
+            Assert.Throws<ArgumentNullException>(() => default(MethodInfo)!.IsAsyncWithResult());
         }
 
         [Fact]
@@ -165,7 +164,7 @@ namespace JamesConsulting.Tests.Reflection
         [Fact]
         public void IsConcreteClassThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => default(Type).IsConcreteClass());
+            Assert.Throws<ArgumentNullException>(() => default(Type)!.IsConcreteClass());
         }
 
         /// <summary>
@@ -185,7 +184,7 @@ namespace JamesConsulting.Tests.Reflection
         [Fact]
         public void ToMethodInfoThrowsArgumentExceptionNullString()
         {
-            Assert.Throws<ArgumentException>(() => InstanceType.GetMethodInfoFromString(null));
+            Assert.Throws<ArgumentException>(() => InstanceType.GetMethodInfoFromString(default!));
         }
     }
 }

@@ -13,21 +13,21 @@ namespace JamesConsulting.Tests.Threading
         [Fact]
         public void CreateTaskResultReturnsTaskResult()
         {
-            var result = InstanceType.GetMethod("GetClassById").CreateTaskResult(new MyClass {X = 1});
+            var result = InstanceType.GetMethod("GetClassById")!.CreateTaskResult(new MyClass {X = 1});
             result.Should().BeOfType<Task<MyClass>>();
-            (result as Task<MyClass>).Result.X.Should().Be(1);
+            (result as Task<MyClass>)!.Result.X.Should().Be(1);
         }
 
         [Fact]
         public void CreateTaskResultReturnTypeNullThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => InstanceType.GetMethod("Test").CreateTaskResult(null));
+            Assert.Throws<ArgumentException>(() => InstanceType.GetMethod("Test")!.CreateTaskResult(default!));
         }
 
         [Fact]
         public void CreateTaskResultThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => MethodInfoExtensions.CreateTaskResult(default, null));
+            Assert.Throws<ArgumentNullException>(() => MethodInfoExtensions.CreateTaskResult(default!, default!));
         }
     }
 }

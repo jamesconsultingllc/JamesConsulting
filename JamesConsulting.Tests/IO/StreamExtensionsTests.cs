@@ -13,7 +13,7 @@ namespace JamesConsulting.Tests.IO
         [Serializable]
         private class MyClass
         {
-            public string Property1 { get; set; }
+            public string? Property1 { get; set; }
             public int Property2 { get; set; }
 
             public override bool Equals(object? obj)
@@ -28,8 +28,8 @@ namespace JamesConsulting.Tests.IO
             {
 #if NET461
                 var hashcode = 35203352;
-                var offset = -1521134295;
-                hashcode *= offset + Property1.GetHashCode();
+                const int offset = -1521134295;
+                if (Property1 != null) hashcode *= offset + Property1.GetHashCode();
                 hashcode *= offset + Property2.GetHashCode();
                 return hashcode;
 #else
@@ -51,7 +51,7 @@ namespace JamesConsulting.Tests.IO
         [Fact]
         public void DeserializeThrowsArgumentNullExceptionWhenStreamIsNull()
         {
-            Assert.Throws<ArgumentNullException>(() => StreamExtensions.DeserializeJson<object>(default));
+            Assert.Throws<ArgumentNullException>(() => StreamExtensions.DeserializeJson<object>(default!));
         }
 
         [Fact]
@@ -80,8 +80,7 @@ namespace JamesConsulting.Tests.IO
         [Fact]
         public void IsExecutableThrowsArgumentNullExceptionWhenStreamIsNull()
         {
-            Stream stream = null;
-            Assert.Throws<ArgumentNullException>(() => stream.IsExecutable());
+            Assert.Throws<ArgumentNullException>(() => default(Stream)!.IsExecutable());
         }
     }
 }

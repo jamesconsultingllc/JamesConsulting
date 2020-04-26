@@ -73,7 +73,7 @@ namespace JamesConsulting.Tests.Hosting
         [Fact]
         public async Task InitializeAsyncNullHostThrowsArgumentNullException()
         {
-            await Assert.ThrowsAsync<ArgumentNullException>(() => default(IHost).InitializeAsync()).ConfigureAwait(false);
+            await Assert.ThrowsAsync<ArgumentNullException>(() => default(IHost)!.InitializeAsync()).ConfigureAwait(false);
         }
 
         /// <summary>
@@ -102,8 +102,7 @@ namespace JamesConsulting.Tests.Hosting
         [Fact]
         public void InitializeNullHostThrowsArgumentNullException()
         {
-            IHost host = null;
-            Assert.Throws<ArgumentNullException>(() => host.Initialize());
+            Assert.Throws<ArgumentNullException>(() => default(IHost)!.Initialize());
         }
     }
 }

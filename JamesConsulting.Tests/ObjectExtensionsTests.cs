@@ -38,7 +38,7 @@ namespace JamesConsulting.Tests
             public DateTime Value3 { get; set; }
             public TimeSpan Value4 { get; set; }
             
-            public Test2[] Value5 { get; set; }
+            public Test2[]? Value5 { get; set; }
         }
 
         /// <summary>
@@ -134,6 +134,8 @@ namespace JamesConsulting.Tests
             maskedTest.Value2.Should().Be(default);
             maskedTest.Value3.Should().Be(default);
             maskedTest.Value4.Should().Be(default);
+            if (maskedTest.Value5 == null) return;
+            
             foreach (var value5 in maskedTest.Value5)
             {
                 value5.Value1.Should().Be(default);

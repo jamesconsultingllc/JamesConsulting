@@ -57,8 +57,7 @@ namespace JamesConsulting.Tests.Reflection
         [Fact]
         public void ToInvocationThrowsArgumentNullExceptionWhenMethodInfoIsNull()
         {
-            MethodInfo methodInfo = null;
-            Assert.Throws<ArgumentNullException>(() => methodInfo.ToInvocationString(null));
+            Assert.Throws<ArgumentNullException>(() => default(MethodInfo)!.ToInvocationString(default!));
         }
     }
 }

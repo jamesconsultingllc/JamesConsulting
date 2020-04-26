@@ -52,8 +52,7 @@ namespace JamesConsulting.Tests.Data.Common
         [Fact]
         public void StripPasswordFromConnectionStringWithNullConnectionStringThrowsArgumentNullException()
         {
-            string connectionString = null;
-            Assert.Throws<ArgumentNullException>(() => connectionString.StripPasswordFromConnectionString());
+            Assert.Throws<ArgumentNullException>(() => default(string)!.StripPasswordFromConnectionString());
         }
     }
 }

@@ -35,8 +35,7 @@ namespace JamesConsulting.Tests
         [Fact]
         public void GetStringNullArrayThrowsArgumentNullException()
         {
-            byte[] bytes = null;
-            Assert.Throws<ArgumentNullException>(() => bytes.GetString());
+            Assert.Throws<ArgumentNullException>(() => default(byte[])!.GetString());
         }
 
         [Fact]

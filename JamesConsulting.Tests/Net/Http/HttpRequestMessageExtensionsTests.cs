@@ -28,14 +28,13 @@ namespace JamesConsulting.Tests.Net.Http
         public void SetHeadersThrowsArugmentNullExceptionWhenHeadersIsNull()
         {
             var requestMessage = new HttpRequestMessage();
-            Assert.Throws<ArgumentNullException>(() => requestMessage.SetHeaders(null));
+            Assert.Throws<ArgumentNullException>(() => requestMessage.SetHeaders(default!));
         }
 
         [Fact]
         public void SetHeadersThrowsArugmentNullExceptionWhenRequestMessageIsNull()
         {
-            HttpRequestMessage requestMessage = null;
-            Assert.Throws<ArgumentNullException>(() => requestMessage.SetHeaders(null));
+            Assert.Throws<ArgumentNullException>(() => default(HttpRequestMessage)!.SetHeaders(default!));
         }
     }
 }
