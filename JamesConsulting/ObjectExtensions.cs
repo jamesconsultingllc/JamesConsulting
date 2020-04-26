@@ -22,6 +22,8 @@ namespace JamesConsulting
     /// </summary>
     public static class ObjectExtensions
     {
+        private static readonly JTokenType[] numericTokenTypes = {JTokenType.Float, JTokenType.Integer};
+
         /// <summary>
         ///     The from byte array.
         /// </summary>
@@ -76,35 +78,75 @@ namespace JamesConsulting
         }
 
         /// <summary>
-        ///     The mask.
+        /// 
         /// </summary>
-        /// <param name="data">
-        ///     The data.
+        /// <param name="data">The object whose properties will be masked</param>
+        /// <param name="propertiesToMask">
+        ///     List of properties that should be masked. Fields will be replaced with default values for their given types.
+        ///     Use <a href="https://goessner.net/articles/JsonPath/">JPath</a> to find properties.
         /// </param>
-        /// <param name="ignore">
-        ///     The ignore.
-        /// </param>
-        /// <returns>
-        ///     The <see cref="object" />.
-        /// </returns>
+        /// <typeparam name="T">The <see cref="Type"/> of the <paramref name="data"/> object</typeparam>
+        /// <returns>A new copy of <paramref name="data"/> with properties in <paramref name="propertiesToMask"/> set to default values for their types</returns>
         /// <exception cref="ArgumentNullException">
+        /// Thrown when <paramref name="data"/> or <paramref name="propertiesToMask"/> is null.
         /// </exception>
         /// <exception cref="ArgumentException">
+        /// Thrown when <paramref name="propertiesToMask"/> is an empty array.
         /// </exception>
-        public static object Mask(this object data, params string[] ignore)
+        public static T Mask<T>(this T data, params string[]? propertiesToMask)
         {
             if (data == null) throw new ArgumentNullException(nameof(data));
 
-            if (ignore == null) throw new ArgumentNullException(nameof(ignore));
+            if (propertiesToMask == null) throw new ArgumentNullException(nameof(propertiesToMask));
 
-            if (ignore.Length == 0) throw new ArgumentException("Value cannot be an empty collection.", nameof(ignore));
+            if (propertiesToMask.Length == 0) throw new ArgumentException("Value cannot be an empty collection.", nameof(propertiesToMask));
 
             var jo = (JObject) JToken.FromObject(data);
-            var keys = jo.Properties().Where(x => ignore.Any(y => y.Equals(x.Name, StringComparison.OrdinalIgnoreCase))).Select(x => x.Name);
 
-            foreach (var key in keys) jo[key] = "*****";
+            foreach (var propertyToMask in propertiesToMask)
+            {
+                var properties = jo.SelectTokens($"$.{propertyToMask}");
 
-            return jo.ToObject<object>();
+                foreach (var property in properties)
+                {
+                    var key = ((JValue) jo.SelectToken(property.Path));
+                    if(key.Type == JTokenType.String)
+                        key.Value = default(string);
+                    else if (numericTokenTypes.Contains(key.Type))
+                        key.Value = default(int);
+                    else
+                        key.Value = key.Type switch
+                        {
+                            JTokenType.Date => default(DateTime),
+                            JTokenType.TimeSpan => default(TimeSpan),
+                            JTokenType.Array => null,
+                            JTokenType.Object => null,
+                            _ => key.Value
+                        };
+                }
+            }
+            /*var keys = jo.Properties().Where(x => propertiesToMask.Any(y => y.Equals(x.Name, StringComparison.OrdinalIgnoreCase))).Select(x => x);
+            
+            foreach (var key in keys)
+            {
+                jo.ContainsKey()
+                if(key.Value.Type == JTokenType.String)
+                    jo[key.Name] = default(string);
+                else if (numericTokenTypes.Contains(key.Value.Type))
+                    jo[key.Name] = default(int);
+                else
+                    jo[key.Name] = key.Value.Type switch
+                    {
+                        JTokenType.Date => default(DateTime),
+                        JTokenType.TimeSpan => default(TimeSpan),
+                        JTokenType.Array => null,
+                        JTokenType.Object => null,
+                        _ => jo[key.Name]
+                    };
+            }*/
+
+
+            return jo.ToObject<T>();
         }
 
         /// <summary>
@@ -122,7 +164,7 @@ namespace JamesConsulting
         /// <exception cref="ArgumentNullException">
         ///     Thrown when <paramref name="obj" /> or <paramref name="stream" /> is null
         /// </exception>
-        public static Stream SerializeToJsonStream(this object obj, Stream stream)
+        public static Stream SerializeToJsonStream(this object? obj, Stream? stream)
         {
             if (obj == null) throw new ArgumentNullException(nameof(obj));
 

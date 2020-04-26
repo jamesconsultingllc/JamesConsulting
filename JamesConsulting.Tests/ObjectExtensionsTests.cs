@@ -23,17 +23,22 @@ namespace JamesConsulting.Tests
         /// <summary>
         ///     The test.
         /// </summary>
-        public class Test
+        private class Test
         {
             /// <summary>
             ///     Gets or sets the value 1.
             /// </summary>
-            public string Value1 { get; set; }
+            public string? Value1 { get; set; }
 
             /// <summary>
             ///     Gets or sets the value 2.
             /// </summary>
             public int Value2 { get; set; }
+
+            public DateTime Value3 { get; set; }
+            public TimeSpan Value4 { get; set; }
+            
+            public Test2[] Value5 { get; set; }
         }
 
         /// <summary>
@@ -45,7 +50,7 @@ namespace JamesConsulting.Tests
             /// <summary>
             ///     Gets or sets the value 1.
             /// </summary>
-            public string Value1 { get; set; }
+            public string? Value1 { get; set; }
 
             /// <summary>
             ///     Gets or sets the value 2.
@@ -67,9 +72,10 @@ namespace JamesConsulting.Tests
             var test = new Test2 {Value1 = "test", Value2 = 2};
             var bytes = test.ToByteArray();
             var newTest = bytes.FromByteArray<Test2>();
-            newTest.Value1.Should().BeEquivalentTo(test.Value1);
-            newTest.Value2.Should().Be(test.Value2);
-            newTest.Value3.Should().Be(test.Value3);
+            newTest.Should().NotBeNull();
+            newTest?.Value1.Should().BeEquivalentTo(test.Value1);
+            newTest?.Value2.Should().Be(test.Value2);
+            newTest?.Value3.Should().Be(test.Value3);
         }
 
         /// <summary>
@@ -88,8 +94,7 @@ namespace JamesConsulting.Tests
         [Fact]
         public void FromByteArrayNullArrayThrowsArgumentNullException()
         {
-            byte[] bytes = null;
-            Assert.Throws<ArgumentNullException>(() => bytes.FromByteArray<Test>());
+            Assert.Throws<ArgumentNullException>(() => default(byte[])!.FromByteArray<Test>());
         }
 
         /// <summary>
@@ -98,8 +103,7 @@ namespace JamesConsulting.Tests
         [Fact]
         public void MaskAsStaticMethodNullObjectThrowsArgumentNullException()
         {
-            object test = null;
-            Assert.Throws<ArgumentNullException>(() => test.Mask());
+            Assert.Throws<ArgumentNullException>(() => default(object)!.Mask());
         }
 
         /// <summary>
@@ -118,9 +122,22 @@ namespace JamesConsulting.Tests
         [Fact]
         public void MaskMasksGivenValues()
         {
-            var test = new Test {Value1 = "MyPassword", Value2 = 32};
-            dynamic maskedTest = test.Mask("Value2");
-            ((string) maskedTest.Value2.Value).Should().BeEquivalentTo("*****");
+            var test = new Test {Value1 = "MyPassword", Value2 = 32, Value3 = DateTime.Now, Value4 = TimeSpan.FromMinutes(3), Value5 = new []
+            {
+                new Test2 {Value1 = "test", Value2 = 2},
+                new Test2 {Value1 = "test", Value2 = 2},
+                new Test2 {Value1 = "test", Value2 = 2}
+            }};
+            
+            var maskedTest = test.Mask("Value2", "Value3", "Value4", "Value5[*].Value1");
+            maskedTest.Value1.Should().Be("MyPassword");
+            maskedTest.Value2.Should().Be(default);
+            maskedTest.Value3.Should().Be(default);
+            maskedTest.Value4.Should().Be(default);
+            foreach (var value5 in maskedTest.Value5)
+            {
+                value5.Value1.Should().Be(default);
+            }
         }
 
         /// <summary>
@@ -130,7 +147,7 @@ namespace JamesConsulting.Tests
         public void MaskNullIgnoreListThrowsArgumentNullException()
         {
             object test = new Test();
-            Assert.Throws<ArgumentNullException>(() => test.Mask(null));
+            Assert.Throws<ArgumentNullException>(() => test.Mask(default));
         }
 
         /// <summary>
@@ -139,22 +156,19 @@ namespace JamesConsulting.Tests
         [Fact]
         public void MaskNullObjectThrowsArgumentNullException()
         {
-            object test = null;
-            Assert.Throws<ArgumentNullException>(() => test.Mask());
+            Assert.Throws<ArgumentNullException>(() => default(object)!.Mask());
         }
 
         [Fact]
         public void NullObjectToJsonCompactShouldReturnNull()
         {
-            object obj = null;
-            obj.ToJsonCompact().Should().BeNull();
+            default(object)!.ToJsonCompact().Should().BeNull();
         }
 
         [Fact]
         public void NullObjectToJsonShouldReturnNull()
         {
-            object obj = null;
-            obj.ToJson().Should().BeNull();
+            default(object)!.ToJson().Should().BeNull();
         }
 
         [Fact]
@@ -189,8 +203,7 @@ namespace JamesConsulting.Tests
         [Fact]
         public void SerializeToJsonStreamNullObjectThrowsArgumentNullException()
         {
-            object obj = null;
-            Assert.Throws<ArgumentNullException>(() => obj.SerializeToJsonStream(null));
+            Assert.Throws<ArgumentNullException>(() => default(object)!.SerializeToJsonStream(default));
         }
 
         /// <summary>
@@ -200,7 +213,7 @@ namespace JamesConsulting.Tests
         public void SerializeToJsonStreamNullStreamThrowsArgumentNullException()
         {
             var test = new Test2 {Value1 = "test", Value2 = 2};
-            Assert.Throws<ArgumentNullException>(() => test.SerializeToJsonStream(null));
+            Assert.Throws<ArgumentNullException>(() => test.SerializeToJsonStream(default));
         }
 
         [Fact]
@@ -227,12 +240,10 @@ namespace JamesConsulting.Tests
             Assert.Throws<InvalidOperationException>(() => test.ToByteArray());
         }
 
-
         [Fact]
         public void ToByteArrayNullObjectThrowsArgumentNullException()
         {
-            byte[] bytes = null;
-            Assert.Throws<ArgumentNullException>(() => bytes.ToByteArray());
+            Assert.Throws<ArgumentNullException>(() => default(byte[])!.ToByteArray());
         }
     }
 }

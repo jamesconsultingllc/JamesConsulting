@@ -29,7 +29,7 @@ namespace JamesConsulting.IO
         /// <typeparam name="T">
         /// </typeparam>
         /// <returns>
-        ///     The <see cref="T" />.
+        ///     The <typeparamref name="T"/>
         /// </returns>
         /// <exception cref="ArgumentNullException">
         /// </exception>
