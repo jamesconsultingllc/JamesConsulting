@@ -51,8 +51,7 @@ namespace JamesConsulting.Tests.IO
         [Fact]
         public void DeserializeThrowsArgumentNullExceptionWhenStreamIsNull()
         {
-            Stream stream = null;
-            Assert.Throws<ArgumentNullException>(() => stream.DeserializeJson<object>());
+            Assert.Throws<ArgumentNullException>(() => StreamExtensions.DeserializeJson<object>(default));
         }
 
         [Fact]

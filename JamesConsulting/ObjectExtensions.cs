@@ -158,18 +158,16 @@ namespace JamesConsulting
         ///     -or-
         ///     The graph is null.
         /// </exception>
-        public static byte[] ToByteArray(this object obj)
+        public static byte[] ToByteArray(this object? obj)
         {
             if (obj == null) throw new ArgumentNullException(nameof(obj));
 
             if (!obj.GetObjectType().IsSerializable) throw new InvalidOperationException("This object is not serializable");
 
             var binaryFormatter = new BinaryFormatter();
-            using (var memoryStream = new MemoryStream())
-            {
-                binaryFormatter.Serialize(memoryStream, obj);
-                return memoryStream.ToArray();
-            }
+            using var memoryStream = new MemoryStream();
+            binaryFormatter.Serialize(memoryStream, obj);
+            return memoryStream.ToArray();
         }
 
         /// <summary>
@@ -181,7 +179,7 @@ namespace JamesConsulting
         /// <returns>
         ///     The <see cref="string" />.
         /// </returns>
-        public static string? ToJson(this object obj)
+        public static string? ToJson(this object? obj)
         {
             return ToJsonInternal(obj, Formatting.Indented);
         }
@@ -195,7 +193,7 @@ namespace JamesConsulting
         /// <returns>
         ///     The <see cref="string" />.
         /// </returns>
-        public static string? ToJsonCompact(this object obj)
+        public static string? ToJsonCompact(this object? obj)
         {
             return ToJsonInternal(obj, Formatting.None);
         }
@@ -212,13 +210,14 @@ namespace JamesConsulting
         /// <returns>
         ///     The <see cref="string" />.
         /// </returns>
-        private static string? ToJsonInternal(object obj, Formatting formatting)
+        private static string? ToJsonInternal(object? obj, Formatting formatting)
         {
-            if (obj == null) return null;
-
-            if (obj is string objString) return objString;
-
-            return JsonConvert.SerializeObject(obj, formatting);
+            return obj switch
+            {
+                null => null,
+                string objString => objString,
+                _ => JsonConvert.SerializeObject(obj, formatting)
+            };
         }
     }
 }

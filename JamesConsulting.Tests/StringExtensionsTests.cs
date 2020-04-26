@@ -52,7 +52,7 @@ namespace JamesConsulting.Tests
         [InlineData(-1)]
         public void TruncateInvalidLengthThrowsArgumentOutOfRangeException(int length)
         {
-            var arg = "testing";
+            const string arg = "testing";
             Assert.Throws<ArgumentOutOfRangeException>(() => arg.Truncate(length));
         }
 
@@ -72,8 +72,7 @@ namespace JamesConsulting.Tests
         [Fact]
         public void GetBytesNullArgument()
         {
-            string arg = null;
-            Assert.Throws<ArgumentNullException>(() => arg.GetBytes());
+            Assert.Throws<ArgumentNullException>(() => default(string)!.GetBytes());
         }
 
         [Fact]
@@ -90,8 +89,7 @@ namespace JamesConsulting.Tests
         [Fact]
         public void ToTitleCaseNullArgument()
         {
-            string arg = null;
-            Assert.Throws<ArgumentNullException>(() => arg.ToTitleCase());
+            Assert.Throws<ArgumentNullException>(() => default(string)!.ToTitleCase());
         }
 
         /// <summary>
@@ -109,8 +107,7 @@ namespace JamesConsulting.Tests
         [Fact]
         public void TruncateNullStringThrowsArgumentNullException()
         {
-            string arg = null;
-            Assert.Throws<ArgumentNullException>(() => arg.Truncate(0));
+            Assert.Throws<ArgumentNullException>(() => default(string)!.Truncate(0));
         }
     }
 }
