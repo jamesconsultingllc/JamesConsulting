@@ -45,7 +45,7 @@ namespace JamesConsulting.Tests.Cryptography
         [InlineData("")]
         public void HashWithInvalidTargetThrowsArgumentException(string target)
         {
-            Assert.Throws<ArgumentException>(() => target.Hash(null));
+            Assert.Throws<ArgumentException>(() => target.Hash(default!));
         }
 
         /// <summary>
@@ -63,8 +63,7 @@ namespace JamesConsulting.Tests.Cryptography
         [Fact]
         public void Base64DecodeNullThrowsArgumentNullException()
         {
-            string test = null;
-            Assert.Throws<ArgumentNullException>(() => test.Base64Decode());
+            Assert.Throws<ArgumentNullException>(() => default(string)!.Base64Decode());
         }
 
         /// <summary>
@@ -91,8 +90,7 @@ namespace JamesConsulting.Tests.Cryptography
         [Fact]
         public void Base64EncodeNullThrowsArgumentNullException()
         {
-            string test = null;
-            Assert.Throws<ArgumentNullException>(() => test.Base64Encode());
+            Assert.Throws<ArgumentNullException>(() => default(string)!.Base64Encode());
         }
 
         /// <summary>
@@ -110,15 +108,15 @@ namespace JamesConsulting.Tests.Cryptography
         [Fact]
         public void HashInvalidNumberOfRoundsThrowsArgumentOutOfRangeException()
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => "test".Hash(null, -100));
+            Assert.Throws<ArgumentOutOfRangeException>(() => "test".Hash(default!, -100));
         }
 
         [Fact]
         public void HashReturnHashedStringWithSalt()
         {
-            var result = "test".Hash();
-            result.salt.Should().NotBeEmpty();
-            result.hashedString.Should().NotBeNullOrWhiteSpace();
+            var (hashedString, salt) = "test".Hash();
+            salt.Should().NotBeEmpty();
+            hashedString.Should().NotBeNullOrWhiteSpace();
         }
 
         /// <summary>
@@ -127,7 +125,7 @@ namespace JamesConsulting.Tests.Cryptography
         [Fact]
         public void HashWithNullSalt()
         {
-            Assert.Throws<ArgumentNullException>(() => "test".Hash(null));
+            Assert.Throws<ArgumentNullException>(() => "test".Hash(default!));
         }
 
         /// <summary>
@@ -136,7 +134,7 @@ namespace JamesConsulting.Tests.Cryptography
         [Fact]
         public void StringsHashedWithSameSaltShouldBeEqual()
         {
-            var test = "Rudy James";
+            const string test = "Rudy James";
             var salt = JamesConsulting.Cryptography.StringExtensions.GenerateSalt();
             var result = test.Hash(salt);
             var result2 = test.Hash(salt);

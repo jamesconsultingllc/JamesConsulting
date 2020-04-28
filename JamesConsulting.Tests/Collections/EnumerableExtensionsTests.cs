@@ -11,13 +11,13 @@ namespace JamesConsulting.Tests.Collections
         [Fact]
         public void EqualsReturnsFalseWhenArg2IsNull()
         {
-            new[] {new MyClass()}.IsEqualTo(null).Should().BeFalse();
+            new[] {new MyClass()}.IsEqualTo(default!).Should().BeFalse();
         }
 
         [Fact]
         public void EqualsThrowsArgumentNullExceptionWhenArg1IsNull()
         {
-            Assert.Throws<ArgumentNullException>(() => default(IEnumerable<MyInterface>).IsEqualTo(null));
+            Assert.Throws<ArgumentNullException>(() => default(IEnumerable<MyInterface>)!.IsEqualTo(default!));
         }
     }
 }

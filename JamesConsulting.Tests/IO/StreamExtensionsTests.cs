@@ -13,7 +13,7 @@ namespace JamesConsulting.Tests.IO
         [Serializable]
         private class MyClass
         {
-            public string Property1 { get; set; }
+            public string Property1 { get; set; } = string.Empty;
             public int Property2 { get; set; }
 
             public override bool Equals(object? obj)
@@ -51,7 +51,7 @@ namespace JamesConsulting.Tests.IO
         [Fact]
         public void DeserializeThrowsArgumentNullExceptionWhenStreamIsNull()
         {
-            Assert.Throws<ArgumentNullException>(() => StreamExtensions.DeserializeJson<object>(default));
+            Assert.Throws<ArgumentNullException>(() => StreamExtensions.DeserializeJson<object>(default!));
         }
 
         [Fact]
@@ -80,8 +80,7 @@ namespace JamesConsulting.Tests.IO
         [Fact]
         public void IsExecutableThrowsArgumentNullExceptionWhenStreamIsNull()
         {
-            Stream stream = null;
-            Assert.Throws<ArgumentNullException>(() => stream.IsExecutable());
+            Assert.Throws<ArgumentNullException>(() => default(Stream)!.IsExecutable());
         }
     }
 }

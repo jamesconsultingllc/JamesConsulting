@@ -21,10 +21,9 @@ using Xunit;
 namespace JamesConsulting.Tests.Hosting
 {
     /// <summary>
-    ///     The i host extensions tests.
+    ///     The <see cref="HostExtensions" /> tests.
     /// </summary>
-    // ReSharper disable once InconsistentNaming
-    public class IHostExtensionsTests
+    public class HostExtensionsTests
     {
         /// <summary>
         ///     The create initializers.
@@ -37,7 +36,7 @@ namespace JamesConsulting.Tests.Hosting
         /// <returns>
         ///     The <see cref="T:List{Mock{T}}" />.
         /// </returns>
-        private List<Mock<T>> CreateInitializers<T>(int count)
+        private static List<Mock<T>> CreateInitializers<T>(int count)
             where T : class
         {
             var list = new List<Mock<T>>();
@@ -48,10 +47,10 @@ namespace JamesConsulting.Tests.Hosting
         }
 
         /// <summary>
-        ///     The initialize async call initialize on host initalizers.
+        ///     The initialize async call initialize on host initializers.
         /// </summary>
         [Fact]
-        public async Task InitializeAsyncCallInitializeOnHostInitalizers()
+        public async Task InitializeAsyncCallInitializeOnHostInitializers()
         {
             var services = CreateInitializers<IHostInitializerAsync>(3);
             var serviceProvider = new Mock<IServiceProvider>();
@@ -73,14 +72,14 @@ namespace JamesConsulting.Tests.Hosting
         [Fact]
         public async Task InitializeAsyncNullHostThrowsArgumentNullException()
         {
-            await Assert.ThrowsAsync<ArgumentNullException>(() => default(IHost).InitializeAsync()).ConfigureAwait(false);
+            await Assert.ThrowsAsync<ArgumentNullException>(() => default(IHost)!.InitializeAsync()).ConfigureAwait(false);
         }
 
         /// <summary>
-        ///     The initialize call initialize on host initalizers.
+        ///     The initialize call initialize on host initializers.
         /// </summary>
         [Fact]
-        public void InitializeCallInitializeOnHostInitalizers()
+        public void InitializeCallInitializeOnHostInitializers()
         {
             var services = CreateInitializers<IHostInitializer>(3);
             var serviceProvider = new Mock<IServiceProvider>();
@@ -102,8 +101,7 @@ namespace JamesConsulting.Tests.Hosting
         [Fact]
         public void InitializeNullHostThrowsArgumentNullException()
         {
-            IHost host = null;
-            Assert.Throws<ArgumentNullException>(() => host.Initialize());
+            Assert.Throws<ArgumentNullException>(() => default(IHost)!.Initialize());
         }
     }
 }

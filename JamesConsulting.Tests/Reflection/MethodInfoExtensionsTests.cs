@@ -25,8 +25,8 @@ namespace JamesConsulting.Tests.Reflection
         public void ToInvocationStringReadsCachedValue()
         {
             var methodInfo = typeof(string).GetMethod("Insert", new[] {typeof(int), typeof(string)});
-            methodInfo.ToInvocationString(3, "testing");
-            var actualResult = methodInfo.ToInvocationString(3, "testing");
+            methodInfo?.ToInvocationString(3, "testing");
+            var actualResult = methodInfo?.ToInvocationString(3, "testing");
             actualResult.Should()
                 .Be("System.String.Insert(System.Int32 startIndex : 3, System.String value : \"testing\")");
         }
@@ -42,7 +42,7 @@ namespace JamesConsulting.Tests.Reflection
         public void ToInvocationStringSucceeds()
         {
             var methodInfo = typeof(string).GetMethod("Insert", new[] {typeof(int), typeof(string)});
-            var actualResult = methodInfo.ToInvocationString(3, "testing");
+            var actualResult = methodInfo?.ToInvocationString(3, "testing");
             actualResult.Should()
                 .Be("System.String.Insert(System.Int32 startIndex : 3, System.String value : \"testing\")");
         }
@@ -57,8 +57,7 @@ namespace JamesConsulting.Tests.Reflection
         [Fact]
         public void ToInvocationThrowsArgumentNullExceptionWhenMethodInfoIsNull()
         {
-            MethodInfo methodInfo = null;
-            Assert.Throws<ArgumentNullException>(() => methodInfo.ToInvocationString(null));
+            Assert.Throws<ArgumentNullException>(() => default(MethodInfo)!.ToInvocationString(default!));
         }
     }
 }

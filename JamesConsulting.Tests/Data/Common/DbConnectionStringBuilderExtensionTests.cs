@@ -35,7 +35,7 @@ namespace JamesConsulting.Tests.Data.Common
         [Fact]
         public void RemoveKeysThrowsArgumentNullExceptionWhenDbConnectionStringBuilderIsNull()
         {
-            Assert.Throws<ArgumentNullException>(() => default(DbConnectionStringBuilder).RemoveKeys());
+            Assert.Throws<ArgumentNullException>(() => default(DbConnectionStringBuilder)!.RemoveKeys());
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace JamesConsulting.Tests.Data.Common
         [Fact]
         public void RemoveKeysThrowsArgumentNullExceptionWhenKeysIsNull()
         {
-            Assert.Throws<ArgumentNullException>(() => new DbConnectionStringBuilder().RemoveKeys(null));
+            Assert.Throws<ArgumentNullException>(() => new DbConnectionStringBuilder().RemoveKeys(default!));
         }
     }
 }

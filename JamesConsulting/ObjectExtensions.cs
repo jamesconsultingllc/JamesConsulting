@@ -22,7 +22,7 @@ namespace JamesConsulting
     /// </summary>
     public static class ObjectExtensions
     {
-        private static readonly JTokenType[] numericTokenTypes = {JTokenType.Float, JTokenType.Integer};
+        private static readonly JTokenType[] NumericTokenTypes = {JTokenType.Float, JTokenType.Integer};
 
         /// <summary>
         ///     The from byte array.
@@ -34,7 +34,7 @@ namespace JamesConsulting
         ///     The type of the object to create from the <paramref name="byteArray" />
         /// </typeparam>
         /// <returns>
-        ///     The <see cref="T" />.
+        ///     An instance of <typeparamref name="T"/> deserialized from they <paramref name="byteArray"/>
         /// </returns>
         /// <exception cref="T:System.Runtime.Serialization.SerializationException">
         ///     The serializationStream supports seeking, but its length is 0.
@@ -112,7 +112,7 @@ namespace JamesConsulting
                     var key = ((JValue) jo.SelectToken(property.Path));
                     if(key.Type == JTokenType.String)
                         key.Value = default(string);
-                    else if (numericTokenTypes.Contains(key.Type))
+                    else if (NumericTokenTypes.Contains(key.Type))
                         key.Value = default(int);
                     else
                         key.Value = key.Type switch
@@ -125,26 +125,6 @@ namespace JamesConsulting
                         };
                 }
             }
-            /*var keys = jo.Properties().Where(x => propertiesToMask.Any(y => y.Equals(x.Name, StringComparison.OrdinalIgnoreCase))).Select(x => x);
-            
-            foreach (var key in keys)
-            {
-                jo.ContainsKey()
-                if(key.Value.Type == JTokenType.String)
-                    jo[key.Name] = default(string);
-                else if (numericTokenTypes.Contains(key.Value.Type))
-                    jo[key.Name] = default(int);
-                else
-                    jo[key.Name] = key.Value.Type switch
-                    {
-                        JTokenType.Date => default(DateTime),
-                        JTokenType.TimeSpan => default(TimeSpan),
-                        JTokenType.Array => null,
-                        JTokenType.Object => null,
-                        _ => jo[key.Name]
-                    };
-            }*/
-
 
             return jo.ToObject<T>();
         }
@@ -153,7 +133,7 @@ namespace JamesConsulting
         ///     The serialize to JSON stream.
         /// </summary>
         /// <param name="obj">
-        ///     The obj.
+        ///     The object to be serialized to Json
         /// </param>
         /// <param name="stream">
         ///     The stream.
