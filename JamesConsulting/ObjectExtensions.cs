@@ -110,7 +110,7 @@ namespace JamesConsulting
                 foreach (var property in properties)
                 {
                     var key = ((JValue) jo.SelectToken(property.Path));
-                    if(key.Type == JTokenType.String)
+                    if (key.Type == JTokenType.String)
                         key.Value = default(string);
                     else if (NumericTokenTypes.Contains(key.Type))
                         key.Value = default(int);

@@ -16,7 +16,7 @@ namespace JamesConsulting.Tests.Threading
         {
             var result = InstanceType.GetMethod("GetClassById")!.CreateTaskResult(new MyClass {X = 1});
             result.Should().BeOfType<Task<MyClass>>();
-            (result as Task<MyClass>)?.Result.X.Should().Be(1);
+            (result as Task<MyClass>)!.Result.X.Should().Be(1);
         }
 
         [Fact]
