@@ -125,7 +125,7 @@ namespace JamesConsulting.Tests.Cryptography
         [Fact]
         public void HashWithNullSalt()
         {
-            Assert.Throws<ArgumentNullException>(() => "test".Hash(default!));
+            Assert.Throws<ArgumentNullException>(() => "test".Hash(null!));
         }
 
         /// <summary>
