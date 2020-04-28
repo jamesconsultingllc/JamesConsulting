@@ -27,8 +27,7 @@ namespace JamesConsulting.Tests
             /// <summary>
             ///     The with.
             /// </summary>
-            [Description("Testing")]
-            With,
+            [Description("Testing")] With,
 
             /// <summary>
             ///     The without.

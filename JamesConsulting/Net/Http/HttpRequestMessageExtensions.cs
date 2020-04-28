@@ -21,63 +21,50 @@ namespace JamesConsulting.Net.Http
     public static class HttpRequestMessageExtensions
     {
         /// <summary>
-        /// The set headers.
+        ///     The set headers.
         /// </summary>
         /// <param name="httpRequestMessage">
-        /// The http request message.
+        ///     The http request message.
         /// </param>
         /// <param name="headers">
-        /// The headers.
+        ///     The headers.
         /// </param>
         /// <returns>
-        /// The <see cref="HttpRequestMessage"/>.
+        ///     The <see cref="HttpRequestMessage" />.
         /// </returns>
         /// <exception cref="ArgumentNullException">
-        /// Thrown when the <paramref name="httpRequestMessage"/> or <paramref name="headers"/> is null
+        ///     Thrown when the <paramref name="httpRequestMessage" /> or <paramref name="headers" /> is null
         /// </exception>
         public static HttpRequestMessage SetHeaders(this HttpRequestMessage httpRequestMessage, IDictionary<string, string> headers)
         {
             Validate(httpRequestMessage, headers);
 
-            if (httpRequestMessage.Headers.Any())
-            {
-                httpRequestMessage.Headers.Clear();
-            }
+            if (httpRequestMessage.Headers.Any()) httpRequestMessage.Headers.Clear();
 
             foreach (var headerKey in headers.Keys)
-            {
                 if (headers[headerKey] != null)
-                {
                     httpRequestMessage.Headers.Add(headerKey, headers[headerKey]);
-                }
-            }
 
             return httpRequestMessage;
         }
 
         /// <summary>
-        /// The validate.
+        ///     The validate.
         /// </summary>
         /// <param name="httpRequestMessage">
-        /// The http request message.
+        ///     The http request message.
         /// </param>
         /// <param name="headers">
-        /// The headers.
+        ///     The headers.
         /// </param>
         /// <exception cref="ArgumentNullException">
-        /// Thrown when the <paramref name="httpRequestMessage"/> or <paramref name="headers"/> is null
+        ///     Thrown when the <paramref name="httpRequestMessage" /> or <paramref name="headers" /> is null
         /// </exception>
         private static void Validate(HttpRequestMessage httpRequestMessage, IDictionary<string, string> headers)
         {
-            if (httpRequestMessage == null)
-            {
-                throw new ArgumentNullException(nameof(httpRequestMessage));
-            }
+            if (httpRequestMessage == null) throw new ArgumentNullException(nameof(httpRequestMessage));
 
-            if (headers == null)
-            {
-                throw new ArgumentNullException(nameof(headers));
-            }
+            if (headers == null) throw new ArgumentNullException(nameof(headers));
         }
     }
 }

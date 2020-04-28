@@ -9,15 +9,15 @@ namespace JamesConsulting.Tests.Collections
     public class EnumerableExtensionsTests
     {
         [Fact]
-        public void EqualsThrowsArgumentNullExceptionWhenArg1IsNull()
+        public void EqualsReturnsFalseWhenArg2IsNull()
         {
-            Assert.Throws<ArgumentNullException>(() => default(IEnumerable<MyInterface>).IsEqualTo(null));
+            new[] {new MyClass()}.IsEqualTo(default!).Should().BeFalse();
         }
 
         [Fact]
-        public void EqualsReturnsFalseWhenArg2IsNull()
+        public void EqualsThrowsArgumentNullExceptionWhenArg1IsNull()
         {
-            new[] {new MyClass()}.IsEqualTo(null).Should().BeFalse();
+            Assert.Throws<ArgumentNullException>(() => default(IEnumerable<MyInterface>)!.IsEqualTo(default!));
         }
     }
 }

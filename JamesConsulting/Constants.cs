@@ -9,7 +9,7 @@
 //  ----------------------------------------------------------------------------------------------------------------------
 
 using System;
-using System.Collections.Generic;
+using System.Collections.Concurrent;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
@@ -47,9 +47,9 @@ namespace JamesConsulting
         public static readonly Type TaskType = typeof(Task);
 
         /// <summary>
-        /// The type methods.
+        ///     The type methods.
         /// </summary>
-        public static readonly Dictionary<Type, MethodInfo[]> TypeMethods = new Dictionary<Type, MethodInfo[]>();
+        public static readonly ConcurrentDictionary<Type, MethodInfo[]> TypeMethods = new ConcurrentDictionary<Type, MethodInfo[]>();
 
         /// <summary>
         ///     The void type.
@@ -59,6 +59,6 @@ namespace JamesConsulting
         /// <summary>
         ///     The method templates.
         /// </summary>
-        public static readonly Dictionary<MethodInfo, (ParameterInfo[] Parameters, string Template)> MethodTemplates = new Dictionary<MethodInfo, (ParameterInfo[] Parameters, string Template)>();
+        public static readonly ConcurrentDictionary<MethodInfo, (ParameterInfo[] Parameters, string Template)> MethodTemplates = new ConcurrentDictionary<MethodInfo, (ParameterInfo[] Parameters, string Template)>();
     }
 }

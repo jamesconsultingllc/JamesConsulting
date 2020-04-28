@@ -10,17 +10,38 @@ namespace JamesConsulting.Tests.IO
 {
     public class StreamExtensionsTests
     {
-        [Fact]
-        public void DeserializeThrowsArgumentNullExceptionWhenStreamIsNull()
+        [Serializable]
+        private class MyClass
         {
-            Stream stream = null;
-            Assert.Throws<ArgumentNullException>(() => stream.DeserializeJson<object>());
+            public string Property1 { get; set; } = string.Empty;
+            public int Property2 { get; set; }
+
+            public override bool Equals(object? obj)
+            {
+                if (!(obj is MyClass myClass))
+                    return false;
+
+                return myClass.Property1 == Property1 && myClass.Property2 == Property2;
+            }
+
+            public override int GetHashCode()
+            {
+#if NET461
+                var hashcode = 35203352;
+                var offset = -1521134295;
+                hashcode *= offset + Property1.GetHashCode();
+                hashcode *= offset + Property2.GetHashCode();
+                return hashcode;
+#else
+                return HashCode.Combine(Property1, Property2);
+#endif
+            }
         }
 
         [Fact]
         public void DeserializeStreamRecreatesObject()
         {
-            var test = new MyClass { Property1 = "Test", Property2 = 3 };
+            var test = new MyClass {Property1 = "Test", Property2 = 3};
             var ms = test.SerializeToJsonStream(new MemoryStream());
             var newTest = ms.DeserializeJson<MyClass>();
             newTest.Should().NotBeNull();
@@ -28,17 +49,16 @@ namespace JamesConsulting.Tests.IO
         }
 
         [Fact]
-        public void IsExecutableThrowsArgumentNullExceptionWhenStreamIsNull()
+        public void DeserializeThrowsArgumentNullExceptionWhenStreamIsNull()
         {
-            Stream stream = null;
-            Assert.Throws<ArgumentNullException>(() => stream.IsExecutable());
+            Assert.Throws<ArgumentNullException>(() => StreamExtensions.DeserializeJson<object>(default!));
         }
 
         [Fact]
         public void IsExecutableExeStream()
         {
             var stream = new MemoryStream();
-            BinaryWriter writer = new BinaryWriter(stream, Encoding.UTF8);
+            var writer = new BinaryWriter(stream, Encoding.UTF8);
             writer.Write('M');
             writer.Write('Z');
             writer.Write("<Z1234239075032850jfddfjsldfjsdf");
@@ -50,34 +70,17 @@ namespace JamesConsulting.Tests.IO
         public void IsExecutableNonExeStream()
         {
             var stream = new MemoryStream();
-            BinaryWriter writer = new BinaryWriter(stream, Encoding.UTF8);
+            var writer = new BinaryWriter(stream, Encoding.UTF8);
             writer.Write('Z');
             writer.Write("<Z1234239075032850jfddfjsldfjsdf");
             writer.Flush();
             stream.IsExecutable().Should().BeFalse();
         }
 
-        [Serializable]
-        private class MyClass
+        [Fact]
+        public void IsExecutableThrowsArgumentNullExceptionWhenStreamIsNull()
         {
-            public string Property1 { get; set; }
-            public int Property2 { get; set; }
-
-            public override bool Equals(object obj)
-            {
-
-                var myClass = obj as MyClass;
-
-                if(myClass == null)
-                    return false;
-
-                return myClass.Property1 == Property1 && myClass.Property2 == Property2;
-            }
-
-            public override int GetHashCode()
-            {
-                return HashCode.Combine(Property1, Property2);
-            }
+            Assert.Throws<ArgumentNullException>(() => default(Stream)!.IsExecutable());
         }
     }
 }

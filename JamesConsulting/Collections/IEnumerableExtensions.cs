@@ -15,33 +15,31 @@ using System.Linq;
 namespace JamesConsulting.Collections
 {
     /// <summary>
-    /// The i enumerable extensions.
+    ///     The i enumerable extensions.
     /// </summary>
     public static class EnumerableExtensions
     {
         /// <summary>
-        /// The equals.
+        ///     The equals.
         /// </summary>
         /// <param name="arg1">
-        /// The arg 1.
+        ///     The arg 1.
         /// </param>
         /// <param name="arg2">
-        /// The arg 2.
+        ///     The arg 2.
         /// </param>
         /// <param name="comparer">
-        /// The comparer.
+        ///     The comparer.
         /// </param>
         /// <typeparam name="T">
         /// </typeparam>
         /// <returns>
-        /// The <see cref="bool"/>.
+        ///     The <see cref="bool" />.
         /// </returns>
-        public static bool IsEqualTo<T>(this IEnumerable<T> arg1, IEnumerable<T> arg2, IEqualityComparer<T> comparer = null)
+        public static bool IsEqualTo<T>(this IEnumerable<T> arg1, IEnumerable<T> arg2, IEqualityComparer<T>? comparer = null)
         {
             if (arg1 == null) throw new ArgumentNullException(nameof(arg1));
-            if (arg2 == null) return false;
-            
-            return arg1.SequenceEqual(arg2, comparer);
+            return arg2 != null && arg1.SequenceEqual(arg2, comparer);
         }
     }
 }

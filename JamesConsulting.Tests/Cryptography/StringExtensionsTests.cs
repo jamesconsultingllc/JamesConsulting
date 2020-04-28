@@ -21,6 +21,34 @@ namespace JamesConsulting.Tests.Cryptography
     public class StringExtensionsTests
     {
         /// <summary>
+        ///     The hash null argument.
+        /// </summary>
+        /// <param name="target">
+        ///     The target.
+        /// </param>
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        public void HashInvalidTargetThrowsArgumentException(string target)
+        {
+            Assert.Throws<ArgumentException>(() => target.Hash());
+        }
+
+        /// <summary>
+        ///     The hash with invalid target.
+        /// </summary>
+        /// <param name="target">
+        ///     The target.
+        /// </param>
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        public void HashWithInvalidTargetThrowsArgumentException(string target)
+        {
+            Assert.Throws<ArgumentException>(() => target.Hash(default!));
+        }
+
+        /// <summary>
         ///     The base 64 decode empty string returns empty string.
         /// </summary>
         [Fact]
@@ -35,8 +63,7 @@ namespace JamesConsulting.Tests.Cryptography
         [Fact]
         public void Base64DecodeNullThrowsArgumentNullException()
         {
-            string test = null;
-            Assert.Throws<ArgumentNullException>(() => test.Base64Decode());
+            Assert.Throws<ArgumentNullException>(() => default(string)!.Base64Decode());
         }
 
         /// <summary>
@@ -63,8 +90,7 @@ namespace JamesConsulting.Tests.Cryptography
         [Fact]
         public void Base64EncodeNullThrowsArgumentNullException()
         {
-            string test = null;
-            Assert.Throws<ArgumentNullException>(() => test.Base64Encode());
+            Assert.Throws<ArgumentNullException>(() => default(string)!.Base64Encode());
         }
 
         /// <summary>
@@ -82,35 +108,15 @@ namespace JamesConsulting.Tests.Cryptography
         [Fact]
         public void HashInvalidNumberOfRoundsThrowsArgumentOutOfRangeException()
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => "test".Hash(null, -100));
+            Assert.Throws<ArgumentOutOfRangeException>(() => "test".Hash(default!, -100));
         }
 
-        /// <summary>
-        /// The hash null argument.
-        /// </summary>
-        /// <param name="target">
-        /// The target.
-        /// </param>
-        [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        public void HashInvalidTargetThrowsArgumentException(string target)
+        [Fact]
+        public void HashReturnHashedStringWithSalt()
         {
-            Assert.Throws<ArgumentException>(() => target.Hash());
-        }
-
-        /// <summary>
-        /// The hash with invalid target.
-        /// </summary>
-        /// <param name="target">
-        /// The target.
-        /// </param>
-        [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        public void HashWithInvalidTargetThrowsArgumentException(string target)
-        {
-            Assert.Throws<ArgumentException>(() => target.Hash(null));
+            var (hashedString, salt) = "test".Hash();
+            salt.Should().NotBeEmpty();
+            hashedString.Should().NotBeNullOrWhiteSpace();
         }
 
         /// <summary>
@@ -119,24 +125,16 @@ namespace JamesConsulting.Tests.Cryptography
         [Fact]
         public void HashWithNullSalt()
         {
-            Assert.Throws<ArgumentNullException>(() => "test".Hash(null));
+            Assert.Throws<ArgumentNullException>(() => "test".Hash(null!));
         }
 
-        [Fact]
-        public void HashReturnHashedStringWithSalt()
-        {
-            var result = "test".Hash();
-            result.salt.Should().NotBeEmpty();
-            result.hashedString.Should().NotBeNullOrWhiteSpace();
-        }
-        
         /// <summary>
         ///     The hash string.
         /// </summary>
         [Fact]
         public void StringsHashedWithSameSaltShouldBeEqual()
         {
-            var test = "Rudy James";
+            const string test = "Rudy James";
             var salt = JamesConsulting.Cryptography.StringExtensions.GenerateSalt();
             var result = test.Hash(salt);
             var result2 = test.Hash(salt);

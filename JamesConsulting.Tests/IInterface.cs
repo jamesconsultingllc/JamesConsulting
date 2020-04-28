@@ -18,44 +18,44 @@ namespace JamesConsulting.Tests
     internal interface IInterface
     {
         /// <summary>
-        /// The get class by id.
+        ///     The get class by id.
         /// </summary>
         /// <param name="id">
-        /// The id.
+        ///     The id.
         /// </param>
         /// <returns>
-        /// The <see cref="Task{MyClass}"/>.
+        ///     The <see cref="Task{MyClass}" />.
         /// </returns>
         Task<MyClass> GetClassById(int id);
 
         /// <summary>
-        /// The test.
+        ///     The test.
         /// </summary>
         /// <param name="x">
-        /// The x.
+        ///     The x.
         /// </param>
         /// <param name="y">
-        /// The y.
+        ///     The y.
         /// </param>
         /// <param name="myClass">
-        /// The my class.
+        ///     The my class.
         /// </param>
         void Test(int x, string y, MyClass myClass);
 
         /// <summary>
-        /// The test async.
+        ///     The test async.
         /// </summary>
         /// <param name="x">
-        /// The x.
+        ///     The x.
         /// </param>
         /// <param name="y">
-        /// The y.
+        ///     The y.
         /// </param>
         /// <param name="myClass">
-        /// The my class.
+        ///     The my class.
         /// </param>
         /// <returns>
-        /// The <see cref="Task"/>.
+        ///     The <see cref="Task" />.
         /// </returns>
         Task TestAsync(int x, string y, MyClass myClass);
     }

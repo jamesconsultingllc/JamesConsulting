@@ -14,21 +14,21 @@ using System.Reflection;
 namespace JamesConsulting.Threading
 {
     /// <summary>
-    /// The method info extensions.
+    ///     The method info extensions.
     /// </summary>
     public static class MethodInfoExtensions
     {
         /// <summary>
-        /// The create task result.
+        ///     The create task result.
         /// </summary>
         /// <param name="methodInfo">
-        /// The method info.
+        ///     The method info.
         /// </param>
         /// <param name="results">
-        /// The results.
+        ///     The results.
         /// </param>
         /// <returns>
-        /// The <see cref="object"/>.
+        ///     The <see cref="object" />.
         /// </returns>
         /// <exception cref="ArgumentNullException">
         /// </exception>
@@ -36,20 +36,14 @@ namespace JamesConsulting.Threading
         /// </exception>
         public static object CreateTaskResult(this MethodInfo methodInfo, dynamic results)
         {
-            if (methodInfo == null)
-            {
-                throw new ArgumentNullException(nameof(methodInfo));
-            }
+            if (methodInfo == null) throw new ArgumentNullException(nameof(methodInfo));
 
-            if (methodInfo.ReturnType == TypeConstants.VoidType)
-            {
-                throw new ArgumentException($"{methodInfo} has a return type of void.");
-            }
+            if (methodInfo.ReturnType == TypeConstants.VoidType) throw new ArgumentException($"{methodInfo} has a return type of void.");
 
             var resultType = TypeConstants.TaskCompletionSourceType.MakeGenericType(methodInfo.ReturnType.GetGenericArguments());
             object taskSource = Activator.CreateInstance(resultType);
             var taskType = taskSource.GetType();
-            taskType.InvokeMember("SetResult", BindingFlags.Instance | BindingFlags.Public | BindingFlags.InvokeMethod, null, taskSource, new[] { results });
+            taskType.InvokeMember("SetResult", BindingFlags.Instance | BindingFlags.Public | BindingFlags.InvokeMethod, null, taskSource, new[] {results});
             return taskType.InvokeMember("Task", BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty, null, taskSource, null);
         }
     }

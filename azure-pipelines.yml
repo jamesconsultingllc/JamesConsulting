@@ -4,7 +4,7 @@
 # https://aka.ms/yaml
 variables:
   SonarKey: 'jamesconsultingllc_JamesConsulting.Core'
-  Version: '1.0.0-alpha2'
+  Version: '1.0.0-beta001'
   buildConfiguration: 'Release'
 trigger:
 - master
@@ -41,6 +41,7 @@ steps:
     nobuild: true
     versioningScheme: 'byEnvVar'
     versionEnvVar: Version
+    arguments: '--configuration $(buildConfiguration)'
 - task: SonarCloudAnalyze@1
 - task: SonarCloudPublish@1
   inputs:

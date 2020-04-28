@@ -11,10 +11,10 @@
 namespace JamesConsulting
 {
     /// <summary>
-    /// The mime types.
+    ///     The mime types.
     /// </summary>
     /// <summary>
-    /// The mime types.
+    ///     The mime types.
     /// </summary>
     public static class MimeTypes
     {
@@ -24,7 +24,7 @@ namespace JamesConsulting
         public static class Application
         {
             /// <summary>
-            ///     The atomcat xml.
+            ///     The mime type application/atomcat+xml.
             /// </summary>
             public const string AtomcatXml = "application/atomcat+xml";
 

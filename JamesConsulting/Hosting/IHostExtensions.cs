@@ -21,56 +21,47 @@ namespace JamesConsulting.Hosting
     public static class HostExtensions
     {
         /// <summary>
-        /// The initialize.
+        ///     The initialize.
         /// </summary>
         /// <param name="host">
-        /// The host.
+        ///     The host.
         /// </param>
         public static void Initialize(this IHost host)
         {
-            if (host == null)
-            {
-                throw new ArgumentNullException(nameof(host));
-            }
+            if (host == null) throw new ArgumentNullException(nameof(host));
 
             using (var scope = host.Services.CreateScope())
             {
                 var services = scope.ServiceProvider.GetServices<IHostInitializer>();
 
-                if (services != null)
-                {
-                    Parallel.ForEach(services, svc => svc.Initialize());
-                }
+                if (services != null) Parallel.ForEach(services, svc => svc.Initialize());
             }
         }
 
         /// <summary>
-        /// The initialize async.
+        ///     The initialize async.
         /// </summary>
         /// <param name="host">
-        /// The host.
+        ///     The host.
         /// </param>
         /// <returns>
-        /// The <see cref="Task"/>.
+        ///     The <see cref="Task" />.
         /// </returns>
         public static Task InitializeAsync(this IHost host)
         {
-            if (host == null)
-            {
-                throw new ArgumentNullException(nameof(host));
-            }
+            if (host == null) throw new ArgumentNullException(nameof(host));
 
             return host.InitializeInternalAsync();
         }
 
         /// <summary>
-        /// The initialize internal async.
+        ///     The initialize internal async.
         /// </summary>
         /// <param name="host">
-        /// The host.
+        ///     The host.
         /// </param>
         /// <returns>
-        /// The <see cref="Task"/>.
+        ///     The <see cref="Task" />.
         /// </returns>
         private static async Task InitializeInternalAsync(this IHost host)
         {
@@ -78,10 +69,7 @@ namespace JamesConsulting.Hosting
             {
                 var services = scope.ServiceProvider.GetServices<IHostInitializerAsync>();
 
-                if (services != null)
-                {
-                    await Task.Run(() => Parallel.ForEach(services, svc => svc.InitializeAsync())).ConfigureAwait(false);
-                }
+                if (services != null) await Task.Run(() => Parallel.ForEach(services, svc => svc.InitializeAsync())).ConfigureAwait(false);
             }
         }
     }

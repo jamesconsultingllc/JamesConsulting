@@ -9,26 +9,26 @@ namespace JamesConsulting.Tests.Threading
 {
     public class MethodInfoExtensionsTests
     {
-        private static readonly Type instanceType = typeof(MyInterface);
-        
+        private static readonly Type InstanceType = typeof(MyInterface);
+
         [Fact]
-        public void CreateTaskResultThrowsArgumentNullException()
+        public void CreateTaskResultReturnsTaskResult()
         {
-            Assert.Throws<ArgumentNullException>(() => default(MethodInfo).CreateTaskResult(null));
+            var result = InstanceType.GetMethod("GetClassById")!.CreateTaskResult(new MyClass {X = 1});
+            result.Should().BeOfType<Task<MyClass>>();
+            (result as Task<MyClass>)!.Result.X.Should().Be(1);
         }
 
         [Fact]
         public void CreateTaskResultReturnTypeNullThrowsArgumentException()
         {
-            Assert.Throws<ArgumentException>(() => instanceType.GetMethod("Test").CreateTaskResult(null));
+            Assert.Throws<ArgumentException>(() => InstanceType.GetMethod("Test")!.CreateTaskResult(default!));
         }
 
         [Fact]
-        public void CreateTaskResultReturnsTaskResult()
+        public void CreateTaskResultThrowsArgumentNullException()
         {
-            var result = instanceType.GetMethod("GetClassById").CreateTaskResult(new MyClass() { X = 1 });
-            result.Should().BeOfType<Task<MyClass>>();
-            (result as Task<MyClass>).Result.X.Should().Be(1);
+            Assert.Throws<ArgumentNullException>(() => default(MethodInfo)!.CreateTaskResult(default!));
         }
     }
 }

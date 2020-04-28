@@ -20,6 +20,43 @@ namespace JamesConsulting.Tests
     public class StringExtensionsTests
     {
         /// <summary>
+        ///     The to title case.
+        /// </summary>
+        /// <param name="stringToConvertToTitleCase">
+        ///     The string to convert to title case.
+        /// </param>
+        /// <param name="titleCasedString">
+        ///     The title cased string.
+        /// </param>
+        /// <param name="expectedResult">
+        ///     The expected result.
+        /// </param>
+        [Theory]
+        [InlineData("rudy james", "Rudy James", true)]
+        [InlineData("rudy james", "Rudy james", false)]
+        [InlineData("", "", true)]
+        public void ToTitleCase(string stringToConvertToTitleCase, string titleCasedString, bool expectedResult)
+        {
+            var result = string.Equals(stringToConvertToTitleCase.ToTitleCase(), titleCasedString, StringComparison.Ordinal);
+            result.Should().Be(expectedResult);
+        }
+
+        /// <summary>
+        ///     The truncate invalid length throws argument out of range exception.
+        /// </summary>
+        /// <param name="length">
+        ///     The length.
+        /// </param>
+        [Theory]
+        [InlineData(0)]
+        [InlineData(-1)]
+        public void TruncateInvalidLengthThrowsArgumentOutOfRangeException(int length)
+        {
+            const string arg = "testing";
+            Assert.Throws<ArgumentOutOfRangeException>(() => arg.Truncate(length));
+        }
+
+        /// <summary>
         ///     The get bytes empty string returns empty byte array.
         /// </summary>
         [Fact]
@@ -35,38 +72,15 @@ namespace JamesConsulting.Tests
         [Fact]
         public void GetBytesNullArgument()
         {
-            string arg = null;
-            Assert.Throws<ArgumentNullException>(() => arg.GetBytes());
+            Assert.Throws<ArgumentNullException>(() => default(string)!.GetBytes());
         }
 
         [Fact]
         public void GetBytesReturnsByteArray()
         {
             var bytes = "Test".GetBytes();
-                bytes.Should().NotBeNull();
-                bytes.Should().NotBeEmpty();
-        }
-
-        /// <summary>
-        /// The to title case.
-        /// </summary>
-        /// <param name="stringToConvertToTitleCase">
-        /// The string to convert to title case.
-        /// </param>
-        /// <param name="titleCasedString">
-        /// The title cased string.
-        /// </param>
-        /// <param name="expectedResult">
-        /// The expected result.
-        /// </param>
-        [Theory]
-        [InlineData("rudy james", "Rudy James", true)]
-        [InlineData("rudy james", "Rudy james", false)]
-        [InlineData("", "", true)]
-        public void ToTitleCase(string stringToConvertToTitleCase, string titleCasedString, bool expectedResult)
-        {
-            var result = string.Equals(stringToConvertToTitleCase.ToTitleCase(), titleCasedString, StringComparison.Ordinal);
-            result.Should().Be(expectedResult);
+            bytes.Should().NotBeNull();
+            bytes.Should().NotBeEmpty();
         }
 
         /// <summary>
@@ -75,8 +89,7 @@ namespace JamesConsulting.Tests
         [Fact]
         public void ToTitleCaseNullArgument()
         {
-            string arg = null;
-            Assert.Throws<ArgumentNullException>(() => arg.ToTitleCase());
+            Assert.Throws<ArgumentNullException>(() => default(string)!.ToTitleCase());
         }
 
         /// <summary>
@@ -89,28 +102,12 @@ namespace JamesConsulting.Tests
         }
 
         /// <summary>
-        /// The truncate invalid length throws argument out of range exception.
-        /// </summary>
-        /// <param name="length">
-        /// The length.
-        /// </param>
-        [Theory]
-        [InlineData(0)]
-        [InlineData(-1)]
-        public void TruncateInvalidLengthThrowsArgumentOutOfRangeException(int length)
-        {
-            var arg = "testing";
-            Assert.Throws<ArgumentOutOfRangeException>(() => arg.Truncate(length));
-        }
-
-        /// <summary>
         ///     The truncate null string throws argument null exception.
         /// </summary>
         [Fact]
         public void TruncateNullStringThrowsArgumentNullException()
         {
-            string arg = null;
-            Assert.Throws<ArgumentNullException>(() => arg.Truncate(0));
+            Assert.Throws<ArgumentNullException>(() => default(string)!.Truncate(0));
         }
     }
 }

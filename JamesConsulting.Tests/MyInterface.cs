@@ -22,7 +22,7 @@ namespace JamesConsulting.Tests
         public async Task<MyClass> GetClassById(int id)
         {
             await Task.Delay(100).ConfigureAwait(false);
-            return new MyClass { X = id, Y = id.ToString() };
+            return new MyClass {X = id, Y = id.ToString()};
         }
 
         /// <inheritdoc />
