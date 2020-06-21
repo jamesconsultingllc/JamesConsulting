@@ -10,6 +10,7 @@
 
 using System;
 using System.Data.Common;
+using FluentAssertions;
 using JamesConsulting.Data.Common;
 using Xunit;
 
@@ -45,6 +46,21 @@ namespace JamesConsulting.Tests.Data.Common
         public void RemoveKeysThrowsArgumentNullExceptionWhenKeysIsNull()
         {
             Assert.Throws<ArgumentNullException>(() => new DbConnectionStringBuilder().RemoveKeys(default!));
+        }
+
+        [Fact]
+        public void RemoveKeysFromConnectionString()
+        {
+            DbConnectionStringBuilder dbConnectionStringBuilder = new DbConnectionStringBuilder
+            {
+                ConnectionString = "Server=myServerAddress;Database=myDataBase;User Id=myUsername;Password=myPassword;"
+            };
+
+            dbConnectionStringBuilder.ConnectionString.Contains("myPassword").Should().BeTrue();
+            
+            dbConnectionStringBuilder.RemoveKeys("Password");
+            
+            dbConnectionStringBuilder.ConnectionString.Contains("myPassword").Should().BeFalse();
         }
     }
 }

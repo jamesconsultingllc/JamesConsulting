@@ -115,9 +115,7 @@ namespace JamesConsulting.Reflection
         {
             if (parameterValue == null || parameterInfo.ParameterType.IsPrimitive) return parameterValue;
 
-            if (parameterValue is string) return $"\"{parameterValue}\"";
-
-            return parameterValue.ToJson();
+            return parameterValue is string ? $"\"{parameterValue}\"" : parameterValue.ToJson();
         }
 
         /// <summary>

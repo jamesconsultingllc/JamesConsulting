@@ -136,11 +136,9 @@ namespace JamesConsulting.Cryptography
 
             if (salt == null) throw new ArgumentNullException(nameof(salt));
 
-            using (var rfc2898DeriveBytes = new Rfc2898DeriveBytes(Encoding.UTF8.GetBytes(target), salt, numberOfRounds))
-            {
-                var hash = rfc2898DeriveBytes.GetBytes(32);
-                return Convert.ToBase64String(hash);
-            }
+            using var rfc2898DeriveBytes = new Rfc2898DeriveBytes(Encoding.UTF8.GetBytes(target), salt, numberOfRounds);
+            var hash = rfc2898DeriveBytes.GetBytes(32);
+            return Convert.ToBase64String(hash);
         }
 
         /// <summary>
@@ -163,7 +161,7 @@ namespace JamesConsulting.Cryptography
         {
             if (string.IsNullOrEmpty(target)) throw new ArgumentException(nameof(target));
 
-            if (numberOfRounds < 0) throw new ArgumentOutOfRangeException(nameof(numberOfRounds));
+            if (numberOfRounds <= 0) throw new ArgumentOutOfRangeException(nameof(numberOfRounds));
         }
 
         /// <summary>
