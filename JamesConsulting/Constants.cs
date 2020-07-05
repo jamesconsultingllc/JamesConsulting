@@ -1,6 +1,6 @@
 ﻿//  ----------------------------------------------------------------------------------------------------------------------
 //  <copyright file="Constants.cs" company="James Consulting LLC">
-//    Copyright © 2019 All Rights Reserved 
+//    Copyright © 2020 All Rights Reserved 
 //  </copyright>
 //  <author>Rudy James</author>
 //  <summary>

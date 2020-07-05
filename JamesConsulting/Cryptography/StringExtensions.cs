@@ -1,6 +1,6 @@
 ﻿//  ----------------------------------------------------------------------------------------------------------------------
 //  <copyright file="StringExtensions.cs" company="James Consulting LLC">
-//    Copyright (c) 2019 All Rights Reserved
+//    Copyright (c) 2020 All Rights Reserved
 //  </copyright>
 //  <author>Rudy James</author>
 //  <summary>
@@ -11,6 +11,7 @@
 using System;
 using System.Security.Cryptography;
 using System.Text;
+using PostSharp.Patterns.Contracts;
 
 namespace JamesConsulting.Cryptography
 {
@@ -25,18 +26,20 @@ namespace JamesConsulting.Cryptography
         /// <param name="encoded">
         ///     The encoded.
         /// </param>
+        /// <param name="encoding">
+        ///     The encoding used to decode the string. Uses <see cref="Encoding.Default" /> when null.
+        /// </param>
         /// <returns>
         ///     The <see cref="string" />.
         /// </returns>
         /// <exception cref="ArgumentNullException">
         ///     <paramref name="encoded" /> is <see langword="null" />
         /// </exception>
-        public static string Base64Decode(this string encoded)
+        public static string Base64Decode([NotNull] this string encoded, Encoding? encoding = null)
         {
-            if (!ValidForEncoding(encoded)) return encoded;
-
+            if (string.Empty.Equals(encoded)) return encoded;
             var bytes = Convert.FromBase64String(encoded);
-            return Encoding.Default.GetString(bytes);
+            return (encoding ?? Encoding.Default).GetString(bytes);
         }
 
         /// <summary>
@@ -45,17 +48,19 @@ namespace JamesConsulting.Cryptography
         /// <param name="decoded">
         ///     The decoded.
         /// </param>
+        /// <param name="encoding">
+        ///     The encoding used to encode the string. Uses <see cref="Encoding.Default" /> when null.
+        /// </param>
         /// <returns>
         ///     The <see cref="string" />.
         /// </returns>
         /// <exception cref="ArgumentNullException">
         ///     <paramref name="decoded" /> is <see langword="null" />
         /// </exception>
-        public static string Base64Encode(this string decoded)
+        public static string Base64Encode([NotNull] this string decoded, Encoding? encoding = null)
         {
-            if (!ValidForEncoding(decoded)) return decoded;
-
-            var bytes = Encoding.Default.GetBytes(decoded);
+            if (string.Empty.Equals(decoded)) return decoded;
+            var bytes = (encoding ?? Encoding.Default).GetBytes(decoded);
             return Convert.ToBase64String(bytes);
         }
 
@@ -68,12 +73,10 @@ namespace JamesConsulting.Cryptography
         /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
         public static byte[] GenerateSalt()
         {
-            using (var randomNumberGenerator = new RNGCryptoServiceProvider())
-            {
-                var randomNumber = new byte[32];
-                randomNumberGenerator.GetBytes(randomNumber);
-                return randomNumber;
-            }
+            using var randomNumberGenerator = new RNGCryptoServiceProvider();
+            var randomNumber = new byte[32];
+            randomNumberGenerator.GetBytes(randomNumber);
+            return randomNumber;
         }
 
         /// <summary>
@@ -88,9 +91,6 @@ namespace JamesConsulting.Cryptography
         /// <returns>
         ///     Returns the hashed version of the given string
         /// </returns>
-        /// <exception cref="ArgumentException">
-        ///     <paramref name="target" /> is <see langword="null" />
-        /// </exception>
         /// <exception cref="ArgumentNullException">
         ///     salt is <see langword="null" />
         /// </exception>
@@ -100,10 +100,8 @@ namespace JamesConsulting.Cryptography
         /// <exception cref="CryptographicException">
         ///     The cryptographic service provider (CSP) cannot be acquired.
         /// </exception>
-        public static (string hashedString, byte[] salt) Hash(this string target, int numberOfRounds = 100)
+        public static (string hashedString, byte[] salt) Hash([NotEmpty] this string target, [StrictlyPositive] int numberOfRounds = 100)
         {
-            ValidateHashArguments(target, numberOfRounds);
-
             var salt = GenerateSalt();
             var hashedString = target.Hash(salt, numberOfRounds);
             return (hashedString, salt);
@@ -130,59 +128,11 @@ namespace JamesConsulting.Cryptography
         /// <exception cref="ArgumentNullException">
         ///     <paramref name="salt" /> is <see langword="null" />
         /// </exception>
-        public static string Hash(this string target, byte[] salt, int numberOfRounds = 100)
+        public static string Hash([NotEmpty] this string target, [NotEmpty] byte[] salt, [StrictlyPositive] int numberOfRounds = 100)
         {
-            ValidateHashArguments(target, numberOfRounds);
-
-            if (salt == null) throw new ArgumentNullException(nameof(salt));
-
             using var rfc2898DeriveBytes = new Rfc2898DeriveBytes(Encoding.UTF8.GetBytes(target), salt, numberOfRounds);
             var hash = rfc2898DeriveBytes.GetBytes(32);
             return Convert.ToBase64String(hash);
-        }
-
-        /// <summary>
-        ///     The validate hash arguments.
-        /// </summary>
-        /// <param name="target">
-        ///     The target.
-        /// </param>
-        /// <param name="numberOfRounds">
-        ///     The number of rounds.
-        /// </param>
-        /// <exception cref="ArgumentOutOfRangeException">
-        ///     The <paramref name="numberOfRounds">number of rounds</paramref> is less
-        ///     than 0
-        /// </exception>
-        /// <exception cref="ArgumentException">
-        ///     <paramref name="target" /> is <see langword="null" /> or empty
-        /// </exception>
-        private static void ValidateHashArguments(string target, int numberOfRounds)
-        {
-            if (string.IsNullOrEmpty(target)) throw new ArgumentException(nameof(target));
-
-            if (numberOfRounds <= 0) throw new ArgumentOutOfRangeException(nameof(numberOfRounds));
-        }
-
-        /// <summary>
-        ///     The validate for encoding.
-        /// </summary>
-        /// <param name="decoded">
-        ///     The decoded.
-        /// </param>
-        /// <returns>
-        ///     The <see cref="bool" />.
-        /// </returns>
-        /// <exception cref="ArgumentNullException">
-        ///     <paramref name="decoded" /> is <see langword="null" />
-        /// </exception>
-        private static bool ValidForEncoding(string decoded)
-        {
-            if (decoded == null) throw new ArgumentNullException(nameof(decoded));
-
-            if (decoded.Length == 0) return false;
-
-            return true;
         }
     }
 }

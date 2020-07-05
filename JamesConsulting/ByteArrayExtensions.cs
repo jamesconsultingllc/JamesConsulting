@@ -1,6 +1,6 @@
 ﻿//  ----------------------------------------------------------------------------------------------------------------------
 //  <copyright file="ByteArrayExtensions.cs" company="James Consulting LLC">
-//    Copyright (c) 2019 All Rights Reserved
+//    Copyright (c) 2020 All Rights Reserved
 //  </copyright>
 //  <author>Rudy James</author>
 //  <summary>
@@ -9,6 +9,7 @@
 //  ----------------------------------------------------------------------------------------------------------------------
 
 using System;
+using PostSharp.Patterns.Contracts;
 
 namespace JamesConsulting
 {
@@ -33,10 +34,8 @@ namespace JamesConsulting
         ///     The array is multidimensional and contains more than
         ///     <see cref="System.Int32.MaxValue"></see> elements.
         /// </exception>
-        public static string GetString(this byte[] bytes)
+        public static string GetString([NotNull] this byte[] bytes)
         {
-            if (bytes == null) throw new ArgumentNullException(nameof(bytes));
-
             if (bytes.Length == 0) return string.Empty;
 
             var chars = new char[bytes.Length / sizeof(char)];

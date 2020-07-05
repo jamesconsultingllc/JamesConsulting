@@ -1,6 +1,6 @@
 ﻿//  ----------------------------------------------------------------------------------------------------------------------
 //  <copyright file="StreamExtensions.cs" company="James Consulting LLC">
-//    Copyright (c) 2019 All Rights Reserved
+//    Copyright (c) 2020 All Rights Reserved
 //  </copyright>
 //  <author>Rudy James</author>
 //  <summary>
@@ -9,9 +9,13 @@
 //  ----------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Text;
-using Newtonsoft.Json;
+using System.Threading;
+using MessagePack;
+using PostSharp.Patterns.Contracts;
 
 namespace JamesConsulting.IO
 {
@@ -21,36 +25,22 @@ namespace JamesConsulting.IO
     public static class StreamExtensions
     {
         /// <summary>
-        ///     The deserialize stream.
+        /// Deserializes a stream into a list of <typeparam name="T"/>
         /// </summary>
-        /// <param name="stream">
-        ///     The stream.
-        /// </param>
-        /// <typeparam name="T">
-        /// </typeparam>
-        /// <returns>
-        ///     The <typeparamref name="T"/>
-        /// </returns>
-        /// <exception cref="ArgumentNullException">
-        /// </exception>
-        public static T DeserializeJson<T>(this Stream stream)
+        /// <param name="stream">The <see cref="Stream"/> to deserialize</param>
+        /// <param name="cancellationToken">The <see cref="CancellationToken"/></param>
+        /// <typeparam name="T">The object type to return</typeparam>
+        /// <returns>An instance of IAsyncEnumerable{T}</returns>
+        public static async IAsyncEnumerable<T> DeserializeListFromStreamAsync<T>([NotNull] this Stream stream, [EnumeratorCancellation] CancellationToken cancellationToken)
         {
-            if (stream == null) throw new ArgumentNullException(nameof(stream));
-
-            var streamReader = new StreamReader(stream);
-            var jsonTextReader = new JsonTextReader(streamReader) {CloseInput = true};
-
-            try
+            using var streamReader = new MessagePackStreamReader(stream);
+            
+            while (await streamReader.ReadAsync(cancellationToken) is { } messagePack)
             {
-                var serializer = new JsonSerializer();
-                return serializer.Deserialize<T>(jsonTextReader);
-            }
-            finally
-            {
-                streamReader.Close();
+                yield return MessagePackSerializer.Deserialize<T>(messagePack, cancellationToken: cancellationToken);
             }
         }
-
+        
         /// <summary>
         ///     The is executable.
         /// </summary>
@@ -60,7 +50,7 @@ namespace JamesConsulting.IO
         /// <returns>
         ///     The <see cref="bool" />.
         /// </returns>
-        public static bool IsExecutable(this Stream stream)
+        public static bool IsExecutable([NotNull] this Stream stream)
         {
             if (stream == null) throw new ArgumentNullException(nameof(stream));
             var firstBytes = new byte[2];

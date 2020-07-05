@@ -1,6 +1,6 @@
 ﻿//  ----------------------------------------------------------------------------------------------------------------------
 //  <copyright file="TypeExtensionsTests.cs" company="James Consulting LLC">
-//    Copyright (c) 2019 All Rights Reserved
+//    Copyright (c) 2020 All Rights Reserved
 //  </copyright>
 //  <author>Rudy James</author>
 //  <summary>
@@ -32,9 +32,9 @@ namespace JamesConsulting.Tests.Reflection
         [InlineData(null)]
         [InlineData("")]
         [InlineData(" ")]
-        public void GetMethodInfoFromStringEmptyOrWhitespaceMethodThrowsArgumentException(string method)
+        public void GetMethodInfoFromStringEmptyOrWhitespaceMethodThrowsArgumentOutOfRangeException(string method)
         {
-            Assert.Throws<ArgumentException>(() => typeof(string).GetMethodInfoFromString(method));
+            Assert.Throws<ArgumentOutOfRangeException>(() => typeof(string).GetMethodInfoFromString(method));
         }
 
         /// <summary>
@@ -46,9 +46,9 @@ namespace JamesConsulting.Tests.Reflection
         [Theory]
         [InlineData("")]
         [InlineData(" ")]
-        public void ToMethodInfoThrowsArgumentExceptionInvalidString(string test)
+        public void ToMethodInfoThrowsArgumentOutOfRangeExceptionInvalidString(string test)
         {
-            Assert.Throws<ArgumentException>(() => InstanceType.GetMethodInfoFromString(test));
+            Assert.Throws<ArgumentOutOfRangeException>(() => InstanceType.GetMethodInfoFromString(test));
         }
 
         [Theory]
@@ -182,9 +182,9 @@ namespace JamesConsulting.Tests.Reflection
         ///     The to method info throws argument null exception null string.
         /// </summary>
         [Fact]
-        public void ToMethodInfoThrowsArgumentExceptionNullString()
+        public void ToMethodInfoThrowsArgumentNullExceptionNullString()
         {
-            Assert.Throws<ArgumentException>(() => InstanceType.GetMethodInfoFromString(default!));
+            Assert.Throws<ArgumentNullException>(() => InstanceType.GetMethodInfoFromString(default!));
         }
     }
 }

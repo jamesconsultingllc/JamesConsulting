@@ -1,6 +1,6 @@
 ﻿//  ----------------------------------------------------------------------------------------------------------------------
 //  <copyright file="TypeExtensions.cs" company="James Consulting LLC">
-//    Copyright (c) 2019 All Rights Reserved
+//    Copyright (c) 2020 All Rights Reserved
 //  </copyright>
 //  <author>Rudy James</author>
 //  <summary>
@@ -12,6 +12,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Linq;
 using System.Reflection;
+using PostSharp.Patterns.Contracts;
 
 namespace JamesConsulting.Reflection
 {
@@ -38,17 +39,13 @@ namespace JamesConsulting.Reflection
         ///     The <see cref="MethodInfo" />.
         /// </returns>
         /// <exception cref="ArgumentNullException">
+        ///     Thrown when <paramref name="type"/> or <paramref name="method"/> is null
         /// </exception>
-        /// <exception cref="ArgumentException">
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     Thrown when <paramref name="method"/> is an empty or whitespace string
         /// </exception>
-        public static MethodInfo? GetMethodInfoFromString(this Type type, string method)
+        public static MethodInfo? GetMethodInfoFromString([NotNull] this Type type, [Required] string method)
         {
-            if (type == null)
-                throw new ArgumentNullException(nameof(type));
-
-            if (string.IsNullOrWhiteSpace(method))
-                throw new ArgumentException("Value cannot be null or whitespace.", nameof(method));
-
             if (Methods.ContainsKey(method))
                 return Methods[method];
 
@@ -66,9 +63,8 @@ namespace JamesConsulting.Reflection
         /// <param name="type"></param>
         /// <returns>Returns true if type is not an abstract class or interface, otherwise false</returns>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="type" /> is null</exception>
-        public static bool IsConcreteClass(this Type type)
+        public static bool IsConcreteClass([NotNull] this Type type)
         {
-            if (type == null) throw new ArgumentNullException(nameof(type));
             return !type.IsAbstract && !type.IsInterface;
         }
 
@@ -83,9 +79,8 @@ namespace JamesConsulting.Reflection
         /// </returns>
         /// <exception cref="ArgumentNullException">
         /// </exception>
-        public static bool HasReturnValue(this MethodInfo methodInfo)
+        public static bool HasReturnValue([NotNull] this MethodInfo methodInfo)
         {
-            if (methodInfo == null) throw new ArgumentNullException(nameof(methodInfo));
             return methodInfo.ReturnType != Constants.VoidType && methodInfo.ReturnType != Constants.TaskType;
         }
 
@@ -100,9 +95,8 @@ namespace JamesConsulting.Reflection
         /// </returns>
         /// <exception cref="ArgumentNullException">
         /// </exception>
-        public static bool IsAsync(this MethodInfo methodInfo)
+        public static bool IsAsync([NotNull] this MethodInfo methodInfo)
         {
-            if (methodInfo == null) throw new ArgumentNullException(nameof(methodInfo));
             return Constants.TaskType.IsAssignableFrom(methodInfo.ReturnType);
         }
 
@@ -117,9 +111,8 @@ namespace JamesConsulting.Reflection
         /// </returns>
         /// <exception cref="ArgumentNullException">
         /// </exception>
-        public static bool IsAsyncWithResult(this MethodInfo methodInfo)
+        public static bool IsAsyncWithResult([NotNull] this MethodInfo methodInfo)
         {
-            if (methodInfo == null) throw new ArgumentNullException(nameof(methodInfo));
             return methodInfo.ReturnType != Constants.TaskType && Constants.TaskType.IsAssignableFrom(methodInfo.ReturnType);
         }
     }
