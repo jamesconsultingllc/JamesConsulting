@@ -37,7 +37,7 @@ namespace JamesConsulting.Cryptography
         /// </exception>
         public static string Base64Decode([NotNull] this string encoded, Encoding? encoding = null)
         {
-            if (string.Empty.Equals(encoded)) return encoded;
+            if (string.IsNullOrEmpty(encoded)) return encoded;
             var bytes = Convert.FromBase64String(encoded);
             return (encoding ?? Encoding.Default).GetString(bytes);
         }
@@ -59,7 +59,7 @@ namespace JamesConsulting.Cryptography
         /// </exception>
         public static string Base64Encode([NotNull] this string decoded, Encoding? encoding = null)
         {
-            if (string.Empty.Equals(decoded)) return decoded;
+            if (string.IsNullOrEmpty(decoded)) return decoded;
             var bytes = (encoding ?? Encoding.Default).GetBytes(decoded);
             return Convert.ToBase64String(bytes);
         }

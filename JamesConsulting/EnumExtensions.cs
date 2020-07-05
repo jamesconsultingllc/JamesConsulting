@@ -36,8 +36,7 @@ namespace JamesConsulting
         public static string GetDescription(this Enum enumValue)
         {
             var fieldInfo = enumValue.GetType().GetField(enumValue.ToString());
-            var attribute = Attribute.GetCustomAttribute(fieldInfo, typeof(DescriptionAttribute)) as DescriptionAttribute;
-            return attribute == null ? Enum.GetName(enumValue.GetType(), enumValue) : attribute.Description;
+            return !(Attribute.GetCustomAttribute(fieldInfo, typeof(DescriptionAttribute)) is DescriptionAttribute attribute) ? Enum.GetName(enumValue.GetType(), enumValue) : attribute.Description;
         }
     }
 }
