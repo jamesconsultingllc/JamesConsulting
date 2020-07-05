@@ -36,7 +36,7 @@ namespace JamesConsulting.Data.Common
         /// </exception>
         public static string StripPasswordFromConnectionString([NotNull] this string connectionString)
         {
-            if (string.Empty.Equals(connectionString)) return connectionString;
+            if (string.IsNullOrEmpty(connectionString)) return connectionString;
             var db = new DbConnectionStringBuilder {ConnectionString = connectionString};
             db.RemoveKeys("Password", "password", "Pwd", "pwd");
             return db.ToString();
