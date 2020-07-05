@@ -4,6 +4,7 @@ using System.Text;
 using FluentAssertions;
 using FluentAssertions.Common;
 using JamesConsulting.IO;
+using Utf8Json;
 using Xunit;
 
 namespace JamesConsulting.Tests.IO
@@ -11,7 +12,7 @@ namespace JamesConsulting.Tests.IO
     public class StreamExtensionsTests
     {
         [Serializable]
-        private class MyClass
+        public class MyClass
         {
             public string Property1 { get; set; } = string.Empty;
             public int Property2 { get; set; }
@@ -43,15 +44,9 @@ namespace JamesConsulting.Tests.IO
         {
             var test = new MyClass {Property1 = "Test", Property2 = 3};
             var ms = test.SerializeToJsonStream(new MemoryStream());
-            var newTest = ms.DeserializeJson<MyClass>();
+            var newTest = JsonSerializer.Deserialize<MyClass>(ms);
             newTest.Should().NotBeNull();
             newTest.IsSameOrEqualTo(test);
-        }
-
-        [Fact]
-        public void DeserializeThrowsArgumentNullExceptionWhenStreamIsNull()
-        {
-            Assert.Throws<ArgumentNullException>(() => StreamExtensions.DeserializeJson<object>(default!));
         }
 
         [Fact]

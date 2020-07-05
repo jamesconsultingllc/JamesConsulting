@@ -1,6 +1,6 @@
 ﻿//  ----------------------------------------------------------------------------------------------------------------------
 //  <copyright file="StringExtensions.cs" company="James Consulting LLC">
-//    Copyright (c) 2019 All Rights Reserved
+//    Copyright (c) 2020 All Rights Reserved
 //  </copyright>
 //  <author>Rudy James</author>
 //  <summary>
@@ -9,9 +9,9 @@
 //  ----------------------------------------------------------------------------------------------------------------------
 
 using System;
-using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Threading;
+using PostSharp.Patterns.Contracts;
 
 namespace JamesConsulting
 {
@@ -36,16 +36,14 @@ namespace JamesConsulting
         ///     The array is multidimensional and contains more than
         ///     <see cref="System.Int32.MaxValue"></see> elements.
         /// </exception>
-        [SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed. Suppression is OK here.")]
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("StyleCop.CSharp.DocumentationRules", "SA1650:ElementDocumentationMustBeSpelledCorrectly", Justification = "Reviewed. Suppression is OK here.")]
 #if NETSTANDARD2_1
-        public static byte[] GetBytes([DisallowNull] this string? arg)
+        public static byte[] GetBytes([NotNull] this string arg)
 #else
-        public static byte[] GetBytes(this string arg)
+        public static byte[] GetBytes([NotNull] this string arg)
 #endif
 
         {
-            if (arg == null) throw new ArgumentNullException(nameof(arg));
-
             if (arg.Length == 0) return new byte[0];
 
             var bytes = new byte[arg.Length * sizeof(char)];
@@ -69,10 +67,8 @@ namespace JamesConsulting
         /// <exception cref="ArgumentNullException">
         ///     <paramref name="arg" /> is <see langword="null" />
         /// </exception>
-        public static string ToTitleCase(this string? arg, CultureInfo? ci = null)
+        public static string ToTitleCase([NotNull] this string arg, CultureInfo? ci = null)
         {
-            if (arg is null) throw new ArgumentNullException(nameof(arg));
-
             if (arg.Length == 0) return arg;
 
             return ci != null ? ci.TextInfo.ToTitleCase(arg) : Thread.CurrentThread.CurrentUICulture.TextInfo.ToTitleCase(arg);
@@ -97,15 +93,11 @@ namespace JamesConsulting
         ///     <paramref name="length" /> is less than or equal to 0
         /// </exception>
 #if NETSTANDARD2_1
-        public static string Truncate([DisallowNull] this string? argument, int length)
+        public static string Truncate([NotNull] this string argument, [StrictlyPositive] int length)
 #else
-        public static string Truncate(this string argument, int length)
+        public static string Truncate([NotNull] this string argument, [StrictlyPositive] int length)
 #endif
         {
-            if (argument == null) throw new ArgumentNullException(nameof(argument));
-
-            if (length <= 0) throw new ArgumentOutOfRangeException(nameof(length));
-
             return argument.Length == 0 ? string.Empty : argument.Substring(0, length);
         }
     }

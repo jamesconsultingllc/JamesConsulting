@@ -1,6 +1,6 @@
 ﻿//  ----------------------------------------------------------------------------------------------------------------------
 //  <copyright file="MethodInfoExtensions.cs" company="James Consulting LLC">
-//    Copyright (c) 2019 All Rights Reserved
+//    Copyright (c) 2020 All Rights Reserved
 //  </copyright>
 //  <author>Rudy James</author>
 //  <summary>
@@ -8,11 +8,12 @@
 //  </summary>
 //  ----------------------------------------------------------------------------------------------------------------------
 
-using System;
 using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using PostSharp.Patterns.Contracts;
 
 namespace JamesConsulting.Reflection
 {
@@ -42,23 +43,13 @@ namespace JamesConsulting.Reflection
         /// <exception cref="T:System.ArgumentNullException">
         ///     <paramref name="methodInfo" /> is <see langword="null" />
         /// </exception>
-        public static string ToInvocationString(this MethodInfo methodInfo, params object[] parameterValues)
+        public static string ToInvocationString([NotNull] this MethodInfo methodInfo, params object[] parameterValues)
         {
-            if (methodInfo == null) throw new ArgumentNullException(nameof(methodInfo));
+            if (!MethodTemplates.ContainsKey(methodInfo))
+                MethodTemplates[methodInfo] = methodInfo.GetMethodTemplate();
 
-            (ParameterInfo[] Parameters, string Template) templateAndParameters;
-
-            if (MethodTemplates.ContainsKey(methodInfo))
-            {
-                templateAndParameters = MethodTemplates[methodInfo];
-            }
-            else
-            {
-                templateAndParameters = methodInfo.GetMethodTemplate();
-                MethodTemplates[methodInfo] = templateAndParameters;
-            }
-
-            return BindTemplate(templateAndParameters.Template, templateAndParameters.Parameters, parameterValues);
+            var (parameters, template) = MethodTemplates[methodInfo];
+            return BindTemplate(template, parameters, parameterValues);
         }
 
         /// <summary>
@@ -76,7 +67,7 @@ namespace JamesConsulting.Reflection
         /// <returns>
         ///     The <see cref="string" />.
         /// </returns>
-        private static string BindTemplate(string template, ParameterInfo[] parameters, object[] parameterValues)
+        private static string BindTemplate(string template, IEnumerable<ParameterInfo> parameters, IReadOnlyList<object> parameterValues)
         {
             return string.Format(template, parameters.Select((x, idx) => GetValue(x, parameterValues[idx])).ToArray());
         }
@@ -90,7 +81,7 @@ namespace JamesConsulting.Reflection
         /// <returns>
         ///     The <see cref="T:(ParameterInfo[] Parameters, string Template)" />.
         /// </returns>
-        private static (ParameterInfo[] Parameters, string Template) GetMethodTemplate(this MethodInfo methodInfo)
+        private static (ParameterInfo[] Parameters, string Template) GetMethodTemplate(this MethodBase methodInfo)
         {
             var stringBuilder = new StringBuilder($"{methodInfo.DeclaringType.FullName}.{methodInfo.Name}(");
             var parameterInfo = methodInfo.GetParameters();
@@ -115,9 +106,7 @@ namespace JamesConsulting.Reflection
         {
             if (parameterValue == null || parameterInfo.ParameterType.IsPrimitive) return parameterValue;
 
-            if (parameterValue is string) return $"\"{parameterValue}\"";
-
-            return parameterValue.ToJson();
+            return parameterValue is string ? $"\"{parameterValue}\"" : parameterValue.ToJson();
         }
 
         /// <summary>

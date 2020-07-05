@@ -1,6 +1,6 @@
 ﻿//  ----------------------------------------------------------------------------------------------------------------------
 //  <copyright file="ObjectExtensionsTests.cs" company="James Consulting LLC">
-//    Copyright (c) 2019 All Rights Reserved
+//    Copyright (c) 2020 All Rights Reserved
 //  </copyright>
 //  <author>Rudy James</author>
 //  <summary>
@@ -23,7 +23,7 @@ namespace JamesConsulting.Tests
         /// <summary>
         ///     The test.
         /// </summary>
-        private class Test
+        public class Test
         {
             /// <summary>
             ///     Gets or sets the value 1.
@@ -37,7 +37,7 @@ namespace JamesConsulting.Tests
 
             public DateTime Value3 { get; set; }
             public TimeSpan Value4 { get; set; }
-            
+
             public Test2[]? Value5 { get; set; }
         }
 
@@ -64,40 +64,6 @@ namespace JamesConsulting.Tests
         }
 
         /// <summary>
-        ///     The from byte array.
-        /// </summary>
-        [Fact]
-        public void FromByteArray()
-        {
-            var test = new Test2 {Value1 = "test", Value2 = 2};
-            var bytes = test.ToByteArray();
-            var newTest = bytes.FromByteArray<Test2>();
-            newTest.Should().NotBeNull();
-            newTest?.Value1.Should().BeEquivalentTo(test.Value1);
-            newTest?.Value2.Should().Be(test.Value2);
-            newTest?.Value3.Should().Be(test.Value3);
-        }
-
-        /// <summary>
-        ///     The from byte array empty array throws argument exception.
-        /// </summary>
-        [Fact]
-        public void FromByteArrayEmptyArrayThrowsArgumentException()
-        {
-            var bytes = new byte[0];
-            Assert.Throws<ArgumentException>(() => bytes.FromByteArray<Test>());
-        }
-
-        /// <summary>
-        ///     The from byte array null array throws argument null exception.
-        /// </summary>
-        [Fact]
-        public void FromByteArrayNullArrayThrowsArgumentNullException()
-        {
-            Assert.Throws<ArgumentNullException>(() => default(byte[])!.FromByteArray<Test>());
-        }
-
-        /// <summary>
         ///     The mask as static method null object throws argument null exception.
         /// </summary>
         [Fact]
@@ -113,7 +79,7 @@ namespace JamesConsulting.Tests
         public void MaskEmptyIgnoreListThrowsArgumentNullException()
         {
             object test = new Test();
-            Assert.Throws<ArgumentException>(() => test.Mask());
+            Assert.Throws<ArgumentNullException>(() => test.Mask());
         }
 
         /// <summary>
@@ -122,13 +88,16 @@ namespace JamesConsulting.Tests
         [Fact]
         public void MaskMasksGivenValues()
         {
-            var test = new Test {Value1 = "MyPassword", Value2 = 32, Value3 = DateTime.Now, Value4 = TimeSpan.FromMinutes(3), Value5 = new []
+            var test = new Test
             {
-                new Test2 {Value1 = "test", Value2 = 2},
-                new Test2 {Value1 = "test", Value2 = 2},
-                new Test2 {Value1 = "test", Value2 = 2}
-            }};
-            
+                Value1 = "MyPassword", Value2 = 32, Value3 = DateTime.Now, Value4 = TimeSpan.FromMinutes(3), Value5 = new[]
+                {
+                    new Test2 {Value1 = "test", Value2 = 2},
+                    new Test2 {Value1 = "test", Value2 = 2},
+                    new Test2 {Value1 = "test", Value2 = 2}
+                }
+            };
+
             var maskedTest = test.Mask("Value2", "Value3", "Value4", "Value5[*].Value1");
             maskedTest.Value1.Should().Be("MyPassword");
             maskedTest.Value2.Should().Be(default);
@@ -136,11 +105,8 @@ namespace JamesConsulting.Tests
             maskedTest.Value4.Should().Be(default);
 
             if (maskedTest.Value5 == null) return;
-            
-            foreach (var value5 in maskedTest.Value5)
-            {
-                value5.Value1.Should().Be(default);
-            }
+
+            foreach (var value5 in maskedTest.Value5) value5.Value1.Should().Be(default);
         }
 
         /// <summary>
@@ -150,7 +116,7 @@ namespace JamesConsulting.Tests
         public void MaskNullIgnoreListThrowsArgumentNullException()
         {
             object test = new Test();
-            Assert.Throws<ArgumentNullException>(() => test.Mask(default));
+            Assert.Throws<ArgumentNullException>(() => test.Mask(default!));
         }
 
         /// <summary>
@@ -163,22 +129,9 @@ namespace JamesConsulting.Tests
         }
 
         [Fact]
-        public void NullObjectToJsonCompactShouldReturnNull()
+        public void NullObjectToJsonThrowsArgumentNullException()
         {
-            default(object)!.ToJsonCompact().Should().BeNull();
-        }
-
-        [Fact]
-        public void NullObjectToJsonShouldReturnNull()
-        {
-            default(object)!.ToJson().Should().BeNull();
-        }
-
-        [Fact]
-        public void ObjectToJsonCompactShouldNotBeNull()
-        {
-            object obj = new Test();
-            obj.ToJsonCompact().Should().NotBeNull();
+            Assert.Throws<ArgumentNullException>(() => default(object)!.ToJson());
         }
 
         [Fact]
@@ -206,7 +159,7 @@ namespace JamesConsulting.Tests
         [Fact]
         public void SerializeToJsonStreamNullObjectThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => default(object)!.SerializeToJsonStream(default));
+            Assert.Throws<ArgumentNullException>(() => default(object)!.SerializeToJsonStream(default!));
         }
 
         /// <summary>
@@ -216,14 +169,7 @@ namespace JamesConsulting.Tests
         public void SerializeToJsonStreamNullStreamThrowsArgumentNullException()
         {
             var test = new Test2 {Value1 = "test", Value2 = 2};
-            Assert.Throws<ArgumentNullException>(() => test.SerializeToJsonStream(default));
-        }
-
-        [Fact]
-        public void StringToJsonCompactShouldReturnItself()
-        {
-            object obj = "test";
-            obj.ToJsonCompact().Should().BeEquivalentTo(obj.ToString());
+            Assert.Throws<ArgumentNullException>(() => test.SerializeToJsonStream(default!));
         }
 
         [Fact]
@@ -231,22 +177,6 @@ namespace JamesConsulting.Tests
         {
             object obj = "test";
             obj.ToJson().Should().BeEquivalentTo(obj.ToString());
-        }
-
-        /// <summary>
-        ///     The from byte array not serializable class throws.
-        /// </summary>
-        [Fact]
-        public void ToByteArrayNotSerializableClassThrows()
-        {
-            var test = new Test {Value1 = "test", Value2 = 2};
-            Assert.Throws<InvalidOperationException>(() => test.ToByteArray());
-        }
-
-        [Fact]
-        public void ToByteArrayNullObjectThrowsArgumentNullException()
-        {
-            Assert.Throws<ArgumentNullException>(() => default(byte[])!.ToByteArray());
         }
     }
 }

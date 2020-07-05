@@ -1,6 +1,6 @@
 ﻿//  ----------------------------------------------------------------------------------------------------------------------
 //  <copyright file="StringExtensionsTests.cs" company="James Consulting LLC">
-//    Copyright (c) 2019 All Rights Reserved
+//    Copyright (c) 2020 All Rights Reserved
 //  </copyright>
 //  <author>Rudy James</author>
 //  <summary>
@@ -29,9 +29,9 @@ namespace JamesConsulting.Tests.Cryptography
         [Theory]
         [InlineData(null)]
         [InlineData("")]
-        public void HashInvalidTargetThrowsArgumentException(string target)
+        public void HashInvalidTargetThrowsArgumentNullException(string target)
         {
-            Assert.Throws<ArgumentException>(() => target.Hash());
+            Assert.Throws<ArgumentNullException>(() => target.Hash());
         }
 
         /// <summary>
@@ -43,9 +43,9 @@ namespace JamesConsulting.Tests.Cryptography
         [Theory]
         [InlineData(null)]
         [InlineData("")]
-        public void HashWithInvalidTargetThrowsArgumentException(string target)
+        public void HashWithInvalidTargetThrowsArgumentNullException(string target)
         {
-            Assert.Throws<ArgumentException>(() => target.Hash(default!));
+            Assert.Throws<ArgumentNullException>(() => target.Hash(default!));
         }
 
         /// <summary>
@@ -108,7 +108,7 @@ namespace JamesConsulting.Tests.Cryptography
         [Fact]
         public void HashInvalidNumberOfRoundsThrowsArgumentOutOfRangeException()
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => "test".Hash(default!, -100));
+            Assert.Throws<ArgumentOutOfRangeException>(() => "test".Hash(new byte[3], -100));
         }
 
         [Fact]
@@ -125,7 +125,7 @@ namespace JamesConsulting.Tests.Cryptography
         [Fact]
         public void HashWithNullSalt()
         {
-            Assert.Throws<ArgumentNullException>(() => "test".Hash(null!));
+            Assert.Throws<ArgumentNullException>(() => "test".Hash(default(byte[])!));
         }
 
         /// <summary>

@@ -1,6 +1,6 @@
 ﻿//  ----------------------------------------------------------------------------------------------------------------------
 //  <copyright file="DbConnectionStringBuilderExtensionTests.cs" company="James Consulting LLC">
-//    Copyright (c) 2019 All Rights Reserved
+//    Copyright (c) 2020 All Rights Reserved
 //  </copyright>
 //  <author>Rudy James</author>
 //  <summary>
@@ -10,6 +10,7 @@
 
 using System;
 using System.Data.Common;
+using FluentAssertions;
 using JamesConsulting.Data.Common;
 using Xunit;
 
@@ -20,13 +21,28 @@ namespace JamesConsulting.Tests.Data.Common
     /// </summary>
     public class DbConnectionStringBuilderExtensionTests
     {
+        [Fact]
+        public void RemoveKeysFromConnectionString()
+        {
+            DbConnectionStringBuilder dbConnectionStringBuilder = new DbConnectionStringBuilder
+            {
+                ConnectionString = "Server=myServerAddress;Database=myDataBase;User Id=myUsername;Password=myPassword;"
+            };
+
+            dbConnectionStringBuilder.ConnectionString.Contains("myPassword").Should().BeTrue();
+
+            dbConnectionStringBuilder.RemoveKeys("Password");
+
+            dbConnectionStringBuilder.ConnectionString.Contains("myPassword").Should().BeFalse();
+        }
+
         /// <summary>
         ///     The remove keys throws <see cref="ArgumentException" /> when keys is empty.
         /// </summary>
         [Fact]
-        public void RemoveKeysThrowsArgumentExceptionWhenKeysIsEmpty()
+        public void RemoveKeysThrowsArgumentNullExceptionWhenKeysIsEmpty()
         {
-            Assert.Throws<ArgumentException>(() => new DbConnectionStringBuilder().RemoveKeys());
+            Assert.Throws<ArgumentNullException>(() => new DbConnectionStringBuilder().RemoveKeys());
         }
 
         /// <summary>

@@ -1,6 +1,6 @@
 ﻿//  ----------------------------------------------------------------------------------------------------------------------
 //  <copyright file="StreamExtensions.cs" company="James Consulting LLC">
-//    Copyright (c) 2019 All Rights Reserved
+//    Copyright (c) 2020 All Rights Reserved
 //  </copyright>
 //  <author>Rudy James</author>
 //  <summary>
@@ -9,9 +9,13 @@
 //  ----------------------------------------------------------------------------------------------------------------------
 
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Runtime.CompilerServices;
 using System.Text;
-using Newtonsoft.Json;
+using System.Threading;
+using MessagePack;
+using PostSharp.Patterns.Contracts;
 
 namespace JamesConsulting.IO
 {
@@ -21,37 +25,6 @@ namespace JamesConsulting.IO
     public static class StreamExtensions
     {
         /// <summary>
-        ///     The deserialize stream.
-        /// </summary>
-        /// <param name="stream">
-        ///     The stream.
-        /// </param>
-        /// <typeparam name="T">
-        /// </typeparam>
-        /// <returns>
-        ///     The <typeparamref name="T"/>
-        /// </returns>
-        /// <exception cref="ArgumentNullException">
-        /// </exception>
-        public static T DeserializeJson<T>(this Stream stream)
-        {
-            if (stream == null) throw new ArgumentNullException(nameof(stream));
-
-            var streamReader = new StreamReader(stream);
-            var jsonTextReader = new JsonTextReader(streamReader) {CloseInput = true};
-
-            try
-            {
-                var serializer = new JsonSerializer();
-                return serializer.Deserialize<T>(jsonTextReader);
-            }
-            finally
-            {
-                streamReader.Close();
-            }
-        }
-
-        /// <summary>
         ///     The is executable.
         /// </summary>
         /// <param name="stream">
@@ -60,7 +33,7 @@ namespace JamesConsulting.IO
         /// <returns>
         ///     The <see cref="bool" />.
         /// </returns>
-        public static bool IsExecutable(this Stream stream)
+        public static bool IsExecutable([NotNull] this Stream stream)
         {
             if (stream == null) throw new ArgumentNullException(nameof(stream));
             var firstBytes = new byte[2];

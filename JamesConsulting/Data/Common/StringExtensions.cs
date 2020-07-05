@@ -1,6 +1,6 @@
 ﻿//  ----------------------------------------------------------------------------------------------------------------------
 //  <copyright file="StringExtensions.cs" company="James Consulting LLC">
-//    Copyright (c) 2019 All Rights Reserved
+//    Copyright (c) 2020 All Rights Reserved
 //  </copyright>
 //  <author>Rudy James</author>
 //  <summary>
@@ -10,6 +10,7 @@
 
 using System;
 using System.Data.Common;
+using PostSharp.Patterns.Contracts;
 
 namespace JamesConsulting.Data.Common
 {
@@ -30,10 +31,12 @@ namespace JamesConsulting.Data.Common
         /// <exception cref="ArgumentNullException">
         ///     <paramref name="connectionString" /> is <see langword="null" />
         /// </exception>
-        public static string StripPasswordFromConnectionString(this string connectionString)
+        /// <exception cref="ArgumentOutOfRangeException">
+        ///     <paramref name="connectionString" /> is an empty <see cref="string" /> or whitespace />
+        /// </exception>
+        public static string StripPasswordFromConnectionString([NotNull] this string connectionString)
         {
-            if (connectionString == null) throw new ArgumentNullException(nameof(connectionString));
-
+            if (string.Empty.Equals(connectionString)) return connectionString;
             var db = new DbConnectionStringBuilder {ConnectionString = connectionString};
             db.RemoveKeys("Password", "password", "Pwd", "pwd");
             return db.ToString();
