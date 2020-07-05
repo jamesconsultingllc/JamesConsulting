@@ -26,7 +26,7 @@ namespace JamesConsulting.Tests.Reflection
         /// <summary>
         ///     The instance type.
         /// </summary>
-        private readonly Type instanceType = typeof(MyInterface);
+        private static readonly Type instanceType = typeof(MyInterface);
 
         [Theory]
         [InlineData("")]

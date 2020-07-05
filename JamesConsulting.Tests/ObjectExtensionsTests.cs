@@ -103,6 +103,7 @@ namespace JamesConsulting.Tests
             maskedTest.Value2.Should().Be(default);
             maskedTest.Value3.Should().Be(default);
             maskedTest.Value4.Should().Be(default);
+
             if (maskedTest.Value5 == null) return;
 
             foreach (var value5 in maskedTest.Value5) value5.Value1.Should().Be(default);

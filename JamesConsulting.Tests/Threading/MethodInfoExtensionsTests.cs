@@ -1,4 +1,5 @@
 using System;
+using System.Reflection;
 using System.Threading.Tasks;
 using FluentAssertions;
 using JamesConsulting.Threading;
@@ -27,7 +28,7 @@ namespace JamesConsulting.Tests.Threading
         [Fact]
         public void CreateTaskResultThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => MethodInfoExtensions.CreateTaskResult(default!, default!));
+            Assert.Throws<ArgumentNullException>(() => default(MethodInfo)!.CreateTaskResult(default!));
         }
     }
 }

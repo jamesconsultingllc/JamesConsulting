@@ -13,12 +13,11 @@ pool:
   vmImage: 'windows-latest'
 
 steps:
-- task: SonarCloudPrepare@1
+- task: SonarQubePrepare@4
   inputs:
-    SonarCloud: 'James Consulting'
-    organization: 'james-consulting-llc'
+    SonarQube: 'My SonarQube'
     scannerMode: 'MSBuild'
-    projectKey: '$(SonarKey)'
+    projectKey: 'James-Consulting-Core'
 - task: DotNetCoreCLI@2
   inputs:
     command: 'restore'
@@ -42,8 +41,8 @@ steps:
     versioningScheme: 'byEnvVar'
     versionEnvVar: Version
     arguments: '--configuration $(buildConfiguration)'
-- task: SonarCloudAnalyze@1
-- task: SonarCloudPublish@1
+- task: SonarQubeAnalyze@4
+- task: SonarQubePublish@4
   inputs:
     pollingTimeoutSec: '300'
 - task: CopyFiles@2

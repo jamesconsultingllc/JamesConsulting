@@ -93,7 +93,7 @@ namespace JamesConsulting
         ///     The serialize to JSON stream.
         /// </summary>
         /// <param name="obj">
-        ///     The obj.
+        ///     The object to be serialized to Json
         /// </param>
         /// <param name="stream">
         ///     The stream.

@@ -14,7 +14,7 @@ namespace JamesConsulting.Tests.IO
         [Serializable]
         public class MyClass
         {
-            public string? Property1 { get; set; }
+            public string Property1 { get; set; } = string.Empty;
             public int Property2 { get; set; }
 
             public override bool Equals(object? obj)
@@ -29,8 +29,8 @@ namespace JamesConsulting.Tests.IO
             {
 #if NET461
                 var hashcode = 35203352;
-                const int offset = -1521134295;
-                if (Property1 != null) hashcode *= offset + Property1.GetHashCode();
+                var offset = -1521134295;
+                hashcode *= offset + Property1.GetHashCode();
                 hashcode *= offset + Property2.GetHashCode();
                 return hashcode;
 #else

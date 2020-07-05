@@ -114,9 +114,9 @@ namespace JamesConsulting.Tests.Cryptography
         [Fact]
         public void HashReturnHashedStringWithSalt()
         {
-            var result = "test".Hash();
-            result.salt.Should().NotBeEmpty();
-            result.hashedString.Should().NotBeNullOrWhiteSpace();
+            var (hashedString, salt) = "test".Hash();
+            salt.Should().NotBeEmpty();
+            hashedString.Should().NotBeNullOrWhiteSpace();
         }
 
         /// <summary>
@@ -134,7 +134,7 @@ namespace JamesConsulting.Tests.Cryptography
         [Fact]
         public void StringsHashedWithSameSaltShouldBeEqual()
         {
-            var test = "Rudy James";
+            const string test = "Rudy James";
             var salt = JamesConsulting.Cryptography.StringExtensions.GenerateSalt();
             var result = test.Hash(salt);
             var result2 = test.Hash(salt);
