@@ -25,23 +25,6 @@ namespace JamesConsulting.IO
     public static class StreamExtensions
     {
         /// <summary>
-        /// Deserializes a stream into a list of <typeparam name="T"/>
-        /// </summary>
-        /// <param name="stream">The <see cref="Stream"/> to deserialize</param>
-        /// <param name="cancellationToken">The <see cref="CancellationToken"/></param>
-        /// <typeparam name="T">The object type to return</typeparam>
-        /// <returns>An instance of IAsyncEnumerable{T}</returns>
-        public static async IAsyncEnumerable<T> DeserializeListFromStreamAsync<T>([NotNull] this Stream stream, [EnumeratorCancellation] CancellationToken cancellationToken)
-        {
-            using var streamReader = new MessagePackStreamReader(stream);
-            
-            while (await streamReader.ReadAsync(cancellationToken) is { } messagePack)
-            {
-                yield return MessagePackSerializer.Deserialize<T>(messagePack, cancellationToken: cancellationToken);
-            }
-        }
-        
-        /// <summary>
         ///     The is executable.
         /// </summary>
         /// <param name="stream">

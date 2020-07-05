@@ -1,0 +1,12 @@
+{
+  "ServerUri": "https://sonar.jamesconsulting.biz",
+  "Organization": null,
+  "ProjectKey": "James-Consulting-Core",
+  "ProjectName": "James Consulting Core",
+  "Profiles": {
+    "CSharp": {
+      "ProfileKey": "AXMYU2NlSAiojMeq-XMW",
+      "ProfileTimestamp": "2020-07-04T05:36:24Z"
+    }
+  }
+}

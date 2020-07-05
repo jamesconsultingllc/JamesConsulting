@@ -4,7 +4,6 @@ using System.Text;
 using FluentAssertions;
 using FluentAssertions.Common;
 using JamesConsulting.IO;
-using MessagePack;
 using Utf8Json;
 using Xunit;
 
