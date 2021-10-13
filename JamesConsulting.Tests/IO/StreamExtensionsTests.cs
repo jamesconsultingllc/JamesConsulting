@@ -2,7 +2,6 @@
 using System.IO;
 using System.Text;
 using FluentAssertions;
-using FluentAssertions.Common;
 using JamesConsulting.IO;
 using Utf8Json;
 using Xunit;
@@ -19,7 +18,7 @@ namespace JamesConsulting.Tests.IO
 
             public override bool Equals(object? obj)
             {
-                if (!(obj is MyClass myClass))
+                if (obj is not MyClass myClass)
                     return false;
 
                 return myClass.Property1 == Property1 && myClass.Property2 == Property2;
@@ -27,7 +26,7 @@ namespace JamesConsulting.Tests.IO
 
             public override int GetHashCode()
             {
-#if NET461
+#if NET461 || NETSTANDARD2_0
                 var hashcode = 35203352;
                 var offset = -1521134295;
                 hashcode *= offset + Property1.GetHashCode();
@@ -46,7 +45,7 @@ namespace JamesConsulting.Tests.IO
             var ms = test.SerializeToJsonStream(new MemoryStream());
             var newTest = JsonSerializer.Deserialize<MyClass>(ms);
             newTest.Should().NotBeNull();
-            newTest.IsSameOrEqualTo(test);
+            newTest.Should().Be(test);
         }
 
         [Fact]

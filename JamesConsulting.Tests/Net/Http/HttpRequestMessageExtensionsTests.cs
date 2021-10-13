@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using FluentAssertions;
-using FluentAssertions.Common;
 using JamesConsulting.Net.Http;
 using Xunit;
 
@@ -21,7 +20,7 @@ namespace JamesConsulting.Tests.Net.Http
             requestMessage.SetHeaders(headers);
 
             requestMessage.Headers.Contains("Test").Should().BeFalse();
-            requestMessage.Headers.Count().IsSameOrEqualTo(2);
+            requestMessage.Headers.Count().Should().Be(2);
         }
 
         [Fact]
