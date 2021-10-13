@@ -54,5 +54,15 @@ namespace JamesConsulting.Tests
             var description = MyOptions.Without.GetDescription();
             description.Should().BeEquivalentTo("Without");
         }
+        
+        /// <summary>
+        ///     The get description_ enum has description attribute.
+        /// </summary>
+        [Fact]
+        public void GetDescription_InvalidEnum_ThrowsInvalidOperationException()
+        {
+            var description = EnumExtensions.GetDescription((MyOptions)3);
+            description.Should().BeNull();
+        }
     }
 }

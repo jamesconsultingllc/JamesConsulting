@@ -1,14 +1,4 @@
-﻿//  ----------------------------------------------------------------------------------------------------------------------
-//  <copyright file="Constants.cs" company="James Consulting LLC">
-//    Copyright © 2020 All Rights Reserved 
-//  </copyright>
-//  <author>Rudy James</author>
-//  <summary>
-// 
-//  </summary>
-//  ----------------------------------------------------------------------------------------------------------------------
-
-using System;
+﻿using System;
 using System.Collections.Concurrent;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -32,6 +22,11 @@ namespace JamesConsulting
         public static readonly Type GenericTaskType = typeof(Task<>);
 
         /// <summary>
+        ///     The method templates.
+        /// </summary>
+        public static readonly ConcurrentDictionary<MethodInfo, (ParameterInfo[] Parameters, string Template)> MethodTemplates = new();
+
+        /// <summary>
         ///     The output only function type.
         /// </summary>
         public static readonly Type OutputOnlyFunctionType = typeof(Func<>);
@@ -49,16 +44,11 @@ namespace JamesConsulting
         /// <summary>
         ///     The type methods.
         /// </summary>
-        public static readonly ConcurrentDictionary<Type, MethodInfo[]> TypeMethods = new ConcurrentDictionary<Type, MethodInfo[]>();
+        public static readonly ConcurrentDictionary<Type, MethodInfo[]> TypeMethods = new();
 
         /// <summary>
         ///     The void type.
         /// </summary>
         public static readonly Type VoidType = typeof(void);
-
-        /// <summary>
-        ///     The method templates.
-        /// </summary>
-        public static readonly ConcurrentDictionary<MethodInfo, (ParameterInfo[] Parameters, string Template)> MethodTemplates = new ConcurrentDictionary<MethodInfo, (ParameterInfo[] Parameters, string Template)>();
     }
 }
