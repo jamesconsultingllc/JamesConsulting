@@ -24,7 +24,7 @@ namespace JamesConsulting
         /// <summary>
         ///     The method templates.
         /// </summary>
-        public static readonly ConcurrentDictionary<MethodInfo, (ParameterInfo[] Parameters, string Template)> MethodTemplates = new();
+        public static ConcurrentDictionary<MethodInfo, (ParameterInfo[] Parameters, string Template)> MethodTemplates { get; private set; } = new();
 
         /// <summary>
         ///     The output only function type.
@@ -44,7 +44,7 @@ namespace JamesConsulting
         /// <summary>
         ///     The type methods.
         /// </summary>
-        public static readonly ConcurrentDictionary<Type, MethodInfo[]> TypeMethods = new();
+        public static ConcurrentDictionary<Type, MethodInfo[]> TypeMethods { get; private set; } = new();
 
         /// <summary>
         ///     The void type.

@@ -39,7 +39,17 @@ namespace JamesConsulting.Reflection
             if (Methods.ContainsKey(method))
                 return Methods[method];
 
-            var result = type.GetMethods().FirstOrDefault(x => x.ToString().Equals(method));
+            MethodInfo[] methods;
+
+            if (Constants.TypeMethods.ContainsKey(type))
+                methods = Constants.TypeMethods[type];
+            else
+            {
+                methods = type.GetMethods();
+                Constants.TypeMethods[type] = methods;
+            }
+            
+            var result = methods.FirstOrDefault(x => x.ToString().Equals(method));
 
             if (result != null)
                 Methods[method] = result;
