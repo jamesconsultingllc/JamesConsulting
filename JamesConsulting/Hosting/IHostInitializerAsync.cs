@@ -1,14 +1,4 @@
-﻿//  ----------------------------------------------------------------------------------------------------------------------
-//  <copyright file="IHostInitializerAsync.cs" company="James Consulting LLC">
-//    Copyright (c) 2020 All Rights Reserved
-//  </copyright>
-//  <author>Rudy James</author>
-//  <summary>
-//  
-//  </summary>
-//  ----------------------------------------------------------------------------------------------------------------------
-
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 
 namespace JamesConsulting.Hosting
 {

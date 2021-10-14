@@ -1,14 +1,4 @@
-﻿//  ----------------------------------------------------------------------------------------------------------------------
-//  <copyright file="ByteArrayExtensions.cs" company="James Consulting LLC">
-//    Copyright (c) 2020 All Rights Reserved
-//  </copyright>
-//  <author>Rudy James</author>
-//  <summary>
-//  
-//  </summary>
-//  ----------------------------------------------------------------------------------------------------------------------
-
-using System;
+﻿using System;
 using PostSharp.Patterns.Contracts;
 
 namespace JamesConsulting
@@ -19,19 +9,19 @@ namespace JamesConsulting
     public static class ByteArrayExtensions
     {
         /// <summary>
-        ///     The get string.
+        /// The get string.
         /// </summary>
         /// <param name="bytes">
-        ///     The bytes.
+        /// The bytes.
         /// </param>
         /// <returns>
-        ///     The <see cref="string" />.
+        /// The <see cref="string"/>.
         /// </returns>
         /// <exception cref="ArgumentNullException">
-        ///     <paramref name="bytes" /> is <see langword="null" />
+        /// <paramref name="bytes"/> is <see langword="null"/>
         /// </exception>
         /// <exception cref="OverflowException">
-        ///     The array is multidimensional and contains more than
+        /// The array is multidimensional and contains more than
         ///     <see cref="System.Int32.MaxValue"></see> elements.
         /// </exception>
         public static string GetString([NotNull] this byte[] bytes)

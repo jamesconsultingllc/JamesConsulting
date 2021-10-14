@@ -1,14 +1,4 @@
-﻿//  ----------------------------------------------------------------------------------------------------------------------
-//  <copyright file="MethodInfoExtensions.cs" company="James Consulting LLC">
-//    Copyright (c) 2020 All Rights Reserved
-//  </copyright>
-//  <author>Rudy James</author>
-//  <summary>
-//  
-//  </summary>
-//  ----------------------------------------------------------------------------------------------------------------------
-
-using System.Collections.Concurrent;
+﻿using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -25,23 +15,23 @@ namespace JamesConsulting.Reflection
         /// <summary>
         ///     The method templates.
         /// </summary>
-        private static readonly ConcurrentDictionary<MethodInfo, (ParameterInfo[] Parameters, string Template)> MethodTemplates = new ConcurrentDictionary<MethodInfo, (ParameterInfo[] Parameters, string Template)>();
+        private static readonly ConcurrentDictionary<MethodInfo, (ParameterInfo[] Parameters, string Template)> MethodTemplates = new();
 
         /// <summary>
-        ///     Returns a string representation of the MethodInfo with parameter names, types and values.
+        /// Returns a string representation of the MethodInfo with parameter names, types and values.
         /// </summary>
         /// <param name="methodInfo">
-        ///     The <see cref="MethodInfo" /> to convert to string
+        /// The <see cref="MethodInfo"/> to convert to string
         /// </param>
         /// <param name="parameterValues">
-        ///     The parameter values corresponding to the method parameters
+        /// The parameter values corresponding to the method parameters
         /// </param>
         /// <returns>
-        ///     Returns a <see cref="string" /> representation of the <see cref="MethodInfo" /> with parameter names, types
+        /// Returns a <see cref="string"/> representation of the <see cref="MethodInfo"/> with parameter names, types
         ///     and values.
         /// </returns>
         /// <exception cref="T:System.ArgumentNullException">
-        ///     <paramref name="methodInfo" /> is <see langword="null" />
+        /// <paramref name="methodInfo"/> is <see langword="null"/>
         /// </exception>
         public static string ToInvocationString([NotNull] this MethodInfo methodInfo, params object[] parameterValues)
         {
@@ -53,35 +43,38 @@ namespace JamesConsulting.Reflection
         }
 
         /// <summary>
-        ///     The bind template.
+        /// The bind template.
         /// </summary>
         /// <param name="template">
-        ///     The template.
+        /// The template.
         /// </param>
         /// <param name="parameters">
-        ///     The parameters.
+        /// The parameters.
         /// </param>
         /// <param name="parameterValues">
-        ///     The parameter values.
+        /// The parameter values.
         /// </param>
         /// <returns>
-        ///     The <see cref="string" />.
+        /// The <see cref="string"/>.
         /// </returns>
-        private static string BindTemplate(string template, IEnumerable<ParameterInfo> parameters, IReadOnlyList<object> parameterValues)
+        private static string BindTemplate(
+            string template,
+            IEnumerable<ParameterInfo> parameters,
+            IReadOnlyList<object> parameterValues)
         {
             return string.Format(template, parameters.Select((x, idx) => GetValue(x, parameterValues[idx])).ToArray());
         }
 
         /// <summary>
-        ///     The get method template.
+        /// The get method template.
         /// </summary>
         /// <param name="methodInfo">
-        ///     The method info.
+        /// The method info.
         /// </param>
         /// <returns>
-        ///     The <see cref="T:(ParameterInfo[] Parameters, string Template)" />.
+        /// The <see cref="T:(ParameterInfo[] Parameters, string Template)"/>.
         /// </returns>
-        private static (ParameterInfo[] Parameters, string Template) GetMethodTemplate(this MethodBase methodInfo)
+        private static (ParameterInfo[] Parameters, string Template) GetMethodTemplate([NotNull] this MethodBase methodInfo)
         {
             var stringBuilder = new StringBuilder($"{methodInfo.DeclaringType.FullName}.{methodInfo.Name}(");
             var parameterInfo = methodInfo.GetParameters();
@@ -91,18 +84,18 @@ namespace JamesConsulting.Reflection
         }
 
         /// <summary>
-        ///     The get value.
+        /// The get value.
         /// </summary>
         /// <param name="parameterInfo">
-        ///     The parameter info.
+        /// The parameter info.
         /// </param>
         /// <param name="parameterValue">
-        ///     The parameter value.
+        /// The parameter value.
         /// </param>
         /// <returns>
-        ///     The <see cref="object" />.
+        /// The <see cref="object"/>.
         /// </returns>
-        private static object? GetValue(ParameterInfo parameterInfo, object parameterValue)
+        private static object? GetValue(ParameterInfo parameterInfo, object? parameterValue)
         {
             if (parameterValue == null || parameterInfo.ParameterType.IsPrimitive) return parameterValue;
 
@@ -110,16 +103,16 @@ namespace JamesConsulting.Reflection
         }
 
         /// <summary>
-        ///     The to invocation string.
+        /// The to invocation string.
         /// </summary>
         /// <param name="parameterInfo">
-        ///     The parameter info.
-        /// </param>
+        /// The parameter info.
+        /// </param>?
         /// <param name="index">
-        ///     The index.
+        /// The index.
         /// </param>
         /// <returns>
-        ///     The <see cref="string" />.
+        /// The <see cref="string"/>.
         /// </returns>
         private static string ToInvocationString(ParameterInfo parameterInfo, int index)
         {

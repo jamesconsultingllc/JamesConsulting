@@ -1,14 +1,4 @@
-﻿//  ----------------------------------------------------------------------------------------------------------------------
-//  <copyright file="EnumExtensions.cs" company="James Consulting LLC">
-//    Copyright (c) 2020 All Rights Reserved
-//  </copyright>
-//  <author>Rudy James</author>
-//  <summary>
-//  
-//  </summary>
-//  ----------------------------------------------------------------------------------------------------------------------
-
-using System;
+﻿using System;
 using System.ComponentModel;
 
 namespace JamesConsulting
@@ -19,24 +9,30 @@ namespace JamesConsulting
     public static class EnumExtensions
     {
         /// <summary>
-        ///     The get description.
+        /// The get description.
         /// </summary>
         /// <param name="enumValue">
-        ///     The enumeration value.
+        /// The enumeration value.
         /// </param>
         /// <returns>
-        ///     The <see cref="string" />.
+        /// The <see cref="string"/>.
         /// </returns>
         /// <exception cref="T:System.Reflection.AmbiguousMatchException">
-        ///     More than one of the requested attributes was found.
+        /// More than one of the requested attributes was found.
         /// </exception>
         /// <exception cref="T:System.TypeLoadException">
-        ///     A custom attribute type cannot be loaded.
+        /// A custom attribute type cannot be loaded.
         /// </exception>
-        public static string GetDescription(this Enum enumValue)
+        public static string? GetDescription(this Enum enumValue)
         {
             var fieldInfo = enumValue.GetType().GetField(enumValue.ToString());
-            return !(Attribute.GetCustomAttribute(fieldInfo, typeof(DescriptionAttribute)) is DescriptionAttribute attribute) ? Enum.GetName(enumValue.GetType(), enumValue) : attribute.Description;
+
+            if (fieldInfo == null)
+                return null;
+            
+            return Attribute.GetCustomAttribute(fieldInfo, typeof(DescriptionAttribute)) is not DescriptionAttribute attribute
+                       ? Enum.GetName(enumValue.GetType(), enumValue)
+                       : attribute.Description;
         }
     }
 }
