@@ -4,7 +4,7 @@
 # https://aka.ms/yaml
 variables:
   SonarKey: 'jamesconsultingllc_JamesConsulting.Core'
-  Version: '1.0.0'
+  Version: '1.0.1'
   buildConfiguration: 'Release'
 trigger:
 - master
