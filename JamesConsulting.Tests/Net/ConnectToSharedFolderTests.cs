@@ -2,8 +2,6 @@
 using System.Net;
 using FluentAssertions;
 using JamesConsulting.Net;
-using Moq;
-using Moq.Protected;
 using Xunit;
 
 namespace JamesConsulting.Tests.Net
@@ -22,23 +20,10 @@ namespace JamesConsulting.Tests.Net
         }
 
         [Fact]
-        public void Constructor_CallsConnect_WhenParametersAreValid()
+        public void Constructor_Succeeds()
         {
-            var connectToSharedFolder =
-                new Mock<ConnectToSharedFolder>("rjames", new NetworkCredential("Test", "Test"));
-            connectToSharedFolder.Protected().Setup("Connect");
-            _ = connectToSharedFolder.Object;
-            connectToSharedFolder.Protected().Verify("Connect", Times.Once());
-        }
-        
-        [Fact]
-        public void Dispose_CallsDispose_WithTrue()
-        {
-            var connectToSharedFolder =
-                new Mock<ConnectToSharedFolder>("rjames", new NetworkCredential("Test", "Test"));
-            connectToSharedFolder.Protected().Setup("Connect");
-            connectToSharedFolder.Object.Dispose();
-            connectToSharedFolder.Protected().Verify("Dispose", Times.Once(), true, true);
+            var instance = new ConnectToSharedFolder("Test", new NetworkCredential() { UserName = "Test", Password = "Test" });
+            instance.Should().NotBeNull();
         }
     }
 }
