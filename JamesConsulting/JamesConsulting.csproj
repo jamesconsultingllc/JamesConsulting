@@ -11,7 +11,7 @@
     <ProjectGuid>9F232F91-5328-4EE7-BC83-AB21CBA9C18B</ProjectGuid>
     <LangVersion>default</LangVersion>
     <Nullable>enable</Nullable>
-    <TargetFrameworks>net461;net5.0;net6.0;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <TargetFrameworks>net461;net6.0;netstandard2.0;netstandard2.1</TargetFrameworks>
     <CodeAnalysisRuleSet>..\.sonarlint\james-consulting-corecsharp.ruleset</CodeAnalysisRuleSet>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
