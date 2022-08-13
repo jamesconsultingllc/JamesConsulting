@@ -18,23 +18,6 @@ steps:
       scannerMode: 'MSBuild'
       projectKey: '$(SonarKey)'
       projectVersion: '2.0'
-  - task: UseDotNet@2
-    displayName: ".NET Core 3.1.x"
-    inputs:
-      version: "3.1.x"
-      packageType: sdk
-
-  - task: UseDotNet@2
-    displayName: ".NET 5.0.x"
-    inputs:
-      version: "5.0.x"
-      packageType: sdk
-
-  - task: UseDotNet@2
-    displayName: ".NET 6.x"
-    inputs:
-      version: "6.x"
-      packageType: sdk
   - task: DotNetCoreCLI@2
     inputs:
       command: 'restore'
