@@ -1,15 +1,4 @@
-﻿//  ----------------------------------------------------------------------------------------------------------------------
-//  <copyright file="StreamExtensions.cs" company="James Consulting LLC">
-//    Copyright (c) 2020 All Rights Reserved
-//  </copyright>
-//  <author>Rudy James</author>
-//  <summary>
-//  
-//  </summary>
-//  ----------------------------------------------------------------------------------------------------------------------
-
-using System;
-using System.IO;
+﻿using System.IO;
 using System.Text;
 using Newtonsoft.Json;
 using PostSharp.Patterns.Contracts;
@@ -22,17 +11,16 @@ namespace JamesConsulting.IO
     public static class StreamExtensions
     {
         /// <summary>
-        ///     The is executable.
+        /// The is executable.
         /// </summary>
         /// <param name="stream">
-        ///     The stream.
+        /// The stream.
         /// </param>
         /// <returns>
-        ///     The <see cref="bool" />.
+        /// The <see cref="bool"/>.
         /// </returns>
         public static bool IsExecutable([NotNull] this Stream stream)
         {
-            if (stream == null) throw new ArgumentNullException(nameof(stream));
             var firstBytes = new byte[2];
             stream.Position = 0;
             stream.Read(firstBytes, 0, 2);

@@ -1,14 +1,4 @@
-﻿//  ----------------------------------------------------------------------------------------------------------------------
-//  <copyright file="HttpRequestMessageExtensions.cs" company="James Consulting LLC">
-//    Copyright (c) 2020 All Rights Reserved
-//  </copyright>
-//  <author>Rudy James</author>
-//  <summary>
-//  
-//  </summary>
-//  ----------------------------------------------------------------------------------------------------------------------
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -22,21 +12,23 @@ namespace JamesConsulting.Net.Http
     public static class HttpRequestMessageExtensions
     {
         /// <summary>
-        ///     The set headers.
+        /// The set headers.
         /// </summary>
         /// <param name="httpRequestMessage">
-        ///     The http request message.
+        /// The http request message.
         /// </param>
         /// <param name="headers">
-        ///     The headers.
+        /// The headers.
         /// </param>
         /// <returns>
-        ///     The <see cref="HttpRequestMessage" />.
+        /// The <see cref="HttpRequestMessage"/>.
         /// </returns>
         /// <exception cref="ArgumentNullException">
-        ///     Thrown when the <paramref name="httpRequestMessage" /> or <paramref name="headers" /> is null
+        /// Thrown when the <paramref name="httpRequestMessage"/> or <paramref name="headers"/> is null
         /// </exception>
-        public static HttpRequestMessage SetHeaders([NotNull] this HttpRequestMessage httpRequestMessage, [NotNull] IDictionary<string, string> headers)
+        public static HttpRequestMessage SetHeaders(
+            [NotNull] this HttpRequestMessage httpRequestMessage,
+            [NotNull] IDictionary<string, string> headers)
         {
             if (httpRequestMessage.Headers.Any()) httpRequestMessage.Headers.Clear();
 

@@ -1,14 +1,4 @@
-﻿//  ----------------------------------------------------------------------------------------------------------------------
-//  <copyright file="IHostExtensions.cs" company="James Consulting LLC">
-//    Copyright (c) 2020 All Rights Reserved
-//  </copyright>
-//  <author>Rudy James</author>
-//  <summary>
-//  
-//  </summary>
-//  ----------------------------------------------------------------------------------------------------------------------
-
-using System;
+﻿using System;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -22,33 +12,32 @@ namespace JamesConsulting.Hosting
     public static class HostExtensions
     {
         /// <summary>
-        ///     The initialize.
+        /// The initialize.
         /// </summary>
         /// <param name="host">
-        ///     The host.
+        /// The host.
         /// </param>
         /// <exception cref="ArgumentNullException">
-        ///     Thrown when <paramref name="host" /> is null
+        /// Thrown when <paramref name="host"/> is null
         /// </exception>
         public static void Initialize([NotNull] this IHost host)
         {
             using var scope = host.Services.CreateScope();
             var services = scope.ServiceProvider.GetServices<IHostInitializer>();
-
-            if (services != null) Parallel.ForEach(services, svc => svc.Initialize());
+            Parallel.ForEach(services, svc => svc.Initialize());
         }
 
         /// <summary>
-        ///     The initialize async.
+        /// The initialize async.
         /// </summary>
         /// <param name="host">
-        ///     The host.
+        /// The host.
         /// </param>
         /// <returns>
-        ///     The <see cref="Task" />.
+        /// The <see cref="Task"/>.
         /// </returns>
         /// <exception cref="ArgumentNullException">
-        ///     Thrown when <paramref name="host" /> is null
+        /// Thrown when <paramref name="host"/> is null
         /// </exception>
         public static Task InitializeAsync([NotNull] this IHost host)
         {
@@ -56,23 +45,22 @@ namespace JamesConsulting.Hosting
         }
 
         /// <summary>
-        ///     The initialize internal async.
+        /// The initialize internal async.
         /// </summary>
         /// <param name="host">
-        ///     The host.
+        /// The host.
         /// </param>
         /// <returns>
-        ///     The <see cref="Task" />.
+        /// The <see cref="Task"/>.
         /// </returns>
         /// <exception cref="ArgumentNullException">
-        ///     Thrown when <paramref name="host" /> is null
+        /// Thrown when <paramref name="host"/> is null
         /// </exception>
         private static async Task InitializeInternalAsync(this IHost host)
         {
             using var scope = host.Services.CreateScope();
             var services = scope.ServiceProvider.GetServices<IHostInitializerAsync>();
-
-            if (services != null) await Task.Run(() => Parallel.ForEach(services, svc => svc.InitializeAsync())).ConfigureAwait(false);
+            await Task.Run(() => Parallel.ForEach(services, svc => svc.InitializeAsync())).ConfigureAwait(false);
         }
     }
 }
