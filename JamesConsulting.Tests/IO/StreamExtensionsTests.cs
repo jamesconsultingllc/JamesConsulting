@@ -32,7 +32,7 @@ namespace JamesConsulting.Tests.IO
 
             public override int GetHashCode()
             {
-#if NET461 || NETSTANDARD2_0
+#if NET462 || NETSTANDARD2_0
                 var hashcode = 35203352;
                 var offset = -1521134295;
                 hashcode *= offset + Property1.GetHashCode();
@@ -92,7 +92,7 @@ namespace JamesConsulting.Tests.IO
         [Fact]
         public void Deserialize()
         {
-            var test = new MyClass {Property1 = "Test", Property2 = 3};
+            var test = new MyClass("Test", 3);
             var ms = test.SerializeToJsonStream(new MemoryStream());
             var newTest = ms.Deserialize<MyClass>();
             newTest.Should().NotBeNull();
