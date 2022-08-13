@@ -82,5 +82,21 @@ namespace JamesConsulting.Tests.IO
         {
             Assert.Throws<ArgumentNullException>(() => default(Stream)!.IsExecutable());
         }
+
+        [Fact]
+        public void DeserializeThrowsArgumentNullExceptionWhenStreamIsNull()
+        {
+            Assert.Throws<ArgumentNullException>(() => default(Stream)!.Deserialize<object>());
+        }
+        
+        [Fact]
+        public void Deserialize()
+        {
+            var test = new MyClass {Property1 = "Test", Property2 = 3};
+            var ms = test.SerializeToJsonStream(new MemoryStream());
+            var newTest = ms.Deserialize<MyClass>();
+            newTest.Should().NotBeNull();
+            newTest.Should().Be(test);
+        }
     }
 }

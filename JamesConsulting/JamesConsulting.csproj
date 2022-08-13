@@ -5,13 +5,13 @@
     <Authors>Rudy James</Authors>
     <Company>James Consulting LLC</Company>
     <Product>James Consulting Core Library</Product>
-    <Copyright>Copyright (c) 2020 All Rights Reserved</Copyright>
+    <Copyright>Copyright (c) 2020 - 2022 All Rights Reserved</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/jamesconsultingllc/JamesConsulting</RepositoryUrl>
     <ProjectGuid>9F232F91-5328-4EE7-BC83-AB21CBA9C18B</ProjectGuid>
     <LangVersion>default</LangVersion>
     <Nullable>enable</Nullable>
-    <TargetFrameworks>net461;net5.0;netstandard2.0;netstandard2.1</TargetFrameworks>
+    <TargetFrameworks>net461;net5.0;net6.0;netstandard2.0;netstandard2.1</TargetFrameworks>
     <CodeAnalysisRuleSet>..\.sonarlint\james-consulting-corecsharp.ruleset</CodeAnalysisRuleSet>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
@@ -37,12 +37,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="MessagePack" Version="2.3.85" />
+    <PackageReference Include="MessagePack" Version="2.4.35" />
     <PackageReference Condition="'$(TargetFramework)' == 'net461'" Include="Microsoft.CSharp" Version="4.7.0" />
-    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
     <PackageReference Include="PostSharp.Patterns.Common" Version="6.9.10" />
-    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.30.0.37606">
+    <PackageReference Include="SonarAnalyzer.CSharp" Version="8.43.0.51858">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
