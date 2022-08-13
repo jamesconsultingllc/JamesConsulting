@@ -13,8 +13,14 @@ namespace JamesConsulting.Tests.IO
         [Serializable]
         public class MyClass
         {
-            public string Property1 { get; set; } = string.Empty;
-            public int Property2 { get; set; }
+            public MyClass(string property1, int property2)
+            {
+                Property1 = property1;
+                Property2 = property2;
+            }
+
+            public string Property1 { get; }
+            public int Property2 { get; }
 
             public override bool Equals(object? obj)
             {
@@ -41,7 +47,7 @@ namespace JamesConsulting.Tests.IO
         [Fact]
         public void DeserializeStreamRecreatesObject()
         {
-            var test = new MyClass {Property1 = "Test", Property2 = 3};
+            var test = new MyClass("Test", 3);
             var ms = test.SerializeToJsonStream(new MemoryStream());
             var newTest = JsonSerializer.Deserialize<MyClass>(ms);
             newTest.Should().NotBeNull();

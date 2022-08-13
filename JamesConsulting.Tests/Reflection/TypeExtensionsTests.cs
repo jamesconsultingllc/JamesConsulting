@@ -26,7 +26,7 @@ namespace JamesConsulting.Tests.Reflection
         /// <summary>
         ///     The instance type.
         /// </summary>
-        private static readonly Type instanceType = typeof(MyInterface);
+        private static readonly Type InstanceType = typeof(MyInterface);
 
         [Theory]
         [InlineData("")]
@@ -53,7 +53,7 @@ namespace JamesConsulting.Tests.Reflection
         [InlineData(" ")]
         public void ToMethodInfoThrowsArgumentOutOfRangeExceptionInvalidString(string test)
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => instanceType.GetMethodInfoFromString(test));
+            Assert.Throws<ArgumentOutOfRangeException>(() => InstanceType.GetMethodInfoFromString(test));
         }
 
         [Theory]
@@ -61,7 +61,7 @@ namespace JamesConsulting.Tests.Reflection
         [InlineData("TestAsync")]
         public void IsAsyncWithResultReturnsFalseWhenMethodIsNotAsync(string method)
         {
-            instanceType.GetMethod(method)!.IsAsyncWithResult().Should().BeFalse();
+            InstanceType.GetMethod(method)!.IsAsyncWithResult().Should().BeFalse();
         }
 
         /// <summary>
@@ -76,16 +76,16 @@ namespace JamesConsulting.Tests.Reflection
         [Fact]
         public void GetMethodInfoFromStringReturnsCachedMethodOnSubsequentRequests()
         {
-            MethodInfo? result1 = GetType().GetMethodInfoFromString(nameof(IsConcreteClassInterfaceTypeReturnsFalse));
-            MethodInfo? result2 = GetType().GetMethodInfoFromString(nameof(IsConcreteClassInterfaceTypeReturnsFalse));
+            var result1 = GetType().GetMethodInfoFromString(nameof(IsConcreteClassInterfaceTypeReturnsFalse));
+            var result2 = GetType().GetMethodInfoFromString(nameof(IsConcreteClassInterfaceTypeReturnsFalse));
             result1.Should().BeSameAs(result2);
         }
 
         [Fact]
         public void GetMethodInfoFromStringReturnsMethodInfo()
         {
-            var expected = instanceType.GetMethods().First(x => x.Name == "GetClassById");
-            instanceType.GetMethodInfoFromString(expected.ToString()!).Should().BeSameAs(expected);
+            MethodInfo expected = InstanceType.GetMethods().First(x => x.Name == "GetClassById");
+            InstanceType.GetMethodInfoFromString(expected.ToString()).Should().BeSameAs(expected);
         }
 
         [Fact]
@@ -97,20 +97,20 @@ namespace JamesConsulting.Tests.Reflection
         [Fact]
         public void HasReturnValueReturnsFalseWhenMethodHasReturnTypeTask()
         {
-            instanceType.GetMethod("TestAsync")!.HasReturnValue().Should().BeFalse();
+            InstanceType.GetMethod("TestAsync")!.HasReturnValue().Should().BeFalse();
         }
 
         [Fact]
         public void HasReturnValueReturnsFalseWhenMethodHasReturnTypeVoid()
         {
-            instanceType.GetMethod("Test")!.HasReturnValue().Should().BeFalse();
+            InstanceType.GetMethod("Test")!.HasReturnValue().Should().BeFalse();
         }
 
         [Fact]
         public void HasReturnValueReturnsTrueWhenMethodHasReturnValue()
         {
-            var expected = instanceType.GetMethods().First(x => x.Name == "GetClassById");
-            instanceType.GetMethod(expected.Name)!.HasReturnValue().Should().BeTrue();
+            var expected = InstanceType.GetMethods().First(x => x.Name == "GetClassById");
+            InstanceType.GetMethod(expected.Name)!.HasReturnValue().Should().BeTrue();
         }
 
         [Fact]
@@ -122,13 +122,13 @@ namespace JamesConsulting.Tests.Reflection
         [Fact]
         public void IsAsyncReturnsFalseWhenMethodIsNotAsync()
         {
-            instanceType.GetMethod("Test")!.IsAsync().Should().BeFalse();
+            InstanceType.GetMethod("Test")!.IsAsync().Should().BeFalse();
         }
 
         [Fact]
         public void IsAsyncReturnsTrueWhenMethodIsAsync()
         {
-            instanceType.GetMethod("TestAsync")!.IsAsync().Should().BeTrue();
+            InstanceType.GetMethod("TestAsync")!.IsAsync().Should().BeTrue();
         }
 
         [Fact]
@@ -140,7 +140,7 @@ namespace JamesConsulting.Tests.Reflection
         [Fact]
         public void IsAsyncWithResultReturnsTrueWhenMethodIsAsync()
         {
-            instanceType.GetMethod("GetClassById")!.IsAsyncWithResult().Should().BeTrue();
+            InstanceType.GetMethod("GetClassById")!.IsAsyncWithResult().Should().BeTrue();
         }
 
         [Fact]
@@ -179,8 +179,8 @@ namespace JamesConsulting.Tests.Reflection
         [Fact]
         public void ToMethodInfoReturnsMethodInfoFromMethodName()
         {
-            var expected = instanceType.GetMethods().First(x => x.Name == "GetClassById");
-            var actual = instanceType.GetMethodInfoFromString(expected.ToString()!);
+            var expected = InstanceType.GetMethods().First(x => x.Name == "GetClassById");
+            var actual = InstanceType.GetMethodInfoFromString(expected.ToString());
             actual.Should().BeSameAs(expected);
         }
 
@@ -190,7 +190,7 @@ namespace JamesConsulting.Tests.Reflection
         [Fact]
         public void ToMethodInfoThrowsArgumentNullExceptionNullString()
         {
-            Assert.Throws<ArgumentNullException>(() => instanceType.GetMethodInfoFromString(default!));
+            Assert.Throws<ArgumentNullException>(() => InstanceType.GetMethodInfoFromString(default!));
         }
     }
 }
