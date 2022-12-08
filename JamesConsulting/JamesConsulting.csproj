@@ -40,7 +40,7 @@
     <PackageReference Include="MessagePack" Version="2.4.35" />
     <PackageReference Condition="'$(TargetFramework)' == 'net461'" Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
     <PackageReference Include="PostSharp.Patterns.Common" Version="6.10.14" />
     <PackageReference Include="SonarAnalyzer.CSharp" Version="8.43.0.51858">
       <PrivateAssets>all</PrivateAssets>
