@@ -25,17 +25,6 @@ namespace JamesConsulting.Tests.Hosting
     /// </summary>
     public class HostExtensionsTests
     {
-        /// <summary>
-        ///     The create initializers.
-        /// </summary>
-        /// <param name="count">
-        ///     The count.
-        /// </param>
-        /// <typeparam name="T">
-        /// </typeparam>
-        /// <returns>
-        ///     The <see cref="T:List{Mock{T}}" />.
-        /// </returns>
         private static List<Mock<T>> CreateInitializers<T>(int count)
             where T : class
         {
@@ -46,9 +35,6 @@ namespace JamesConsulting.Tests.Hosting
             return list;
         }
 
-        /// <summary>
-        ///     The initialize async call initialize on host initializers.
-        /// </summary>
         [Fact]
         public async Task InitializeAsyncCallInitializeOnHostInitializers()
         {

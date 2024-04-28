@@ -2,7 +2,7 @@
 using System.Collections.Concurrent;
 using System.Linq;
 using System.Reflection;
-using PostSharp.Patterns.Contracts;
+using Metalama.Patterns.Contracts;
 
 namespace JamesConsulting.Reflection
 {
@@ -48,7 +48,7 @@ namespace JamesConsulting.Reflection
                 methods = type.GetMethods();
                 Constants.TypeMethods[type] = methods;
             }
-            
+
             var result = methods.FirstOrDefault(x => x.ToString().Equals(method));
 
             if (result != null)

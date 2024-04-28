@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Data.Common;
-using PostSharp.Patterns.Contracts;
+using Metalama.Patterns.Contracts;
 
 namespace JamesConsulting.Data.Common
 {
@@ -27,7 +27,7 @@ namespace JamesConsulting.Data.Common
         public static string StripPasswordFromConnectionString([NotNull] this string connectionString)
         {
             if (string.IsNullOrEmpty(connectionString)) return connectionString;
-            var db = new DbConnectionStringBuilder {ConnectionString = connectionString};
+            var db = new DbConnectionStringBuilder { ConnectionString = connectionString };
             db.RemoveKeys("Password", "password", "Pwd", "pwd");
             return db.ToString();
         }

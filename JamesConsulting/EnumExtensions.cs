@@ -29,7 +29,7 @@ namespace JamesConsulting
 
             if (fieldInfo == null)
                 return null;
-            
+
             return Attribute.GetCustomAttribute(fieldInfo, typeof(DescriptionAttribute)) is not DescriptionAttribute attribute
                        ? Enum.GetName(enumValue.GetType(), enumValue)
                        : attribute.Description;

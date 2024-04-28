@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Security.Cryptography;
 using System.Text;
-using PostSharp.Patterns.Contracts;
+using Metalama.Patterns.Contracts;
 
 namespace JamesConsulting.Cryptography
 {
@@ -63,7 +63,7 @@ namespace JamesConsulting.Cryptography
         /// <exception cref="CryptographicException">The cryptographic service provider (CSP) cannot be acquired.</exception>
         public static byte[] GenerateSalt()
         {
-            using var randomNumberGenerator = new RNGCryptoServiceProvider();
+            using var randomNumberGenerator = RandomNumberGenerator.Create();
             var randomNumber = new byte[32];
             randomNumberGenerator.GetBytes(randomNumber);
             return randomNumber;
@@ -91,7 +91,7 @@ namespace JamesConsulting.Cryptography
         /// The cryptographic service provider (CSP) cannot be acquired.
         /// </exception>
         public static (string hashedString, byte[] salt) Hash(
-            [NotEmpty] this string target,
+            [NotNull][NotEmpty] this string target,
             [StrictlyPositive] int numberOfRounds = 100)
         {
             var salt = GenerateSalt();
@@ -121,11 +121,11 @@ namespace JamesConsulting.Cryptography
         /// <paramref name="salt"/> is <see langword="null"/>
         /// </exception>
         public static string Hash(
-            [NotEmpty] this string target,
-            [NotEmpty] byte[] salt,
+            [NotNull][NotEmpty] this string target,
+            [NotNull][NotEmpty] byte[] salt,
             [StrictlyPositive] int numberOfRounds = 100)
         {
-            using var rfc2898DeriveBytes = new Rfc2898DeriveBytes(Encoding.UTF8.GetBytes(target), salt, numberOfRounds);
+            using var rfc2898DeriveBytes = new Rfc2898DeriveBytes(Encoding.UTF8.GetBytes(target), salt, numberOfRounds, HashAlgorithmName.SHA256);
             var hash = rfc2898DeriveBytes.GetBytes(32);
             return Convert.ToBase64String(hash);
         }

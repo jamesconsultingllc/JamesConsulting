@@ -20,32 +20,18 @@ namespace JamesConsulting.Tests.Cryptography
     /// </summary>
     public class StringExtensionsTests
     {
-        /// <summary>
-        ///     The hash null argument.
-        /// </summary>
-        /// <param name="target">
-        ///     The target.
-        /// </param>
-        [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        public void HashInvalidTargetThrowsArgumentNullException(string target)
+
+        [Fact]
+        public void HashInvalidTargetThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => target.Hash());
+            var exception = Assert.Throws<ArgumentNullException>(() => JamesConsulting.Cryptography.StringExtensions.Hash(default));
+            exception.ParamName.Should().Be("target");
         }
 
-        /// <summary>
-        ///     The hash with invalid target.
-        /// </summary>
-        /// <param name="target">
-        ///     The target.
-        /// </param>
-        [Theory]
-        [InlineData(null)]
-        [InlineData("")]
-        public void HashWithInvalidTargetThrowsArgumentNullException(string target)
+        [Fact]
+        public void HashEmptyTargetThrowsArgumentException()
         {
-            Assert.Throws<ArgumentNullException>(() => target.Hash(default!));
+            Assert.Throws<ArgumentException>(() => string.Empty.Hash());
         }
 
         /// <summary>
@@ -108,7 +94,8 @@ namespace JamesConsulting.Tests.Cryptography
         [Fact]
         public void HashInvalidNumberOfRoundsThrowsArgumentOutOfRangeException()
         {
-            Assert.Throws<ArgumentOutOfRangeException>(() => "test".Hash(new byte[3], -100));
+            var exception = Assert.Throws<ArgumentOutOfRangeException>(() => "test".Hash(new byte[3], -100));
+            exception.ParamName.Should().Be("numberOfRounds");
         }
 
         [Fact]
@@ -125,7 +112,8 @@ namespace JamesConsulting.Tests.Cryptography
         [Fact]
         public void HashWithNullSalt()
         {
-            Assert.Throws<ArgumentNullException>(() => "test".Hash(default(byte[])!));
+            var exception = Assert.Throws<ArgumentNullException>(() => "test".Hash(default(byte[])!));
+            exception.ParamName.Should().Be("salt");
         }
 
         /// <summary>

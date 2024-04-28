@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Reflection;
-using PostSharp.Patterns.Contracts;
+using Metalama.Patterns.Contracts;
 
 namespace JamesConsulting.Threading
 {
@@ -49,7 +49,7 @@ namespace JamesConsulting.Threading
                 BindingFlags.Instance | BindingFlags.Public | BindingFlags.InvokeMethod,
                 null,
                 taskSource,
-                new[] {results});
+                new[] { results });
             return taskType.InvokeMember(
                 Task,
                 BindingFlags.Instance | BindingFlags.Public | BindingFlags.GetProperty,

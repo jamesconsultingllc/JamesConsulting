@@ -2,7 +2,7 @@
 using System.IO;
 using System.Linq;
 using Newtonsoft.Json.Linq;
-using PostSharp.Patterns.Contracts;
+using Metalama.Patterns.Contracts;
 using Utf8Json;
 
 namespace JamesConsulting
@@ -15,7 +15,7 @@ namespace JamesConsulting
         /// <summary>
         /// The numeric token types.
         /// </summary>
-        private static readonly JTokenType[] NumericTokenTypes = {JTokenType.Float, JTokenType.Integer};
+        private static readonly JTokenType[] NumericTokenTypes = { JTokenType.Float, JTokenType.Integer };
 
         /// <summary>
         /// The get object type.
@@ -56,9 +56,9 @@ namespace JamesConsulting
         /// <exception cref="ArgumentException">
         /// Thrown when <paramref name="propertiesToMask"/> is an empty array.
         /// </exception>
-        public static T Mask<T>([NotNull] this T data, [NotEmpty] params string[] propertiesToMask)
+        public static T Mask<T>([NotNull] this T data, [NotNull][NotEmpty] params string[] propertiesToMask)
         {
-            JObject jo = JObject.FromObject(data!);
+            var jo = JObject.FromObject(data!);
 
             foreach (var propertyToMask in propertiesToMask)
             {
@@ -73,7 +73,7 @@ namespace JamesConsulting
             return jo.ToObject<T>()!;
         }
 
-        private static void SetValue(JObject jo, JToken property)
+        private static void SetValue(JToken jo, JToken property)
         {
             if (jo.SelectToken(property.Path) is not JValue key) return;
 
@@ -126,10 +126,10 @@ namespace JamesConsulting
         public static string ToJson([NotNull] this object obj)
         {
             return obj switch
-                {
-                    string objString => objString,
-                    _ => JsonSerializer.ToJsonString(obj)
-                };
+            {
+                string objString => objString,
+                _ => JsonSerializer.ToJsonString(obj)
+            };
         }
     }
 }

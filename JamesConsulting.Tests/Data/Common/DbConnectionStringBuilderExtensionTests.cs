@@ -1,11 +1,8 @@
 ﻿//  ----------------------------------------------------------------------------------------------------------------------
 //  <copyright file="DbConnectionStringBuilderExtensionTests.cs" company="James Consulting LLC">
-//    Copyright (c) 2020 All Rights Reserved
+//    Copyright (c) All Rights Reserved
 //  </copyright>
 //  <author>Rudy James</author>
-//  <summary>
-//  
-//  </summary>
 //  ----------------------------------------------------------------------------------------------------------------------
 
 using System;
@@ -17,10 +14,13 @@ using Xunit;
 namespace JamesConsulting.Tests.Data.Common
 {
     /// <summary>
-    ///     The <see cref="DbConnectionStringBuilderExtensions" /> tests.
+    /// Unit tests for the <see cref="DbConnectionStringBuilderExtensions"/> class.
     /// </summary>
     public class DbConnectionStringBuilderExtensionTests
     {
+        /// <summary>
+        /// Removes the specified keys from the connection string.
+        /// </summary>
         [Fact]
         public void RemoveKeysFromConnectionString()
         {
@@ -37,30 +37,33 @@ namespace JamesConsulting.Tests.Data.Common
         }
 
         /// <summary>
-        ///     The remove keys throws <see cref="ArgumentException" /> when keys is empty.
+        /// Throws an <see cref="ArgumentException"/> when the keys parameter is empty.
         /// </summary>
         [Fact]
-        public void RemoveKeysThrowsArgumentNullExceptionWhenKeysIsEmpty()
+        public void RemoveKeysThrowsArgumentExceptionWhenKeysIsEmpty()
         {
-            Assert.Throws<ArgumentNullException>(() => new DbConnectionStringBuilder().RemoveKeys());
+            var exception = Assert.Throws<ArgumentException>(() => new DbConnectionStringBuilder().RemoveKeys([]));
+            exception.ParamName.Should().Be("keys");
         }
 
         /// <summary>
-        ///     The remove keys throws argument null exception when <see cref="DbConnectionStringBuilder" /> is null.
+        /// Throws an <see cref="ArgumentNullException"/> when the <see cref="DbConnectionStringBuilder"/> is null.
         /// </summary>
         [Fact]
         public void RemoveKeysThrowsArgumentNullExceptionWhenDbConnectionStringBuilderIsNull()
         {
-            Assert.Throws<ArgumentNullException>(() => default(DbConnectionStringBuilder)!.RemoveKeys());
+            var exception = Assert.Throws<ArgumentNullException>(() => default(DbConnectionStringBuilder)!.RemoveKeys());
+            exception.ParamName.Should().Be("connectionStringBuilder");
         }
 
         /// <summary>
-        ///     The remove keys throws <see cref="ArgumentNullException" /> when keys is null.
+        /// Throws an <see cref="ArgumentNullException"/> when the keys parameter is null.
         /// </summary>
         [Fact]
         public void RemoveKeysThrowsArgumentNullExceptionWhenKeysIsNull()
         {
-            Assert.Throws<ArgumentNullException>(() => new DbConnectionStringBuilder().RemoveKeys(default!));
+            var exception = Assert.Throws<ArgumentNullException>(() => new DbConnectionStringBuilder().RemoveKeys(null!));
+            exception.ParamName.Should().Be("keys");
         }
     }
 }

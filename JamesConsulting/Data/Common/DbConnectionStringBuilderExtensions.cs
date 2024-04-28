@@ -1,29 +1,32 @@
 ﻿using System;
 using System.Data.Common;
-using PostSharp.Patterns.Contracts;
+using Metalama.Patterns.Contracts;
 
 namespace JamesConsulting.Data.Common
 {
     /// <summary>
-    ///     <see cref="DbConnectionStringBuilder" /> extension methods.
+    /// Provides extension methods for <see cref="DbConnectionStringBuilder"/>.
     /// </summary>
     public static class DbConnectionStringBuilderExtensions
     {
         /// <summary>
-        /// The remove keys.
+        /// Removes the specified keys from the <see cref="DbConnectionStringBuilder"/>.
         /// </summary>
         /// <param name="connectionStringBuilder">
-        /// The <see cref="DbConnectionStringBuilder"/> to remove the keys.
+        /// The <see cref="DbConnectionStringBuilder"/> to remove the keys from.
         /// </param>
         /// <param name="keys">
-        /// The keys to remove
+        /// The keys to remove.
         /// </param>
         /// <exception cref="ArgumentNullException">
-        /// Thrown when <paramref name="connectionStringBuilder"/> or <paramref name="keys"/> is null or an empty collection.
+        /// Thrown when <paramref name="connectionStringBuilder"/> or <paramref name="keys"/> is null.
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        ///Thrown when <paramref name="keys"/> is empty collection.
         /// </exception>
         public static void RemoveKeys(
             [NotNull] this DbConnectionStringBuilder connectionStringBuilder,
-            [NotEmpty] params string[] keys)
+            [NotNull][NotEmpty] params string[] keys)
         {
             Array.ForEach(
                 keys,

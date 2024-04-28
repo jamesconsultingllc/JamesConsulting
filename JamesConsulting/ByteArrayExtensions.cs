@@ -1,5 +1,5 @@
 ﻿using System;
-using PostSharp.Patterns.Contracts;
+using Metalama.Patterns.Contracts;
 
 namespace JamesConsulting
 {

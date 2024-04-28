@@ -88,7 +88,7 @@ namespace JamesConsulting.Tests.IO
         {
             Assert.Throws<ArgumentNullException>(() => default(Stream)!.Deserialize<object>());
         }
-        
+
         [Fact]
         public void Deserialize()
         {
