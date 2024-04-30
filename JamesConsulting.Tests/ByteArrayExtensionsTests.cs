@@ -1,11 +1,8 @@
 ﻿//  ----------------------------------------------------------------------------------------------------------------------
 //  <copyright file="ByteArrayExtensionsTests.cs" company="James Consulting LLC">
-//    Copyright (c) 2020 All Rights Reserved
+//    Copyright © James Consulting LLC. All rights reserved.
 //  </copyright>
 //  <author>Rudy James</author>
-//  <summary>
-//  
-//  </summary>
 //  ----------------------------------------------------------------------------------------------------------------------
 
 using System;
@@ -25,7 +22,7 @@ namespace JamesConsulting.Tests
         [Fact]
         public void GetStringEmptyArrayReturnsEmptyString()
         {
-            var bytes = new byte[0];
+            var bytes = Array.Empty<byte>();
             bytes.GetString().Should().BeEmpty();
         }
 

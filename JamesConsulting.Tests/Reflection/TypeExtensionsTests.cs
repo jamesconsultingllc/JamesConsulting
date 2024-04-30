@@ -1,6 +1,6 @@
 ﻿//  ----------------------------------------------------------------------------------------------------------------------
 //  <copyright file="TypeExtensionsTests.cs" company="James Consulting LLC">
-//    Copyright (c) 2020 All Rights Reserved
+//    Copyright © James Consulting LLC. All rights reserved.
 //  </copyright>
 //  <author>Rudy James</author>
 //  <summary>
@@ -84,8 +84,8 @@ namespace JamesConsulting.Tests.Reflection
         [Fact]
         public void GetMethodInfoFromStringReturnsMethodInfo()
         {
-            MethodInfo expected = InstanceType.GetMethods().First(x => x.Name == "GetClassById");
-            InstanceType.GetMethodInfoFromString(expected.ToString()).Should().BeSameAs(expected);
+            var expected = InstanceType.GetMethods().First(x => x.Name == "GetClassById");
+            InstanceType.GetMethodInfoFromString(expected.ToString()!).Should().BeSameAs(expected);
         }
 
         [Fact]
@@ -180,7 +180,7 @@ namespace JamesConsulting.Tests.Reflection
         public void ToMethodInfoReturnsMethodInfoFromMethodName()
         {
             var expected = InstanceType.GetMethods().First(x => x.Name == "GetClassById");
-            var actual = InstanceType.GetMethodInfoFromString(expected.ToString());
+            var actual = InstanceType.GetMethodInfoFromString(expected.ToString()!);
             actual.Should().BeSameAs(expected);
         }
 

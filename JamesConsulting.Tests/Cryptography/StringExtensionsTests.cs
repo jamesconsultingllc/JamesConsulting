@@ -1,6 +1,6 @@
 ﻿//  ----------------------------------------------------------------------------------------------------------------------
 //  <copyright file="StringExtensionsTests.cs" company="James Consulting LLC">
-//    Copyright (c) 2020 All Rights Reserved
+//    Copyright © James Consulting LLC. All rights reserved.
 //  </copyright>
 //  <author>Rudy James</author>
 //  <summary>
@@ -24,7 +24,7 @@ namespace JamesConsulting.Tests.Cryptography
         [Fact]
         public void HashInvalidTargetThrowsArgumentNullException()
         {
-            var exception = Assert.Throws<ArgumentNullException>(() => JamesConsulting.Cryptography.StringExtensions.Hash(default));
+            var exception = Assert.Throws<ArgumentNullException>(() => JamesConsulting.Cryptography.StringExtensions.Hash(default!));
             exception.ParamName.Should().Be("target");
         }
 

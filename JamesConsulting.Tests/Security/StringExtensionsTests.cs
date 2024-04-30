@@ -23,9 +23,9 @@ namespace JamesConsulting.Tests.Security
         [Theory]
         [InlineData(default)]
         [InlineData("")]
-        public void ToSecureString(string value)
+        public void ToSecureString(string? value)
         {
-            var secureString = value.ToSecureString();
+            var secureString = value!.ToSecureString();
             secureString.Length.Should().Be(0);
             secureString.ConvertToString().Should().Be("");
         }

@@ -1,6 +1,6 @@
 ﻿//  ----------------------------------------------------------------------------------------------------------------------
 //  <copyright file="ObjectExtensionsTests.cs" company="James Consulting LLC">
-//    Copyright (c) 2020 All Rights Reserved
+//    Copyright © James Consulting LLC. All rights reserved.
 //  </copyright>
 //  <author>Rudy James</author>
 //  <summary>
@@ -81,7 +81,7 @@ namespace JamesConsulting.Tests
         {
             object test = new Test();
             var exception = Assert.Throws<ArgumentException>(() => test.Mask());
-            exception.ParamName.Should().Be("ignoreList");
+            exception.ParamName.Should().Be("propertiesToMask");
         }
 
         /// <summary>

@@ -12,11 +12,12 @@ namespace JamesConsulting.Tests.Threading
         private static readonly Type InstanceType = typeof(MyInterface);
 
         [Fact]
-        public void CreateTaskResultReturnsTaskResult()
+        public async Task CreateTaskResultReturnsTaskResult()
         {
-            var result = InstanceType.GetMethod("GetClassById")!.CreateTaskResult(new MyClass { X = 1 });
-            result.Should().BeOfType<Task<MyClass>>();
-            (result as Task<MyClass>)!.Result.X.Should().Be(1);
+            var taskResult = InstanceType.GetMethod("GetClassById")!.CreateTaskResult(new MyClass { X = 1 });
+            taskResult.Should().BeOfType<Task<MyClass>>();
+            var result = await (taskResult as Task<MyClass>)!;
+            result.X.Should().Be(1);
         }
 
         [Fact]

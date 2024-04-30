@@ -24,7 +24,7 @@ namespace JamesConsulting.Tests.Data.Common
         [Fact]
         public void RemoveKeysFromConnectionString()
         {
-            DbConnectionStringBuilder dbConnectionStringBuilder = new DbConnectionStringBuilder
+            var dbConnectionStringBuilder = new DbConnectionStringBuilder
             {
                 ConnectionString = "Server=myServerAddress;Database=myDataBase;User Id=myUsername;Password=myPassword;"
             };

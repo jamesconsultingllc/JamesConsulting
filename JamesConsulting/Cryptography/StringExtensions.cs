@@ -125,7 +125,11 @@ namespace JamesConsulting.Cryptography
             [NotNull][NotEmpty] byte[] salt,
             [StrictlyPositive] int numberOfRounds = 100)
         {
+#if NET462 || NETSTANDARD2_0
+            using var rfc2898DeriveBytes = new Rfc2898DeriveBytes(Encoding.UTF8.GetBytes(target), salt, numberOfRounds);
+#else
             using var rfc2898DeriveBytes = new Rfc2898DeriveBytes(Encoding.UTF8.GetBytes(target), salt, numberOfRounds, HashAlgorithmName.SHA256);
+#endif
             var hash = rfc2898DeriveBytes.GetBytes(32);
             return Convert.ToBase64String(hash);
         }

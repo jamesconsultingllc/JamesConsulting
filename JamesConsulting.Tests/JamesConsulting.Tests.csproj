@@ -4,7 +4,13 @@
     <IsPackable>false</IsPackable>
     <LangVersion>default</LangVersion>
     <Nullable>enable</Nullable>
-    <TargetFrameworks>net8.0</TargetFrameworks>
+    <TargetFrameworks>net462;net6.0;net7.0;net8.0</TargetFrameworks>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="6.12.0" />

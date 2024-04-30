@@ -1,6 +1,6 @@
 ﻿//  ----------------------------------------------------------------------------------------------------------------------
 //  <copyright file="IHostExtensionsTests.cs" company="James Consulting LLC">
-//    Copyright (c) 2020 All Rights Reserved
+//    Copyright © James Consulting LLC. All rights reserved.
 //  </copyright>
 //  <author>Rudy James</author>
 //  <summary>
@@ -21,20 +21,13 @@ using Xunit;
 namespace JamesConsulting.Tests.Hosting
 {
     /// <summary>
-    ///     The <see cref="HostExtensions" /> tests.
+    /// The HostExtensionsTests class contains unit tests for the HostExtensions class.
     /// </summary>
     public class HostExtensionsTests
     {
-        private static List<Mock<T>> CreateInitializers<T>(int count)
-            where T : class
-        {
-            var list = new List<Mock<T>>();
-
-            for (var i = 0; i < count; i++) list.Add(new Mock<T>());
-
-            return list;
-        }
-
+        /// <summary>
+        /// Tests that the InitializeAsync method calls InitializeAsync on all IHostInitializerAsync instances.
+        /// </summary>
         [Fact]
         public async Task InitializeAsyncCallInitializeOnHostInitializers()
         {
@@ -48,21 +41,19 @@ namespace JamesConsulting.Tests.Hosting
             serviceProvider.Setup(x => x.GetService(typeof(IServiceScopeFactory))).Returns(serviceScopeFactory.Object);
             var host = new Mock<IHost>();
             host.SetupGet(x => x.Services).Returns(serviceProvider.Object);
-            await host.Object.InitializeAsync().ConfigureAwait(false);
+            await host.Object.InitializeAsync();
             services.ForEach(x => x.Verify(y => y.InitializeAsync(), Times.Once()));
         }
 
-        /// <summary>
-        ///     The initialize async null host throws argument null exception.
-        /// </summary>
         [Fact]
         public async Task InitializeAsyncNullHostThrowsArgumentNullException()
         {
-            await Assert.ThrowsAsync<ArgumentNullException>(() => default(IHost)!.InitializeAsync()).ConfigureAwait(false);
+            await Assert.ThrowsAsync<ArgumentNullException>(() => default(IHost)!.InitializeAsync());
         }
 
+        
         /// <summary>
-        ///     The initialize call initialize on host initializers.
+        /// Tests that the InitializeAsync method calls InitializeAsync on all IHostInitializerAsync instances.
         /// </summary>
         [Fact]
         public void InitializeCallInitializeOnHostInitializers()
@@ -82,12 +73,22 @@ namespace JamesConsulting.Tests.Hosting
         }
 
         /// <summary>
-        ///     The initialize null host throws argument null exception.
+        /// Tests that the InitializeAsync method throws an ArgumentNullException when the host is null.
         /// </summary>
         [Fact]
         public void InitializeNullHostThrowsArgumentNullException()
         {
             Assert.Throws<ArgumentNullException>(() => default(IHost)!.Initialize());
+        }
+        
+        private static List<Mock<T>> CreateInitializers<T>(int count)
+            where T : class
+        {
+            var list = new List<Mock<T>>();
+
+            for (var i = 0; i < count; i++) list.Add(new Mock<T>());
+
+            return list;
         }
     }
 }
