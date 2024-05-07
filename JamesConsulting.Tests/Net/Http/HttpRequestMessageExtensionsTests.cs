@@ -16,7 +16,7 @@ namespace JamesConsulting.Tests.Net.Http
             var requestMessage = new HttpRequestMessage();
             requestMessage.Headers.Add("Test", "Test");
 
-            IDictionary<string, string> headers = new Dictionary<string, string> {{"Test2", "Test2 "}, {"Test3", "Test3 "}};
+            IDictionary<string, string> headers = new Dictionary<string, string> { { "Test2", "Test2 " }, { "Test3", "Test3 " } };
             requestMessage.SetHeaders(headers);
 
             requestMessage.Headers.Contains("Test").Should().BeFalse();

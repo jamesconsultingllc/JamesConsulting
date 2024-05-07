@@ -1,6 +1,6 @@
 ﻿//  ----------------------------------------------------------------------------------------------------------------------
 //  <copyright file="MyInterface.cs" company="James Consulting LLC">
-//    Copyright (c) 2020 All Rights Reserved
+//    Copyright © James Consulting LLC. All rights reserved.
 //  </copyright>
 //  <author>Rudy James</author>
 //  <summary>
@@ -22,7 +22,7 @@ namespace JamesConsulting.Tests
         public async Task<MyClass> GetClassById(int id)
         {
             await Task.Delay(100).ConfigureAwait(false);
-            return new MyClass {X = id, Y = id.ToString()};
+            return new MyClass { X = id, Y = id.ToString() };
         }
 
         /// <inheritdoc />

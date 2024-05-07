@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using PostSharp.Patterns.Contracts;
+using Metalama.Patterns.Contracts;
 
 namespace JamesConsulting.Reflection
 {
@@ -76,10 +76,10 @@ namespace JamesConsulting.Reflection
         /// </returns>
         private static (ParameterInfo[] Parameters, string Template) GetMethodTemplate([NotNull] this MethodBase methodInfo)
         {
-            var stringBuilder = new StringBuilder($"{methodInfo.DeclaringType.FullName}.{methodInfo.Name}(");
+            var stringBuilder = new StringBuilder($"{methodInfo.DeclaringType!.FullName}.{methodInfo.Name}(");
             var parameterInfo = methodInfo.GetParameters();
             stringBuilder.Append(string.Join(", ", parameterInfo.Select(ToInvocationString)));
-            stringBuilder.Append(")");
+            stringBuilder.Append(')');
             return (parameterInfo, stringBuilder.ToString());
         }
 

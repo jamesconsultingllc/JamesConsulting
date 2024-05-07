@@ -1,6 +1,6 @@
 ﻿//  ----------------------------------------------------------------------------------------------------------------------
 //  <copyright file="MethodInfoExtensionsTests.cs" company="James Consulting LLC">
-//    Copyright (c) 2020 All Rights Reserved
+//    Copyright © James Consulting LLC. All rights reserved.
 //  </copyright>
 //  <author>Rudy James</author>
 //  <summary>
@@ -24,7 +24,7 @@ namespace JamesConsulting.Tests.Reflection
         [Fact]
         public void ToInvocationStringReadsCachedValue()
         {
-            var methodInfo = typeof(string).GetMethod("Insert", new[] {typeof(int), typeof(string)});
+            var methodInfo = typeof(string).GetMethod("Insert", new[] { typeof(int), typeof(string) });
             methodInfo?.ToInvocationString(3, "testing");
             var actualResult = methodInfo?.ToInvocationString(3, "testing");
             actualResult.Should()
@@ -41,7 +41,7 @@ namespace JamesConsulting.Tests.Reflection
         [Fact]
         public void ToInvocationStringSucceeds()
         {
-            var methodInfo = typeof(string).GetMethod("Insert", new[] {typeof(int), typeof(string)});
+            var methodInfo = typeof(string).GetMethod("Insert", new[] { typeof(int), typeof(string) });
             var actualResult = methodInfo?.ToInvocationString(3, "testing");
             actualResult.Should()
                 .Be("System.String.Insert(System.Int32 startIndex : 3, System.String value : \"testing\")");

@@ -1,6 +1,6 @@
 ﻿//  ----------------------------------------------------------------------------------------------------------------------
 //  <copyright file="ObjectExtensionsTests.cs" company="James Consulting LLC">
-//    Copyright (c) 2020 All Rights Reserved
+//    Copyright © James Consulting LLC. All rights reserved.
 //  </copyright>
 //  <author>Rudy James</author>
 //  <summary>
@@ -72,30 +72,36 @@ namespace JamesConsulting.Tests
             Assert.Throws<ArgumentNullException>(() => default(object)!.Mask());
         }
 
+        
         /// <summary>
-        ///     The mask empty ignore list throws argument null exception.
+        ///     Tests that throwing an exception when the ignore list is empty.
         /// </summary>
         [Fact]
-        public void MaskEmptyIgnoreListThrowsArgumentNullException()
+        public void MaskEmptyIgnoreListThrowsArgumentException()
         {
             object test = new Test();
-            Assert.Throws<ArgumentNullException>(() => test.Mask());
+            var exception = Assert.Throws<ArgumentException>(() => test.Mask());
+            exception.ParamName.Should().Be("propertiesToMask");
         }
 
         /// <summary>
-        ///     The mask masks given values.
+        ///     Tests that the mask method masks given values.
         /// </summary>
         [Fact]
         public void MaskMasksGivenValues()
         {
             var test = new Test
             {
-                Value1 = "MyPassword", Value2 = 32, Value3 = DateTime.Now, Value4 = TimeSpan.FromMinutes(3), Value5 = new[]
-                {
+                Value1 = "MyPassword",
+                Value2 = 32,
+                Value3 = DateTime.Now,
+                Value4 = TimeSpan.FromMinutes(3),
+                Value5 =
+                [
                     new Test2 {Value1 = "test", Value2 = 2},
                     new Test2 {Value1 = "test", Value2 = 2},
                     new Test2 {Value1 = "test", Value2 = 2}
-                }
+                ]
             };
 
             var maskedTest = test.Mask("Value2", "Value3", "Value4", "Value5[*].Value1");
@@ -110,13 +116,14 @@ namespace JamesConsulting.Tests
         }
 
         /// <summary>
-        ///     The mask null ignore list throws argument null exception.
+        /// Test when null is sent in place of the ignore list, an exception is thrown.
         /// </summary>
         [Fact]
         public void MaskNullIgnoreListThrowsArgumentNullException()
         {
             object test = new Test();
-            Assert.Throws<ArgumentNullException>(() => test.Mask(default!));
+            var exception = Assert.Throws<ArgumentNullException>(() => test.Mask(null!));
+            exception.ParamName.Should().Be("propertiesToMask");
         }
 
         /// <summary>
@@ -125,13 +132,19 @@ namespace JamesConsulting.Tests
         [Fact]
         public void MaskNullObjectThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => default(object)!.Mask());
+            var exception = Assert.Throws<ArgumentNullException>(() => ((object)null!).Mask());
+            exception.ParamName.Should().Be("data");
         }
 
+        /// <summary>
+        /// Tests that masking a null object throws <exception cref="ArgumentNullException"></exception>.
+        /// </summary>
         [Fact]
         public void NullObjectToJsonThrowsArgumentNullException()
         {
-            Assert.Throws<ArgumentNullException>(() => default(object)!.ToJson());
+            Test? test = null;
+            var exception = Assert.Throws<ArgumentNullException>(() => test!.ToJson());
+            exception.ParamName.Should().Be("obj");
         }
 
         [Fact]
@@ -142,19 +155,19 @@ namespace JamesConsulting.Tests
         }
 
         /// <summary>
-        ///     The serialize to json stream.
+        ///     Tests serialize to json stream.
         /// </summary>
         [Fact]
         public void SerializeToJsonStream()
         {
-            var test = new Test2 {Value1 = "test", Value2 = 2};
+            var test = new Test2 { Value1 = "test", Value2 = 2 };
             var stream = test.SerializeToJsonStream(new MemoryStream());
             stream.Should().NotBeNull();
             stream.Length.Should().BeGreaterThan(0);
         }
 
         /// <summary>
-        ///     The serialize to json stream null object throws argument null exception.
+        ///     Tests serialize to json stream null object throws argument null exception.
         /// </summary>
         [Fact]
         public void SerializeToJsonStreamNullObjectThrowsArgumentNullException()
@@ -163,12 +176,12 @@ namespace JamesConsulting.Tests
         }
 
         /// <summary>
-        ///     The serialize to json stream null stream throws argument null exception.
+        ///     Tests serialize to json stream null stream throws argument null exception.
         /// </summary>
         [Fact]
         public void SerializeToJsonStreamNullStreamThrowsArgumentNullException()
         {
-            var test = new Test2 {Value1 = "test", Value2 = 2};
+            var test = new Test2 { Value1 = "test", Value2 = 2 };
             Assert.Throws<ArgumentNullException>(() => test.SerializeToJsonStream(default!));
         }
 

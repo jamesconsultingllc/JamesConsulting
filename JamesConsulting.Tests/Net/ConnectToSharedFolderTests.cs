@@ -12,7 +12,7 @@ namespace JamesConsulting.Tests.Net
         [InlineData("")]
         [InlineData(" ")]
         [InlineData(default)]
-        public void Constructor_ThrowsArgumentException_WhenNetworkCredentialsUsername_IsInvalid(string userName)
+        public void Constructor_ThrowsArgumentException_WhenNetworkCredentialsUsername_IsInvalid(string? userName)
         {
             var exception = Assert.Throws<ArgumentException>(() => new ConnectToSharedFolder("Test", new NetworkCredential() { UserName = userName }));
             exception.ParamName.Should().Be("credentials");

@@ -2,7 +2,7 @@
 using System.Diagnostics.CodeAnalysis;
 using System.Globalization;
 using System.Threading;
-using PostSharp.Patterns.Contracts;
+using Metalama.Patterns.Contracts;
 
 namespace JamesConsulting
 {
@@ -32,9 +32,9 @@ namespace JamesConsulting
             "SA1650:ElementDocumentationMustBeSpelledCorrectly",
             Justification = "Reviewed. Suppression is OK here.")]
 #if NETSTANDARD2_1
-        public static byte[] GetBytes([PostSharp.Patterns.Contracts.NotNull] this string arg)
+        public static byte[] GetBytes([Metalama.Patterns.Contracts.NotNull] this string arg)
 #else
-        public static byte[] GetBytes([PostSharp.Patterns.Contracts.NotNull] this string arg)
+        public static byte[] GetBytes([Metalama.Patterns.Contracts.NotNull] this string arg)
 #endif
         {
             if (arg.Length == 0) return Array.Empty<byte>();
@@ -60,7 +60,7 @@ namespace JamesConsulting
         /// <exception cref="ArgumentNullException">
         /// <paramref name="arg"/> is <see langword="null"/>
         /// </exception>
-        public static string ToTitleCase([PostSharp.Patterns.Contracts.NotNull] this string arg, CultureInfo? ci = null)
+        public static string ToTitleCase([Metalama.Patterns.Contracts.NotNull] this string arg, CultureInfo? ci = null)
         {
             if (arg.Length == 0) return arg;
 
@@ -88,9 +88,9 @@ namespace JamesConsulting
         /// <paramref name="length"/> is less than or equal to 0
         /// </exception>
 #if NETSTANDARD2_1
-        public static string Truncate([PostSharp.Patterns.Contracts.NotNull] this string argument, [StrictlyPositive] int length)
+        public static string Truncate([Metalama.Patterns.Contracts.NotNull] this string argument, [StrictlyPositive] int length)
 #else
-        public static string Truncate([PostSharp.Patterns.Contracts.NotNull] this string argument, [StrictlyPositive] int length)
+        public static string Truncate([Metalama.Patterns.Contracts.NotNull] this string argument, [StrictlyPositive] int length)
 #endif
         {
             return argument.Length == 0 ? string.Empty : argument.Substring(0, length);

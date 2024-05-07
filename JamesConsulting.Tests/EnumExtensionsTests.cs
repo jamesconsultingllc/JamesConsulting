@@ -1,6 +1,6 @@
 ﻿//  ----------------------------------------------------------------------------------------------------------------------
 //  <copyright file="EnumExtensionsTests.cs" company="James Consulting LLC">
-//    Copyright (c) 2020 All Rights Reserved
+//    Copyright © James Consulting LLC. All rights reserved.
 //  </copyright>
 //  <author>Rudy James</author>
 //  <summary>
@@ -54,7 +54,7 @@ namespace JamesConsulting.Tests
             var description = MyOptions.Without.GetDescription();
             description.Should().BeEquivalentTo("Without");
         }
-        
+
         /// <summary>
         ///     The get description_ enum has description attribute.
         /// </summary>

@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Runtime.InteropServices;
-using PostSharp.Patterns.Contracts;
+using Metalama.Patterns.Contracts;
 
 namespace JamesConsulting.Net
 {
@@ -35,7 +35,7 @@ namespace JamesConsulting.Net
         /// Thrown when <paramref name="networkName"/> the UserName of the
         ///     <paramref name="credentials"/> is null, empty or whitespace
         /// </exception>
-        public ConnectToSharedFolder([Required] string networkName, [PostSharp.Patterns.Contracts.NotNull] NetworkCredential credentials)
+        public ConnectToSharedFolder([Required] string networkName, [Metalama.Patterns.Contracts.NotNull] NetworkCredential credentials)
         {
             if (string.IsNullOrWhiteSpace(credentials.UserName))
                 throw new ArgumentException("UserName specified cannot be null or whitespace.", nameof(credentials));
@@ -83,10 +83,10 @@ namespace JamesConsulting.Net
         public void Connect()
         {
             var netResource = new NetResource
-                                  {
-                                      Scope = ResourceScope.GlobalNetwork,
-                                      ResourceType = ResourceType.Disk
-                                  };
+            {
+                Scope = ResourceScope.GlobalNetwork,
+                ResourceType = ResourceType.Disk
+            };
 
             var userName = string.IsNullOrEmpty(credentials.Domain)
                                ? credentials.UserName

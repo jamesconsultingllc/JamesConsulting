@@ -1,6 +1,6 @@
 //  ----------------------------------------------------------------------------------------------------------------------
 //  <copyright file="StringExtensionsTests.cs" company="James Consulting LLC">
-//    Copyright (c) 2020 All Rights Reserved
+//    Copyright © James Consulting LLC. All rights reserved.
 //  </copyright>
 //  <author>Rudy James</author>
 //  <summary>

@@ -2,7 +2,7 @@
 using System.Collections.Concurrent;
 using System.Linq;
 using System.Reflection;
-using PostSharp.Patterns.Contracts;
+using Metalama.Patterns.Contracts;
 
 namespace JamesConsulting.Reflection
 {
@@ -36,20 +36,20 @@ namespace JamesConsulting.Reflection
         /// </exception>
         public static MethodInfo? GetMethodInfoFromString([NotNull] this Type type, [Required] string method)
         {
-            if (Methods.ContainsKey(method))
-                return Methods[method];
+            if (Methods.TryGetValue(method, out var s))
+                return s;
 
             MethodInfo[] methods;
 
-            if (Constants.TypeMethods.ContainsKey(type))
-                methods = Constants.TypeMethods[type];
+            if (Constants.TypeMethods.TryGetValue(type, out var typeMethod))
+                methods = typeMethod;
             else
             {
                 methods = type.GetMethods();
                 Constants.TypeMethods[type] = methods;
             }
-            
-            var result = methods.FirstOrDefault(x => x.ToString().Equals(method));
+
+            var result = methods.FirstOrDefault(x => x.ToString()!.Equals(method));
 
             if (result != null)
                 Methods[method] = result;
