@@ -12,57 +12,56 @@ using System.ComponentModel;
 using FluentAssertions;
 using Xunit;
 
-namespace JamesConsulting.Tests
+namespace JamesConsulting.Tests;
+
+/// <summary>
+///     The enum extensions tests.
+/// </summary>
+public class EnumExtensionsTests
 {
     /// <summary>
-    ///     The enum extensions tests.
+    ///     The my enum.
     /// </summary>
-    public class EnumExtensionsTests
+    private enum MyOptions
     {
         /// <summary>
-        ///     The my enum.
+        ///     The with.
         /// </summary>
-        private enum MyOptions
-        {
-            /// <summary>
-            ///     The with.
-            /// </summary>
-            [Description("Testing")] With,
-
-            /// <summary>
-            ///     The without.
-            /// </summary>
-            Without
-        }
+        [Description("Testing")] With,
 
         /// <summary>
-        ///     The get description_ enum does not have description attribute.
+        ///     The without.
         /// </summary>
-        [Fact]
-        public void GetDescription_EnumDoesNotHaveDescriptionAttribute()
-        {
-            var description = MyOptions.With.GetDescription();
-            description.Should().BeEquivalentTo("Testing");
-        }
+        Without
+    }
 
-        /// <summary>
-        ///     The get description_ enum has description attribute.
-        /// </summary>
-        [Fact]
-        public void GetDescription_EnumHasDescriptionAttribute()
-        {
-            var description = MyOptions.Without.GetDescription();
-            description.Should().BeEquivalentTo("Without");
-        }
+    /// <summary>
+    ///     The get description_ enum does not have description attribute.
+    /// </summary>
+    [Fact]
+    public void GetDescription_EnumDoesNotHaveDescriptionAttribute()
+    {
+        var description = MyOptions.With.GetDescription();
+        description.Should().BeEquivalentTo("Testing");
+    }
 
-        /// <summary>
-        ///     The get description_ enum has description attribute.
-        /// </summary>
-        [Fact]
-        public void GetDescription_InvalidEnum_ThrowsInvalidOperationException()
-        {
-            var description = EnumExtensions.GetDescription((MyOptions)3);
-            description.Should().BeNull();
-        }
+    /// <summary>
+    ///     The get description_ enum has description attribute.
+    /// </summary>
+    [Fact]
+    public void GetDescription_EnumHasDescriptionAttribute()
+    {
+        var description = MyOptions.Without.GetDescription();
+        description.Should().BeEquivalentTo("Without");
+    }
+
+    /// <summary>
+    ///     The get description_ enum has description attribute.
+    /// </summary>
+    [Fact]
+    public void GetDescription_InvalidEnum_ThrowsInvalidOperationException()
+    {
+        var description = EnumExtensions.GetDescription((MyOptions)3);
+        description.Should().BeNull();
     }
 }

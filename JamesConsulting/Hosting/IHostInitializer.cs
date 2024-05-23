@@ -1,13 +1,12 @@
-﻿namespace JamesConsulting.Hosting
+﻿namespace JamesConsulting.Hosting;
+
+/// <summary>
+///     The HostInitializer interface.
+/// </summary>
+public interface IHostInitializer
 {
     /// <summary>
-    ///     The HostInitializer interface.
+    ///     The initialize.
     /// </summary>
-    public interface IHostInitializer
-    {
-        /// <summary>
-        ///     The initialize.
-        /// </summary>
-        void Initialize();
-    }
+    void Initialize();
 }

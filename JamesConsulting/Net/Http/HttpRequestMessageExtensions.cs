@@ -4,32 +4,32 @@ using System.Linq;
 using System.Net.Http;
 using Metalama.Patterns.Contracts;
 
-namespace JamesConsulting.Net.Http
+namespace JamesConsulting.Net.Http;
+
+/// <summary>
+///     The http request message extensions.
+/// </summary>
+public static class HttpRequestMessageExtensions
 {
     /// <summary>
-    ///     The http request message extensions.
+    /// The set headers.
     /// </summary>
-    public static class HttpRequestMessageExtensions
+    /// <param name="httpRequestMessage">
+    /// The http request message.
+    /// </param>
+    /// <param name="headers">
+    /// The headers.
+    /// </param>
+    /// <returns>
+    /// The <see cref="HttpRequestMessage"/>.
+    /// </returns>
+    /// <exception cref="ArgumentNullException">
+    /// Thrown when the <paramref name="httpRequestMessage"/> or <paramref name="headers"/> is null
+    /// </exception>
+    public static HttpRequestMessage SetHeaders(
+        [NotNull] this HttpRequestMessage httpRequestMessage,
+        [NotNull] IDictionary<string, string> headers)
     {
-        /// <summary>
-        /// The set headers.
-        /// </summary>
-        /// <param name="httpRequestMessage">
-        /// The http request message.
-        /// </param>
-        /// <param name="headers">
-        /// The headers.
-        /// </param>
-        /// <returns>
-        /// The <see cref="HttpRequestMessage"/>.
-        /// </returns>
-        /// <exception cref="ArgumentNullException">
-        /// Thrown when the <paramref name="httpRequestMessage"/> or <paramref name="headers"/> is null
-        /// </exception>
-        public static HttpRequestMessage SetHeaders(
-            [NotNull] this HttpRequestMessage httpRequestMessage,
-            [NotNull] IDictionary<string, string> headers)
-        {
             if (httpRequestMessage.Headers.Any()) httpRequestMessage.Headers.Clear();
 
             foreach (var headerKey in headers.Keys)
@@ -37,5 +37,4 @@ namespace JamesConsulting.Net.Http
 
             return httpRequestMessage;
         }
-    }
 }

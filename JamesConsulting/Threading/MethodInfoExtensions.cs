@@ -2,41 +2,41 @@
 using System.Reflection;
 using Metalama.Patterns.Contracts;
 
-namespace JamesConsulting.Threading
+namespace JamesConsulting.Threading;
+
+/// <summary>
+///     The method info extensions.
+/// </summary>
+public static class MethodInfoExtensions
 {
     /// <summary>
-    ///     The method info extensions.
+    /// The set result.
     /// </summary>
-    public static class MethodInfoExtensions
+    private const string SetResult = "SetResult";
+
+    /// <summary>
+    /// The task.
+    /// </summary>
+    private const string Task = "Task";
+
+    /// <summary>
+    /// The create task result.
+    /// </summary>
+    /// <param name="methodInfo">
+    /// The method info.
+    /// </param>
+    /// <param name="results">
+    /// The results.
+    /// </param>
+    /// <returns>
+    /// The <see cref="object"/>.
+    /// </returns>
+    /// <exception cref="ArgumentNullException">
+    /// </exception>
+    /// <exception cref="ArgumentException">
+    /// </exception>
+    public static object? CreateTaskResult([NotNull] this MethodInfo methodInfo, dynamic results)
     {
-        /// <summary>
-        /// The set result.
-        /// </summary>
-        private const string SetResult = "SetResult";
-
-        /// <summary>
-        /// The task.
-        /// </summary>
-        private const string Task = "Task";
-
-        /// <summary>
-        /// The create task result.
-        /// </summary>
-        /// <param name="methodInfo">
-        /// The method info.
-        /// </param>
-        /// <param name="results">
-        /// The results.
-        /// </param>
-        /// <returns>
-        /// The <see cref="object"/>.
-        /// </returns>
-        /// <exception cref="ArgumentNullException">
-        /// </exception>
-        /// <exception cref="ArgumentException">
-        /// </exception>
-        public static object? CreateTaskResult([NotNull] this MethodInfo methodInfo, dynamic results)
-        {
             if (methodInfo.ReturnType == Constants.VoidType)
                 throw new ArgumentException($"{methodInfo} has a return type of void.");
 
@@ -57,5 +57,4 @@ namespace JamesConsulting.Threading
                 taskSource,
                 null);
         }
-    }
 }

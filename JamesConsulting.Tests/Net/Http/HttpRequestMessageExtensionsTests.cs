@@ -6,13 +6,13 @@ using FluentAssertions;
 using JamesConsulting.Net.Http;
 using Xunit;
 
-namespace JamesConsulting.Tests.Net.Http
+namespace JamesConsulting.Tests.Net.Http;
+
+public class HttpRequestMessageExtensionsTests
 {
-    public class HttpRequestMessageExtensionsTests
+    [Fact]
+    public void SetHeadersResultHeaderListShouldMatchHeadersPassedIn()
     {
-        [Fact]
-        public void SetHeadersResultHeaderListShouldMatchHeadersPassedIn()
-        {
             var requestMessage = new HttpRequestMessage();
             requestMessage.Headers.Add("Test", "Test");
 
@@ -23,17 +23,16 @@ namespace JamesConsulting.Tests.Net.Http
             requestMessage.Headers.Count().Should().Be(2);
         }
 
-        [Fact]
-        public void SetHeadersThrowsArgumentNullExceptionWhenHeadersIsNull()
-        {
+    [Fact]
+    public void SetHeadersThrowsArgumentNullExceptionWhenHeadersIsNull()
+    {
             var requestMessage = new HttpRequestMessage();
             Assert.Throws<ArgumentNullException>(() => requestMessage.SetHeaders(default!));
         }
 
-        [Fact]
-        public void SetHeadersThrowsArgumentNullExceptionWhenRequestMessageIsNull()
-        {
+    [Fact]
+    public void SetHeadersThrowsArgumentNullExceptionWhenRequestMessageIsNull()
+    {
             Assert.Throws<ArgumentNullException>(() => default(HttpRequestMessage)!.SetHeaders(default!));
         }
-    }
 }

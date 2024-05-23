@@ -2,24 +2,24 @@
 using System.Runtime.InteropServices;
 using System.Security;
 
-namespace JamesConsulting.Security
+namespace JamesConsulting.Security;
+
+/// <summary>
+///     Extension methods for <see cref="SecureString" />
+/// </summary>
+public static class SecureStringExtensions
 {
     /// <summary>
-    ///     Extension methods for <see cref="SecureString" />
+    /// Converts the <paramref name="secureString"/> to a <see cref="string"/>
     /// </summary>
-    public static class SecureStringExtensions
+    /// <param name="secureString">
+    /// The <see cref="SecureString"/> to be converted
+    /// </param>
+    /// <returns>
+    /// A decrypted <see cref="string"/>
+    /// </returns>
+    public static string ConvertToString(this SecureString secureString)
     {
-        /// <summary>
-        /// Converts the <paramref name="secureString"/> to a <see cref="string"/>
-        /// </summary>
-        /// <param name="secureString">
-        /// The <see cref="SecureString"/> to be converted
-        /// </param>
-        /// <returns>
-        /// A decrypted <see cref="string"/>
-        /// </returns>
-        public static string ConvertToString(this SecureString secureString)
-        {
             if (secureString.Length == 0) return string.Empty;
 
             var ptr = IntPtr.Zero;
@@ -37,5 +37,4 @@ namespace JamesConsulting.Security
 
             return result;
         }
-    }
 }

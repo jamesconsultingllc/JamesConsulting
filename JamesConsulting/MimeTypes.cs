@@ -1,357 +1,358 @@
-﻿namespace JamesConsulting
+﻿// <copyright file="MimeTypes.cs" company="James Consulting LLC">
+// Copyright © James Consulting LLC. All rights reserved.
+// </copyright>
+
+namespace JamesConsulting;
+
+/// <summary>
+/// This class contains nested classes that represent different categories of MIME types.
+/// Each nested class contains constants that represent specific MIME types within that category.
+/// </summary>
+public static class MimeTypes
 {
     /// <summary>
-    ///     The mime types.
+    /// This class contains constants that represent application-specific MIME types.
     /// </summary>
-    /// <summary>
-    ///     The mime types.
-    /// </summary>
-    public static class MimeTypes
+    public static class Application
     {
         /// <summary>
-        ///     The application.
+        /// Represents the MIME type for Atom Syndication Format in applications.
         /// </summary>
-        public static class Application
-        {
-            /// <summary>
-            ///     The mime type application/atomcat+xml.
-            /// </summary>
-            public const string AtomcatXml = "application/atomcat+xml";
-
-            /// <summary>
-            ///     The atom xml.
-            /// </summary>
-            public const string AtomXml = "application/atom+xml";
-
-            /// <summary>
-            ///     The ecmascript.
-            /// </summary>
-            public const string Ecmascript = "application/ecmascript";
-
-            /// <summary>
-            ///     The java archive.
-            /// </summary>
-            public const string JavaArchive = "application/java-archive";
-
-            /// <summary>
-            ///     The javascript.
-            /// </summary>
-            public const string Javascript = "application/javascript";
-
-            /// <summary>
-            ///     The json.
-            /// </summary>
-            public const string Json = "application/json";
-
-            /// <summary>
-            ///     The json patch.
-            /// </summary>
-            public const string JsonPatch = "application/json-patch+json";
-
-            /// <summary>
-            ///     The mp 4.
-            /// </summary>
-            public const string Mp4 = "application/mp4";
-
-            /// <summary>
-            ///     The octet stream.
-            /// </summary>
-            public const string OctetStream = "application/octet-stream";
-
-            /// <summary>
-            ///     The pdf.
-            /// </summary>
-            public const string Pdf = "application/pdf";
-
-            /// <summary>
-            ///     The pkcs 10.
-            /// </summary>
-            public const string Pkcs10 = "application/pkcs10";
-
-            /// <summary>
-            ///     The pkcs 7 mime.
-            /// </summary>
-            public const string Pkcs7Mime = "application/pkcs7-mime";
-
-            /// <summary>
-            ///     The pkcs 7 signature.
-            /// </summary>
-            public const string Pkcs7Signature = "application/pkcs7-signature";
-
-            /// <summary>
-            ///     The pkcs 8.
-            /// </summary>
-            public const string Pkcs8 = "application/pkcs8";
-
-            /// <summary>
-            ///     The postscript.
-            /// </summary>
-            public const string Postscript = "application/postscript";
-
-            /// <summary>
-            ///     The rdf xml.
-            /// </summary>
-            public const string RdfXml = "application/rdf+xml";
-
-            /// <summary>
-            ///     The rss xml.
-            /// </summary>
-            public const string RssXml = "application/rss+xml";
-
-            /// <summary>
-            ///     The rtf.
-            /// </summary>
-            public const string Rtf = "application/rtf";
-
-            /// <summary>
-            ///     The smil xml.
-            /// </summary>
-            public const string SmilXml = "application/smil+xml";
-
-            /// <summary>
-            ///     The x font otf.
-            /// </summary>
-            public const string XFontOtf = "application/x-font-otf";
-
-            /// <summary>
-            ///     The x font ttf.
-            /// </summary>
-            public const string XFontTtf = "application/x-font-ttf";
-
-            /// <summary>
-            ///     The x font woff.
-            /// </summary>
-            public const string XFontWoff = "application/x-font-woff";
-
-            /// <summary>
-            ///     The xhtml xml.
-            /// </summary>
-            public const string XhtmlXml = "application/xhtml+xml";
-
-            /// <summary>
-            ///     The xml.
-            /// </summary>
-            public const string Xml = "application/xml";
-
-            /// <summary>
-            ///     The xml dtd.
-            /// </summary>
-            public const string XmlDtd = "application/xml-dtd";
-
-            /// <summary>
-            ///     The x pkcs 12.
-            /// </summary>
-            public const string XPkcs12 = "application/x-pkcs12";
-
-            /// <summary>
-            ///     The x shockwave flash.
-            /// </summary>
-            public const string XShockwaveFlash = "application/x-shockwave-flash";
-
-            /// <summary>
-            ///     The x silverlight app.
-            /// </summary>
-            public const string XSilverlightApp = "application/x-silverlight-app";
-
-            /// <summary>
-            ///     The xslt xml.
-            /// </summary>
-            public const string XsltXml = "application/xslt+xml";
-
-            /// <summary>
-            ///     The zip.
-            /// </summary>
-            public const string Zip = "application/zip";
-        }
+        public const string AtomcatXml = "application/atomcat+xml";
 
         /// <summary>
-        ///     The audio.
+        /// Represents the MIME type for Atom Syndication Format in applications.
         /// </summary>
-        public static class Audio
-        {
-            /// <summary>
-            ///     The midi.
-            /// </summary>
-            public const string Midi = "audio/midi";
-
-            /// <summary>
-            ///     The mp 4.
-            /// </summary>
-            public const string Mp4 = "audio/mp4";
-
-            /// <summary>
-            ///     The mpeg.
-            /// </summary>
-            public const string Mpeg = "audio/mpeg";
-
-            /// <summary>
-            ///     The ogg.
-            /// </summary>
-            public const string Ogg = "audio/ogg";
-
-            /// <summary>
-            ///     The webm.
-            /// </summary>
-            public const string Webm = "audio/webm";
-
-            /// <summary>
-            ///     The x aac.
-            /// </summary>
-            public const string XAac = "audio/x-aac";
-
-            /// <summary>
-            ///     The x aiff.
-            /// </summary>
-            public const string XAiff = "audio/x-aiff";
-
-            /// <summary>
-            ///     The x mpegurl.
-            /// </summary>
-            public const string XMpegurl = "audio/x-mpegurl";
-
-            /// <summary>
-            ///     The x ms wma.
-            /// </summary>
-            public const string XMsWma = "audio/x-ms-wma";
-
-            /// <summary>
-            ///     The x wav.
-            /// </summary>
-            public const string XWav = "audio/x-wav";
-        }
+        public const string AtomXml = "application/atom+xml";
 
         /// <summary>
-        ///     The image.
+        /// Represents the MIME type for ECMAScript (JavaScript) in applications.
         /// </summary>
-        public static class Image
-        {
-            /// <summary>
-            ///     The bmp.
-            /// </summary>
-            public const string Bmp = "image/bmp";
-
-            /// <summary>
-            ///     The gif.
-            /// </summary>
-            public const string Gif = "image/gif";
-
-            /// <summary>
-            ///     The jpeg.
-            /// </summary>
-            public const string Jpeg = "image/jpeg";
-
-            /// <summary>
-            ///     The png.
-            /// </summary>
-            public const string Png = "image/png";
-
-            /// <summary>
-            ///     The svg xml.
-            /// </summary>
-            public const string SvgXml = "image/svg+xml";
-
-            /// <summary>
-            ///     The tiff.
-            /// </summary>
-            public const string Tiff = "image/tiff";
-
-            /// <summary>
-            ///     The webp.
-            /// </summary>
-            public const string Webp = "image/webp";
-        }
+        public const string Ecmascript = "application/ecmascript";
 
         /// <summary>
-        ///     The multipart.
+        /// Represents the MIME type for Java Archive (JAR) in applications.
         /// </summary>
-        public static class Multipart
-        {
-            /// <summary>
-            ///     The form data.
-            /// </summary>
-            public const string FormData = "multipart/form-data";
-        }
+        public const string JavaArchive = "application/java-archive";
 
         /// <summary>
-        ///     The text.
+        /// Represents the MIME type for JavaScript in applications.
         /// </summary>
-        public static class Text
-        {
-            /// <summary>
-            ///     The css.
-            /// </summary>
-            public const string Css = "text/css";
-
-            /// <summary>
-            ///     The csv.
-            /// </summary>
-            public const string Csv = "text/csv";
-
-            /// <summary>
-            ///     The html.
-            /// </summary>
-            public const string Html = "text/html";
-
-            /// <summary>
-            ///     The plain.
-            /// </summary>
-            public const string Plain = "text/plain";
-
-            /// <summary>
-            ///     The rich text.
-            /// </summary>
-            public const string RichText = "text/richtext";
-
-            /// <summary>
-            ///     The sgml.
-            /// </summary>
-            public const string Sgml = "text/sgml";
-
-            /// <summary>
-            ///     The yaml.
-            /// </summary>
-            public const string Yaml = "text/yaml";
-        }
+        public const string Javascript = "application/javascript";
 
         /// <summary>
-        ///     The video.
+        /// Represents the MIME type for JSON format in applications.
         /// </summary>
-        public static class Video
-        {
-            /// <summary>
-            ///     The h 264.
-            /// </summary>
-            public const string H264 = "video/h264";
+        public const string Json = "application/json";
 
-            /// <summary>
-            ///     The mp 4.
-            /// </summary>
-            public const string Mp4 = "video/mp4";
+        /// <summary>
+        /// Represents the MIME type for JSON Patch format in applications.
+        /// </summary>
+        public const string JsonPatch = "application/json-patch+json";
 
-            /// <summary>
-            ///     The mpeg.
-            /// </summary>
-            public const string Mpeg = "video/mpeg";
+        /// <summary>
+        /// Represents the MIME type for MP4 format in applications.
+        /// </summary>
+        public const string Mp4 = "application/mp4";
 
-            /// <summary>
-            ///     The ogg.
-            /// </summary>
-            public const string Ogg = "video/ogg";
+        /// <summary>
+        /// Represents the MIME type for octet-stream format in applications.
+        /// </summary>
+        public const string OctetStream = "application/octet-stream";
 
-            /// <summary>
-            ///     The quicktime.
-            /// </summary>
-            public const string Quicktime = "video/quicktime";
+        /// <summary>
+        /// Represents the MIME type for PDF format in applications.
+        /// </summary>
+        public const string Pdf = "application/pdf";
 
-            /// <summary>
-            ///     The threegpp.
-            /// </summary>
-            public const string Threegpp = "video/3gpp";
+        /// <summary>
+        /// Represents the MIME type for PKCS #10 format in applications.
+        /// </summary>
+        public const string Pkcs10 = "application/pkcs10";
 
-            /// <summary>
-            ///     The webm.
-            /// </summary>
-            public const string Webm = "video/webm";
-        }
+        /// <summary>
+        /// Represents the MIME type for PKCS #7 mime format in applications.
+        /// </summary>
+        public const string Pkcs7Mime = "application/pkcs7-mime";
+
+        /// <summary>
+        /// Represents the MIME type for PKCS #7 signature format in applications.
+        /// </summary>
+        public const string Pkcs7Signature = "application/pkcs7-signature";
+
+        /// <summary>
+        /// Represents the MIME type for PKCS #8 format in applications.
+        /// </summary>
+        public const string Pkcs8 = "application/pkcs8";
+
+        /// <summary>
+        /// Represents the MIME type for PostScript format in applications.
+        /// </summary>
+        public const string Postscript = "application/postscript";
+
+        /// <summary>
+        /// Represents the MIME type for RDF/XML format in applications.
+        /// </summary>
+        public const string RdfXml = "application/rdf+xml";
+
+        /// <summary>
+        /// Represents the MIME type for RSS/XML format in applications.
+        /// </summary>
+        public const string RssXml = "application/rss+xml";
+
+        /// <summary>
+        /// Represents the MIME type for RTF format in applications.
+        /// </summary>
+        public const string Rtf = "application/rtf";
+
+        /// <summary>
+        /// Represents the MIME type for SMIL/XML format in applications.
+        /// </summary>
+        public const string SmilXml = "application/smil+xml";
+
+        /// <summary>
+        /// Represents the MIME type for OTF font format in applications.
+        /// </summary>
+        public const string XFontOtf = "application/x-font-otf";
+
+        /// <summary>
+        /// Represents the MIME type for TTF font format in applications.
+        /// </summary>
+        public const string XFontTtf = "application/x-font-ttf";
+
+        /// <summary>
+        /// Represents the MIME type for WOFF font format in applications.
+        /// </summary>
+        public const string XFontWoff = "application/x-font-woff";
+
+        /// <summary>
+        /// Represents the MIME type for XHTML/XML format in applications.
+        /// </summary>
+        public const string XhtmlXml = "application/xhtml+xml";
+
+        /// <summary>
+        /// Represents the MIME type for XML format in applications.
+        /// </summary>
+        public const string Xml = "application/xml";
+
+        /// <summary>
+        /// Represents the MIME type for XML DTD format in applications.
+        /// </summary>
+        public const string XmlDtd = "application/xml-dtd";
+
+        /// <summary>
+        /// Represents the MIME type for PKCS #12 format in applications.
+        /// </summary>
+        public const string XPkcs12 = "application/x-pkcs12";
+
+        /// <summary>
+        /// Represents the MIME type for Adobe Flash format in applications.
+        /// </summary>
+        public const string XShockwaveFlash = "application/x-shockwave-flash";
+
+        /// <summary>
+        /// Represents the MIME type for Microsoft Silverlight format in applications.
+        /// </summary>
+        public const string XSilverlightApp = "application/x-silverlight-app";
+
+        /// <summary>
+        /// Represents the MIME type for XSLT/XML format in applications.
+        /// </summary>
+        public const string XsltXml = "application/xslt+xml";
+
+        /// <summary>
+        /// Represents the MIME type for ZIP format in applications.
+        /// </summary>
+        public const string Zip = "application/zip";
+    }
+
+    /// <summary>
+    /// This class contains constants that represent audio-specific MIME types.
+    /// </summary>
+    public static class Audio
+    {
+        /// <summary>
+        /// Represents the MIME type for MIDI format in audio.
+        /// </summary>
+        public const string Midi = "audio/midi";
+
+        /// <summary>
+        /// Represents the MIME type for MP4 format in audio.
+        /// </summary>
+        public const string Mp4 = "audio/mp4";
+
+        /// <summary>
+        /// Represents the MIME type for MPEG format in audio.
+        /// </summary>
+        public const string Mpeg = "audio/mpeg";
+
+        /// <summary>
+        /// Represents the MIME type for OGG format in audio.
+        /// </summary>
+        public const string Ogg = "audio/ogg";
+
+        /// <summary>
+        /// Represents the MIME type for WebM format in audio.
+        /// </summary>
+        public const string Webm = "audio/webm";
+
+        /// <summary>
+        /// Represents the MIME type for AAC format in audio.
+        /// </summary>
+        public const string XAac = "audio/x-aac";
+
+        /// <summary>
+        /// Represents the MIME type for AIFF format in audio.
+        /// </summary>
+        public const string XAiff = "audio/x-aiff";
+
+        /// <summary>
+        /// Represents the MIME type for M3U (MPEG URL) format in audio.
+        /// </summary>
+        public const string XMpegurl = "audio/x-mpegurl";
+
+        /// <summary>
+        /// Represents the MIME type for WMA (Windows Media Audio) format in audio.
+        /// </summary>
+        public const string XMsWma = "audio/x-ms-wma";
+
+        /// <summary>
+        /// Represents the MIME type for WAV format in audio.
+        /// </summary>
+        public const string XWav = "audio/x-wav";
+    }
+
+    /// <summary>
+    /// This class contains constants that represent image-specific MIME types.
+    /// </summary>
+    public static class Image
+    {
+        /// <summary>
+        /// Represents the MIME type for BMP format in images.
+        /// </summary>
+        public const string Bmp = "image/bmp";
+
+        /// <summary>
+        /// Represents the MIME type for GIF format in images.
+        /// </summary>
+        public const string Gif = "image/gif";
+
+        /// <summary>
+        /// Represents the MIME type for JPEG format in images.
+        /// </summary>
+        public const string Jpeg = "image/jpeg";
+
+        /// <summary>
+        /// Represents the MIME type for PNG format in images.
+        /// </summary>
+        public const string Png = "image/png";
+
+        /// <summary>
+        /// Represents the MIME type for SVG/XML format in images.
+        /// </summary>
+        public const string SvgXml = "image/svg+xml";
+
+        /// <summary>
+        /// Represents the MIME type for TIFF format in images.
+        /// </summary>
+        public const string Tiff = "image/tiff";
+
+        /// <summary>
+        /// Represents the MIME type for WebP format in images.
+        /// </summary>
+        public const string Webp = "image/webp";
+    }
+
+    /// <summary>
+    /// This class contains constants that represent multipart-specific MIME types.
+    /// </summary>
+    public static class Multipart
+    {
+        /// <summary>
+        /// Represents the MIME type for form data in multipart.
+        /// </summary>
+        public const string FormData = "multipart/form-data";
+    }
+
+    /// <summary>
+    /// This class contains constants that represent text-specific MIME types.
+    /// </summary>
+    public static class Text
+    {
+        /// <summary>
+        /// Represents the MIME type for CSS format in text.
+        /// </summary>
+        public const string Css = "text/css";
+
+        /// <summary>
+        /// Represents the MIME type for CSV format in text.
+        /// </summary>
+        public const string Csv = "text/csv";
+
+        /// <summary>
+        /// Represents the MIME type for HTML format in text.
+        /// </summary>
+        public const string Html = "text/html";
+
+        /// <summary>
+        /// Represents the MIME type for plain text.
+        /// </summary>
+        public const string Plain = "text/plain";
+
+        /// <summary>
+        /// Represents the MIME type for Rich Text Format in text.
+        /// </summary>
+        public const string RichText = "text/richtext";
+
+        /// <summary>
+        /// Represents the MIME type for SGML format in text.
+        /// </summary>
+        public const string Sgml = "text/sgml";
+
+        /// <summary>
+        /// Represents the MIME type for YAML format in text.
+        /// </summary>
+        public const string Yaml = "text/yaml";
+    }
+
+    /// <summary>
+    /// This class contains constants that represent video-specific MIME types.
+    /// </summary>
+    public static class Video
+    {
+        /// <summary>
+        /// Represents the MIME type for H.264 format in video.
+        /// </summary>
+        public const string H264 = "video/h264";
+
+        /// <summary>
+        /// Represents the MIME type for MP4 format in video.
+        /// </summary>
+        public const string Mp4 = "video/mp4";
+
+        /// <summary>
+        /// Represents the MIME type for MPEG format in video.
+        /// </summary>
+        public const string Mpeg = "video/mpeg";
+
+        /// <summary>
+        /// Represents the MIME type for OGG format in video.
+        /// </summary>
+        public const string Ogg = "video/ogg";
+
+        /// <summary>
+        /// Represents the MIME type for QuickTime format in video.
+        /// </summary>
+        public const string Quicktime = "video/quicktime";
+
+        /// <summary>
+        /// Represents the MIME type for 3GPP format in video.
+        /// </summary>
+        public const string Threegpp = "video/3gpp";
+
+        /// <summary>
+        /// Represents the MIME type for WebM format in video.
+        /// </summary>
+        public const string Webm = "video/webm";
     }
 }
